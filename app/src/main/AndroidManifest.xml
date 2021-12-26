@@ -10,16 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hiui">
-        <activity android:name=".demo.MainActivity2">
+        <activity android:name=".demo.MainDemoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+   <!--     <activity android:name=".demo.MainDemoActivity" />-->
         <activity android:name=".demo.HiLogDemoActivity" />
         <activity android:name=".demo.HiTabBottomDemoActivity" />
         <activity android:name=".demo.HiTabTopDemoActivity" />
+        <activity android:name=".demo.HiRefreshDemoActivity" />
     </application>
 
 </manifest>

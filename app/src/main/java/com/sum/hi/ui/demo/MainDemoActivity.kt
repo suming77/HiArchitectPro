@@ -7,14 +7,15 @@ import android.view.View
 import android.widget.TextView
 import com.sum.hi.ui.R
 
-class MainActivity2 : AppCompatActivity(), View.OnClickListener {
+class MainDemoActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_main_demo)
 
         findViewById<TextView>(R.id.tv_hi_log).setOnClickListener(this)
         findViewById<TextView>(R.id.tv_2).setOnClickListener(this)
         findViewById<TextView>(R.id.tv_3).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_4).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -24,8 +25,12 @@ class MainActivity2 : AppCompatActivity(), View.OnClickListener {
             }
             R.id.tv_2 -> {
                 startActivity(Intent(this, HiTabBottomDemoActivity::class.java))
-            }  R.id.tv_3 -> {
+            }
+            R.id.tv_3 -> {
                 startActivity(Intent(this, HiTabTopDemoActivity::class.java))
+            }
+            R.id.tv_4 -> {
+                startActivity(Intent(this, HiRefreshDemoActivity::class.java))
             }
         }
     }

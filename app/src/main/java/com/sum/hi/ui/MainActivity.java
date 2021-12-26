@@ -1,5 +1,6 @@
 package com.sum.hi.ui;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.sum.hi.common.component.HiBaseActivity;
+import com.sum.hi.ui.demo.MainDemoActivity;
 import com.sum.hi.ui.logic.MainActivityLogic;
 
 /**
@@ -27,6 +29,12 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activityLogic = new MainActivityLogic(this, savedInstanceState);
+/*        findViewById(R.id.tv_demo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MainDemoActivity.class));
+            }
+        });*/
     }
 
     @Override
