@@ -16,6 +16,7 @@ class MainDemoActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<TextView>(R.id.tv_2).setOnClickListener(this)
         findViewById<TextView>(R.id.tv_3).setOnClickListener(this)
         findViewById<TextView>(R.id.tv_4).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_5).setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -31,6 +32,9 @@ class MainDemoActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.tv_4 -> {
                 startActivity(Intent(this, HiRefreshDemoActivity::class.java))
+            }
+            R.id.tv_5 -> {
+                startActivity(Intent(this, HiBannerDemoActivity::class.java))
             }
         }
     }

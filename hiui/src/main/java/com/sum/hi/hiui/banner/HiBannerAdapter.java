@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
@@ -43,7 +44,7 @@ public class HiBannerAdapter extends PagerAdapter {
         this.mContext = context;
     }
 
-    private void setBannerData(@NonNull List<? extends HiBannerMo> models) {
+    public void setBannerData(@NonNull List<? extends HiBannerMo> models) {
         this.mModels = models;
         //数据初始化
         initCacheView();
@@ -58,6 +59,19 @@ public class HiBannerAdapter extends PagerAdapter {
 
     public int getFirstItem() {
         return Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2) % getRealCount();
+    }
+
+
+    public void setLayoutResId(@LayoutRes int layoutResId) {
+        this.mLayoutResId = layoutResId;
+    }
+
+    public void setAutoPlay(boolean autoPlay) {
+        this.mAutoPlay = autoPlay;
+    }
+
+    public void setLoop(boolean loop) {
+        this.mLoop = loop;
     }
 
     /**
@@ -88,7 +102,7 @@ public class HiBannerAdapter extends PagerAdapter {
         }
 
         //数据绑定
-        onBind(hiBannerViewHolder, mModels.get(position), position);
+        onBind(hiBannerViewHolder, mModels.get(realPosition), realPosition);
         if (hiBannerViewHolder.rootView.getParent() != null) {
             ((ViewGroup) hiBannerViewHolder.rootView.getParent()).removeView(hiBannerViewHolder.rootView);
         }
@@ -105,7 +119,7 @@ public class HiBannerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        super.destroyItem(container, position, object);
+//        super.destroyItem(container, position, object);
     }
 
     protected void onBind(@NonNull final HiBannerViewHolder holder, @NonNull final HiBannerMo mo, final int position) {
@@ -164,12 +178,12 @@ public class HiBannerAdapter extends PagerAdapter {
                 return (V) rootView;
             }
             if (this.sparseViews == null) {
-                this.sparseViews = new SparseArray<>();
+                this.sparseViews = new SparseArray<>(1);
             }
 
             V childView = (V) sparseViews.get(id);
             if (childView == null) {
-                childView = findViewById(id);
+                childView = rootView.findViewById(id);
                 this.sparseViews.put(id, childView);
             }
             return childView;

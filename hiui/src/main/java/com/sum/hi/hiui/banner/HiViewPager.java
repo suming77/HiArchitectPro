@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
+import com.sum.hi.hiui.banner.core.HiBannerScroller;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -132,7 +134,7 @@ public class HiViewPager extends ViewPager {
     private int next() {
         int nextPosition = -1;
         if (getAdapter() == null || getAdapter().getCount() <= 1) {
-//            stop();
+            stop();
             return nextPosition;
         }
 
@@ -149,6 +151,21 @@ public class HiViewPager extends ViewPager {
     public void stop() {
         if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    /**
+     * 设置ViewPager的滚动速度
+     *
+     * @param duration page切换的时间长度
+     */
+    public void setScrollDuration(int duration) {
+        try {
+            Field scrollerField = ViewPager.class.getDeclaredField("mScroller");
+            scrollerField.setAccessible(true);
+            scrollerField.set(this, new HiBannerScroller(getContext(), duration));
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
