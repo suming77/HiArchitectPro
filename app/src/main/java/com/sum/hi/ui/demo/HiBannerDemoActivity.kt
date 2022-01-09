@@ -17,6 +17,9 @@ import com.sum.hi.ui.demo.BannerMo
 import java.util.*
 
 class  HiBannerDemoActivity : AppCompatActivity() {
+
+    lateinit var a:String
+
     private var urls = arrayOf(
         "https://www.devio.org/img/beauty_camera/beauty_camera1.jpg",
         "https://www.devio.org/img/beauty_camera/beauty_camera3.jpg",
@@ -44,8 +47,8 @@ class  HiBannerDemoActivity : AppCompatActivity() {
             } else {
                 initView(HiCircleIndicator(this), autoPlay)
             }
-
         }
+
     }
 
     private fun initView(hiIndicator: HiIndicator<*>?, autoPlay: Boolean) {
