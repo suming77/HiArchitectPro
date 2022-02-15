@@ -1,5 +1,7 @@
+include ':nav-annotation'
+include ':hirouter'
 include ':common'
 include ':hiui'
 include ':hilibrary'
 include ':app'
-rootProject.name = "hi-ui"
+rootProject.name = "HiArchitectPro"

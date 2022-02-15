@@ -7,6 +7,7 @@ import com.sum.hi.hilibrary.log.HiConsolePrinter
 import com.sum.hi.hilibrary.log.HiLogConfig
 import com.sum.hi.hilibrary.log.HiLogManager
 import com.sum.hi.hilibrary.log.HiLogPrinter
+import com.sum.hi.ui.tab.ActivityManager
 
 /**
  * @创建者 mingyan.su
@@ -30,5 +31,6 @@ class HiApplication : HiBaseApplication() {
             }
         }, HiConsolePrinter())
 
+        ActivityManager.instance.init(this)
     }
 }
