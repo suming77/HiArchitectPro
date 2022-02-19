@@ -1,3 +1,4 @@
+include ':nav-compiler'
 include ':nav-annotation'
 include ':hirouter'
 include ':common'

@@ -1,6 +1,7 @@
 package com.sum.hi.ui
 
 import android.app.Application
+import com.alibaba.android.arouter.launcher.ARouter
 import com.google.gson.Gson
 import com.sum.hi.common.component.HiBaseApplication
 import com.sum.hi.hilibrary.log.HiConsolePrinter
@@ -32,5 +33,13 @@ class HiApplication : HiBaseApplication() {
         }, HiConsolePrinter())
 
         ActivityManager.instance.init(this)
+
+        //ARouter初始化
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog()
+            ARouter.openDebug()
+        }
+
+        ARouter.init(this)
     }
 }

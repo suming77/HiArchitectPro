@@ -25,6 +25,11 @@
         <activity android:name=".demo.HiTabTopDemoActivity" />
         <activity android:name=".demo.HiRefreshDemoActivity" />
         <activity android:name=".demo.HiBannerDemoActivity" />
+        <activity android:name=".biz.DegradeGlobalActivity" />
+        <activity android:name=".biz.AuthenticationActivity" />
+        <activity android:name=".biz.ProfileDetailActivity" />
+        <activity android:name=".biz.VipActivity" />
+
     </application>
 
 </manifest>

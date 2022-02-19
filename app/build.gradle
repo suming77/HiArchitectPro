@@ -1,7 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
+//模块build.gradle
+apply plugin: 'com.alibaba.arouter'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -15,6 +19,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -54,6 +63,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation 'com.google.code.gson:gson:2.6.2'
+
+    //arouter路由
+    implementation 'com.alibaba:arouter-api:1.5.0'
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'

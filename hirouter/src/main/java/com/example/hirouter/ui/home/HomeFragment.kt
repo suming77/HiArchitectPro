@@ -1,6 +1,7 @@
 package com.example.hirouter.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,28 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+        Log.e("TAG", "HomeFragment -- onCreateView: ")
         return root
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        Log.e("TAG", "HomeFragment -- onStart: ")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("TAG", "HomeFragment -- onResume: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.e("TAG", "HomeFragment -- onPause: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.e("TAG", "HomeFragment -- onStop: ")
     }
 }

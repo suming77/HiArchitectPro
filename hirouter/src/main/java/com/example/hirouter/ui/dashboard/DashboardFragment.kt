@@ -1,6 +1,7 @@
 package com.example.hirouter.ui.dashboard
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.hirouter.R
 import com.example.nav_annotation.Destination
 
-@Destination(pageUrl = "")
+@Destination(pageUrl = "main/tabs/dashboard")
 class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
@@ -28,6 +29,28 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+        Log.e("TAG", "DashboardFragment -- onCreateView: ")
         return root
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        Log.e("TAG", "DashboardFragment -- onStart: ")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("TAG", "DashboardFragment -- onResume: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.e("TAG", "DashboardFragment -- onPause: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.e("TAG", "DashboardFragment -- onStop: ")
     }
 }

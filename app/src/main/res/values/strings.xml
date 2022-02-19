@@ -74,4 +74,10 @@
     <string name="profile_tab_item_learn">\n学习时长</string>
     <string name="home_search_hint">&#xe987;  搜索你想要的商品</string>
     <string name="title_category">分类</string>
+    <string name="error_navigation_tips">错误提示页</string>
+    <string name="toast_error_degrade">页面错误，开发小哥正在加速修复中…</string>
+    <string name="person_center">个人中心</string>
+    <string name="authentication">会员权益</string>
+    <string name="vip_cash">账户充值</string>
+    <string name="all_low">全局降级策略</string>
 </resources>

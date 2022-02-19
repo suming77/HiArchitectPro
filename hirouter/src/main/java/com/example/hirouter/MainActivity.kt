@@ -2,12 +2,14 @@ package com.example.hirouter
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.hirouter.ui.NavUtils
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,17 +20,20 @@ class MainActivity : AppCompatActivity() {
 
         //寻找出路由控制器对象，它时路由跳转唯一入口
         val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
 
-        //进入页面
+        NavUtils.builderNavGraph(this, navController, fragment!!.childFragmentManager, R.id.nav_host_fragment)
+        NavUtils.builderBottomBar(navView)
+
+        navView.setOnNavigationItemSelectedListener { item ->
+            navController.navigate(item.itemId)
+            true
+        }
+        //将NavController和BottomNavigationView绑定，形成联动效果
+//        navView.setupWithNavController(navController)
+
+
+/*        //进入页面
         navController.navigate(R.id.blankFragment, Bundle.EMPTY)
         navController.navigate(Uri.parse("www.baidu.com"))
 
@@ -37,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         navController.popBackStack(
             R.id.blankFragment,
             true
-        )//回退到blankFragment页面，inclusive表示是否一同将blankFragment回退
+        )//回退到blankFragment页面，inclusive表示是否一同将blankFragment回退*/
     }
+
+
 }
