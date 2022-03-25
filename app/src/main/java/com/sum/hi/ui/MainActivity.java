@@ -1,37 +1,27 @@
 package com.sum.hi.ui;
 
-import android.app.Application;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.sum.hi.common.component.HiBaseActivity;
-import com.sum.hi.ui.demo.MainDemoActivity;
-import com.sum.hi.ui.fragment.CategoryFragment;
-import com.sum.hi.ui.fragment.FavoriteFragment;
-import com.sum.hi.ui.fragment.HomeFragment;
-import com.sum.hi.ui.fragment.ProfileFragment;
-import com.sum.hi.ui.fragment.RecommendFragment;
+import com.sum.hi.ui.demo.thread.ThreadDemoActivity;
 import com.sum.hi.ui.logic.MainActivityLogic;
 import com.sum.hi.ui.tab.ActivityManager;
 import com.sum.hi.ui.tab.ActivityManager.FrontBackCallback;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.coroutines.Continuation;
+import kotlin.coroutines.jvm.internal.ContinuationImpl;
+import kotlinx.coroutines.Dispatchers;
 
 /**
  * @创建者 mingyan.su
@@ -92,6 +82,9 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
 
         RecyclerView recyclerView=new RecyclerView(this);
 //        recyclerView.setLayoutManager();
+
+//        ThreadDemoActivity.testLooperThread();
+
     }
 
     public class MyFragmentAdapter extends FragmentStateAdapter{

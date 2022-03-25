@@ -1,11 +1,20 @@
 package com.sum.hi.ui.demo
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenCreated
+import androidx.lifecycle.whenResumed
+import androidx.lifecycle.whenStarted
 import com.sum.hi.ui.R
+import com.sum.hi.ui.demo.coroutine.CoroutineSense3
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainDemoActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,12 +26,70 @@ class MainDemoActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<TextView>(R.id.tv_3).setOnClickListener(this)
         findViewById<TextView>(R.id.tv_4).setOnClickListener(this)
         findViewById<TextView>(R.id.tv_5).setOnClickListener(this)
+
+        //        recyclerView.setLayoutManager();
+
+//        ThreadDemoActivity.testLooperThread();
+
     }
+
+    private suspend fun request1(): String {
+        val result2 = request2()
+        return "result from request1 + $result2"
+    }
+
+    private suspend fun request2(): String {
+        delay(2000)
+        return "result from request2"
+    }
+
 
     override fun onClick(view: View?) {
         when (view!!.id) {
             R.id.tv_hi_log -> {
-                startActivity(Intent(this, HiLogDemoActivity::class.java))
+//                val call: Continuation<*> =  Continuation<String>(Main) {result ->
+//                    Log.e("smy",result.getOrNull()+"");
+//                }
+//                CoroutineDecompiled2.request1(call)
+//                startActivity(Intent(this, HiLogDemoActivity::class.java))
+
+                //由lifecycleScope启动的协程的生命周期与宿主的生命周期相关联，为什么相关联呢，
+                // 协程也会发生内存泄漏的协程的泄漏本质上是线程的泄漏，宿主被销毁了，协程也会被停止
+
+                lifecycleScope.launch {
+                    val result = CoroutineSense3.parseAssetsFile(assets, "destination.json")
+                    Log.e("smy", "result == $result")
+                }
+                Log.e("smy", "Coroutine == afterclick")
+/*
+                //是指当我们宿主的生命周期至少为onCreate的时候才会启动
+                lifecycleScope.launchWhenCreated {
+                    whenCreated {
+                        //这里的代码只有宿舍的生命周期为onCreate才会执行，其他都是暂停
+                    }
+
+                    whenResumed {
+                        //这里的代码只有宿舍的生命周期为onResume才会执行，其他都是暂停
+                    }
+
+                    whenStarted {
+                        //这里的代码只有宿舍的生命周期为onStarted才会执行，其他都是暂停
+                    }
+                }
+
+                //是指我们宿主生命周期至少为onStart的时候才会启动
+                lifecycleScope.launchWhenStarted {
+
+                }
+
+                lifecycleScope.launchWhenResumed {
+
+                }*/
+
+                //全局生命周期
+//                GlobalScope.launch {
+//
+//                }
             }
             R.id.tv_2 -> {
                 startActivity(Intent(this, HiTabBottomDemoActivity::class.java))

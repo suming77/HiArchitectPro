@@ -11,6 +11,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.sum.hi.common.component.HiBaseFragment;
 import com.sum.hi.ui.R;
 
+import kotlinx.coroutines.GlobalScope;
+
 /**
  * @创建者 mingyan.su
  * @创建时间 2021/12/04 16:22
@@ -26,16 +28,16 @@ public class HomeFragment extends HiBaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        layoutView.findViewById(R.id.tv_profile).setOnClickListener(v -> {
+        mContentView.findViewById(R.id.tv_profile).setOnClickListener(v -> {
             navigationView("/profile/detail");
         });
-        layoutView.findViewById(R.id.tv_authentication).setOnClickListener(v -> {
+        mContentView.findViewById(R.id.tv_authentication).setOnClickListener(v -> {
             navigationView("/profile/authentication");
         });
-        layoutView.findViewById(R.id.tv_vip).setOnClickListener(v -> {
+        mContentView.findViewById(R.id.tv_vip).setOnClickListener(v -> {
             navigationView("/profile/vip");
         });
-        layoutView.findViewById(R.id.tv_unknow).setOnClickListener(v -> {
+        mContentView.findViewById(R.id.tv_unknow).setOnClickListener(v -> {
             navigationView("/profile/unknow");
         });
     }

@@ -41,4 +41,31 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    //在kotlin项目中配合jetpack架构引入协程
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
+    api 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+
+    //在kotlin项目但非jetpack 架构项目中引入协程
+
+    // 协程核心库
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+    // 协程Android支持库
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
+    // 协程Java8支持库
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.3"
+
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+    //HiSlider
+    implementation 'com.alibaba:fastjson:1.2.62'
+    implementation 'com.facebook.fresco:fresco:0.11.0'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
 }

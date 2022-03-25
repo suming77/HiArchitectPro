@@ -1,9 +1,19 @@
 package com.sum.hi.ui.fragment;
 
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.sum.hi.common.component.HiBaseFragment;
+import com.sum.hi.hilibrary.executor.HiExecutor;
 import com.sum.hi.ui.R;
+
+import org.devio.hi.library.executor.HiExecutor2;
 
 /**
  * @创建者 mingyan.su
@@ -15,9 +25,60 @@ public class ProfileFragment extends HiBaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_profile;
     }
+
+    boolean isPause = true;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mContentView.findViewById(R.id.tv_thread1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int priority = 0; priority < 10; priority++) {
+                    int finalPriority = priority;
+                    HiExecutor2.INSTANCE.execute(priority, () -> {
+                        try {
+                            Thread.sleep(1000 - finalPriority * 100);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+            }
+        });
+        mContentView.findViewById(R.id.tv_thread2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPause) {
+                    HiExecutor2.INSTANCE.resume();
+                } else {
+                    HiExecutor2.INSTANCE.pause();
+                }
+                isPause = !isPause;
+            }
+        });
+        mContentView.findViewById(R.id.tv_thread3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HiExecutor2.INSTANCE.execute(new HiExecutor.Callable<String>() {
+                    @Override
+                    public void onComplete(String result) {
+                        Log.e("HiExecutor", "onComplete-当前线程" + Thread.currentThread().getName());
+                        Log.e("HiExecutor", "onComplete-结果回调:" + result);
+                    }
+
+                    @Override
+                    public String onBackground() {
+                        Log.e("HiExecutor", "onBackground-当前线程" + Thread.currentThread().getName());
+                        return "我是异步任务结果";
+                    }
+                });
+            }
+        });
+    }
+
     @Override
     public void onStart() {
-
         super.onStart();
         Log.e("TAG", "ProfileFragment -- onStart: ");
     }

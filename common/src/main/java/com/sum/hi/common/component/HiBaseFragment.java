@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
  * @类描述 ${TODO}
  */
 public abstract class HiBaseFragment extends Fragment {
-    protected View layoutView;
+    protected View mContentView;
 
     @LayoutRes
     protected abstract int getLayoutId();
@@ -24,7 +24,7 @@ public abstract class HiBaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layoutView = inflater.inflate(getLayoutId(), container, false);
-        return layoutView;
+        mContentView = inflater.inflate(getLayoutId(), container, false);
+        return mContentView;
     }
 }
