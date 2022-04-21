@@ -13,8 +13,6 @@ import com.sum.hi.common.component.HiBaseFragment;
 import com.sum.hi.hilibrary.executor.HiExecutor;
 import com.sum.hi.ui.R;
 
-import org.devio.hi.library.executor.HiExecutor2;
-
 /**
  * @创建者 mingyan.su
  * @创建时间 2021/12/04 16:22
@@ -36,7 +34,7 @@ public class ProfileFragment extends HiBaseFragment {
             public void onClick(View v) {
                 for (int priority = 0; priority < 10; priority++) {
                     int finalPriority = priority;
-                    HiExecutor2.INSTANCE.execute(priority, () -> {
+                    HiExecutor.INSTANCE.execute(priority, () -> {
                         try {
                             Thread.sleep(1000 - finalPriority * 100);
                         } catch (Exception e) {
@@ -50,9 +48,9 @@ public class ProfileFragment extends HiBaseFragment {
             @Override
             public void onClick(View v) {
                 if (isPause) {
-                    HiExecutor2.INSTANCE.resume();
+                    HiExecutor.INSTANCE.resume();
                 } else {
-                    HiExecutor2.INSTANCE.pause();
+                    HiExecutor.INSTANCE.pause();
                 }
                 isPause = !isPause;
             }
@@ -60,7 +58,7 @@ public class ProfileFragment extends HiBaseFragment {
         mContentView.findViewById(R.id.tv_thread3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HiExecutor2.INSTANCE.execute(new HiExecutor.Callable<String>() {
+                HiExecutor.INSTANCE.execute(new HiExecutor.Callable<String>() {
                     @Override
                     public void onComplete(String result) {
                         Log.e("HiExecutor", "onComplete-当前线程" + Thread.currentThread().getName());

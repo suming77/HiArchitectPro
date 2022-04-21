@@ -8,10 +8,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
+import androidx.paging.ItemKeyedDataSource;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.sum.hi.common.component.HiBaseActivity;
+import com.sum.hi.hilibrary.User;
 import com.sum.hi.ui.demo.thread.ThreadDemoActivity;
 import com.sum.hi.ui.logic.MainActivityLogic;
 import com.sum.hi.ui.tab.ActivityManager;
@@ -19,9 +25,6 @@ import com.sum.hi.ui.tab.ActivityManager.FrontBackCallback;
 
 import java.util.List;
 
-import kotlin.coroutines.Continuation;
-import kotlin.coroutines.jvm.internal.ContinuationImpl;
-import kotlinx.coroutines.Dispatchers;
 
 /**
  * @创建者 mingyan.su
@@ -39,6 +42,7 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Object instance = getLastCustomNonConfigurationInstance();
         activityLogic = new MainActivityLogic(this, savedInstanceState);
 /*        findViewById(R.id.tv_demo).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,14 +84,13 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
 //        viewPager.setAdapter(new MyFragmentAdapter(this));
 //        viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
-        RecyclerView recyclerView=new RecyclerView(this);
+        RecyclerView recyclerView = new RecyclerView(this);
 //        recyclerView.setLayoutManager();
 
 //        ThreadDemoActivity.testLooperThread();
-
     }
 
-    public class MyFragmentAdapter extends FragmentStateAdapter{
+    public class MyFragmentAdapter extends FragmentStateAdapter {
 
         public MyFragmentAdapter(@NonNull FragmentActivity fragmentActivity) {
 
@@ -121,5 +124,13 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
 
         super.onRestoreInstanceState(savedInstanceState);
         Log.e("smy", "onRestoreInstanceState " + savedInstanceState.toString());
+    }
+
+
+
+    @Nullable
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return new Object();
     }
 }

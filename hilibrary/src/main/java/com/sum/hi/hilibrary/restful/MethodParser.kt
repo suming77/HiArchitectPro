@@ -12,13 +12,13 @@ import java.lang.reflect.Type
  * @Desc:
  */
 class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
-    private lateinit var doMainUrl: String
+    private var doMainUrl: String? = null
     private var formPost: Boolean = true
     private var httpMethod: Int = 0
     private lateinit var relativeUrl: String
     private var returnType: Type? = null
     private var headers: MutableMap<String, String> = mutableMapOf()
-    private var parameters: MutableMap<String, Any> = mutableMapOf()
+    private var parameters: MutableMap<String, String> = mutableMapOf()
 
 
     init {
@@ -33,7 +33,7 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
     }
 
     private fun parseMethodReturnType(method: Method) {
-        if (method.returnType != HiCall::class) {
+        if (method.returnType != HiCall::class.java) {
             throw IllegalStateException(
                 String.format(
                     "method %s must be type of HiCall.class",
@@ -81,7 +81,7 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
             if (annotation is Filed) {
                 val key = annotation.value
                 val value = args[index]
-                parameters[key] = value
+                parameters[key] = value.toString()
             } else if (annotation is Path) {
                 val replaceName = annotation.value
                 val replacement = value.toString()
@@ -148,11 +148,11 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
             } else {
                 throw IllegalStateException("can not handle method annotation:" + annotation.javaClass.toString())
             }
+        }
 
-            //校验
-            require(!(httpMethod != HiRequest.METHOD.GET) && !(httpMethod != HiRequest.METHOD.POST)) {
-                String.format("method %s must has one of GET ，POST", method.name)
-            }
+        //校验,不满足括号内的条件才会执行[]里面的
+        require((httpMethod == HiRequest.METHOD.GET) ||  (httpMethod == HiRequest.METHOD.POST)) {
+            String.format("method %s must has one of GET ，POST", method.name)
         }
 
         if (doMainUrl == null) {
@@ -168,6 +168,7 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
         request.parameters = parameters
         request.headers = headers
         request.httpMethod = httpMethod
+        request.formPost = formPost
         return request
     }
 

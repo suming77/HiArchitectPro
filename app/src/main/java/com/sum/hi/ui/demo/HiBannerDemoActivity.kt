@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.sum.hi.hiui.banner.HiBanner
@@ -14,11 +15,12 @@ import com.sum.hi.hiui.banner.core.HiCircleIndicator
 import com.sum.hi.hiui.banner.core.HiIndicator
 import com.sum.hi.ui.R
 import com.sum.hi.ui.demo.BannerMo
+import com.sum.hi.ui.demo.jetpack.HiDataBus
 import java.util.*
 
-class  HiBannerDemoActivity : AppCompatActivity() {
+class HiBannerDemoActivity : AppCompatActivity() {
 
-    lateinit var a:String
+    lateinit var a: String
 
     private var urls = arrayOf(
         "https://www.devio.org/img/beauty_camera/beauty_camera1.jpg",
@@ -49,6 +51,10 @@ class  HiBannerDemoActivity : AppCompatActivity() {
             }
         }
 
+
+        HiDataBus.with<String>("StickyData").observeSticky(this, androidx.lifecycle.Observer {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }, true)
     }
 
     private fun initView(hiIndicator: HiIndicator<*>?, autoPlay: Boolean) {

@@ -6,13 +6,14 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenCreated
-import androidx.lifecycle.whenResumed
-import androidx.lifecycle.whenStarted
+import com.sum.hi.hilibrary.User
 import com.sum.hi.ui.R
 import com.sum.hi.ui.demo.coroutine.CoroutineSense3
-import kotlinx.coroutines.GlobalScope
+import com.sum.hi.ui.demo.jetpack.HiDataBus
+import com.sum.hi.ui.demo.jetpack.ViewModelDemo
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -31,6 +32,28 @@ class MainDemoActivity : AppCompatActivity(), View.OnClickListener {
 
 //        ThreadDemoActivity.testLooperThread();
 
+//        ApiFactory.create(TestApi::class.java).listCity("imooc")
+//            .enqueue(object : HiCallback<JsonObject> {
+//                override fun onSuccess(response: HiResponse<JsonObject>) {
+//                    Log.e("BizInterceptor", "onSuccess 111== "+response.errorData)
+//                    Log.e("BizInterceptor", "onSuccess == "+response.code)
+//                    Log.e("BizInterceptor", "onSuccess == "+response.data)
+//                    Log.e("BizInterceptor", "onSuccess == "+response.msg)
+//                    Log.e("BizInterceptor", "onSuccess == "+response.rawData)
+//                }
+//
+//                override fun onFailed(throwable: Throwable) {
+//                    Log.e("BizInterceptor", "onFailed == "+throwable.message)
+//                }
+//
+//            })
+
+
+        HiDataBus.with<String>("StickyData").setStickData("StickyData from MainDemoActivity")
+        val viewModel = ViewModelProvider(this).get(ViewModelDemo.HiViewModel::class.java)
+        viewModel.loadInitData().observe(this, Observer {
+            //接收到数据
+        })
     }
 
     private suspend fun request1(): String {

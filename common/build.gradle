@@ -45,6 +45,19 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     api 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
     api 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    //Navigation
+    api 'androidx.navigation:navigation-fragment:2.2.2'
+    api 'androidx.navigation:navigation-ui:2.2.2'
+    //room
+    api 'androidx.room:room-runtime:2.2.5'
+    //workmanager
+    api 'androidx.work:work-runtime:2.3.4'
+    //paging
+    api 'androidx.paging:paging-runtime:2.1.0'
+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.2.0'
+    api 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1'
+
 
     //在kotlin项目但非jetpack 架构项目中引入协程
 
