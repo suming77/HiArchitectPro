@@ -1,13 +1,13 @@
 package com.sum.hi.ui
 
 import android.app.Application
+import androidx.databinding.library.BuildConfig
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.gson.Gson
 import com.sum.hi.common.component.HiBaseApplication
 import com.sum.hi.hilibrary.log.HiConsolePrinter
 import com.sum.hi.hilibrary.log.HiLogConfig
 import com.sum.hi.hilibrary.log.HiLogManager
-import com.sum.hi.hilibrary.log.HiLogPrinter
 import com.sum.hi.ui.tab.ActivityManager
 
 /**
