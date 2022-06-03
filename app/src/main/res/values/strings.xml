@@ -42,6 +42,7 @@
     <string name="if_right_arrow">&#xe669;</string>
     <string name="if_alipay">&#xe674;</string>
     <string name="if_wxpay">&#xe62d;</string>
+    <string name="if_detail">&#xeb93;</string>
 
     <string name="degrade_title">错误提示</string>
     <string name="degrade_tips">页面跑远了,开发小哥正在加急修复中...</string>

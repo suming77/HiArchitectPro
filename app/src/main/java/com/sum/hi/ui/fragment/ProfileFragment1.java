@@ -2,9 +2,7 @@ package com.sum.hi.ui.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,10 +16,10 @@ import com.sum.hi.ui.R;
  * @创建时间 2021/12/04 16:22
  * @类描述 ${TODO}
  */
-public class ProfileFragment extends HiBaseFragment {
+public class ProfileFragment1 extends HiBaseFragment {
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_profile;
+        return R.layout.fragment_profile1;
     }
 
     boolean isPause = true;

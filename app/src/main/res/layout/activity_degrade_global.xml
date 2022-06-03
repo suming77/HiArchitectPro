@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,15 +13,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+        <com.sum.hi.common.view.IconFontTextView
+            android:id="@+id/action_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_centerVertical="true"
-            android:padding="13dp"
-            android:src="@mipmap/back_black" />
+            android:gravity="center"
+            android:text="@string/if_back_soild"
+            android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/empty_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -40,13 +43,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rl_title" />
 
-    <com.sum.hi.common.component.EmptyView
-        android:id="@+id/emptyView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/color_999"
+        android:textSize="@dimen/sp16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_line" />
+        app:layout_constraintTop_toBottomOf="@+id/view_line"
+        tools:text="虽然什么也没有，要不下拉刷新来看看" />
+
+    <com.sum.hi.common.view.IconFontTextView
+        android:id="@+id/empty_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:gravity="center"
+        android:textColor="@color/color_9b9"
+        android:textSize="20sp"
+        android:text="@string/if_detail"
+        app:layout_constraintBottom_toBottomOf="@+id/empty_text"
+        app:layout_constraintStart_toEndOf="@+id/empty_text"
+        app:layout_constraintTop_toTopOf="@+id/empty_text" />
+
+    <Button
+        android:id="@+id/btn_refresh"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:text="刷新"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_999"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/empty_tips" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@ import java.lang.reflect.Type
  * @Date:     2022/3/23 22:09
  * @Desc:
  */
-class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
+class MethodParser(val baseUrl: String, method: Method) {
     private var doMainUrl: String? = null
     private var formPost: Boolean = true
     private var httpMethod: Int = 0
@@ -26,7 +26,7 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
         parseMethodAnnotations(method)
 
         //parse method parameters such as path filed
-        parseMethodParameters(method, args)
+//        parseMethodParameters(method, args)
 
         //parse method genric return type
         parseMethodReturnType(method)
@@ -146,12 +146,12 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
             } else if (annotation is BaseUrl) {
                 doMainUrl = annotation.value
             } else {
-                throw IllegalStateException("can not handle method annotation:" + annotation.javaClass.toString())
+                throw IllegalStateException("can not handle method annotation:" + annotation)
             }
         }
 
         //校验,不满足括号内的条件才会执行[]里面的
-        require((httpMethod == HiRequest.METHOD.GET) ||  (httpMethod == HiRequest.METHOD.POST)) {
+        require((httpMethod == HiRequest.METHOD.GET) || (httpMethod == HiRequest.METHOD.POST)) {
             String.format("method %s must has one of GET ，POST", method.name)
         }
 
@@ -160,8 +160,11 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
         }
     }
 
-    fun newRequest():HiRequest {
-        var request= HiRequest()
+    fun newRequest(method: Method, args: Array<out Any>?): HiRequest {
+        var arguments: Array<Any> = args as Array<Any>? ?: arrayOf()
+        parseMethodParameters(method, arguments)
+
+        var request = HiRequest()
         request.doMainUrl = doMainUrl
         request.returnType = returnType
         request.relativeUrl = relativeUrl
@@ -173,8 +176,8 @@ class MethodParser(val baseUrl: String, method: Method, args: Array<Any>) {
     }
 
     companion object {
-        fun parse(baseUrl: String, method: Method, args: Array<Any>): MethodParser {
-            return MethodParser(baseUrl, method, args)
+        fun parse(baseUrl: String, method: Method): MethodParser {
+            return MethodParser(baseUrl, method)
         }
     }
 }

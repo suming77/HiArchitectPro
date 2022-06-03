@@ -9,11 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.JsonObject
 import com.sum.hi.hilibrary.User
+import com.sum.hi.hilibrary.annotation.HiCallback
+import com.sum.hi.hilibrary.annotation.HiResponse
 import com.sum.hi.ui.R
 import com.sum.hi.ui.demo.coroutine.CoroutineSense3
 import com.sum.hi.ui.demo.jetpack.HiDataBus
 import com.sum.hi.ui.demo.jetpack.ViewModelDemo
+import com.sum.hi.ui.http.ApiFactory
+import com.sum.hi.ui.http.TestApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -32,28 +37,29 @@ class MainDemoActivity : AppCompatActivity(), View.OnClickListener {
 
 //        ThreadDemoActivity.testLooperThread();
 
-//        ApiFactory.create(TestApi::class.java).listCity("imooc")
-//            .enqueue(object : HiCallback<JsonObject> {
-//                override fun onSuccess(response: HiResponse<JsonObject>) {
-//                    Log.e("BizInterceptor", "onSuccess 111== "+response.errorData)
-//                    Log.e("BizInterceptor", "onSuccess == "+response.code)
-//                    Log.e("BizInterceptor", "onSuccess == "+response.data)
-//                    Log.e("BizInterceptor", "onSuccess == "+response.msg)
-//                    Log.e("BizInterceptor", "onSuccess == "+response.rawData)
-//                }
-//
-//                override fun onFailed(throwable: Throwable) {
-//                    Log.e("BizInterceptor", "onFailed == "+throwable.message)
-//                }
-//
-//            })
+        //如果在java中调用ApiFactory，则需要ApiFactory.INSTANCE，因为在java文件中访问ApiFactory的create()方法的时候，需要调用INSTANCE
+        ApiFactory.create(TestApi::class.java).listCity("imooc")
+            .enqueue(object : HiCallback<JsonObject> {
+                override fun onSuccess(response: HiResponse<JsonObject>) {
+                    Log.e("BizInterceptor", "onSuccess 111== "+response.errorData)
+                    Log.e("BizInterceptor", "onSuccess == "+response.code)
+                    Log.e("BizInterceptor", "onSuccess == "+response.data)
+                    Log.e("BizInterceptor", "onSuccess == "+response.msg)
+                    Log.e("BizInterceptor", "onSuccess == "+response.rawData)
+                }
+
+                override fun onFailed(throwable: Throwable) {
+                    Log.e("BizInterceptor", "onFailed == "+throwable.message)
+                }
+
+            })
 
 
-        HiDataBus.with<String>("StickyData").setStickData("StickyData from MainDemoActivity")
-        val viewModel = ViewModelProvider(this).get(ViewModelDemo.HiViewModel::class.java)
-        viewModel.loadInitData().observe(this, Observer {
-            //接收到数据
-        })
+//        HiDataBus.with<String>("StickyData").setStickData("StickyData from MainDemoActivity")
+//        val viewModel = ViewModelProvider(this).get(ViewModelDemo.HiViewModel::class.java)
+//        viewModel.loadInitData().observe(this, Observer {
+//            //接收到数据
+//        })
     }
 
     private suspend fun request1(): String {

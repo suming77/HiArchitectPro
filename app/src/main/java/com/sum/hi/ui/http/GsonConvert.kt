@@ -1,5 +1,6 @@
 package com.sum.hi.ui.http
 
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sum.hi.hilibrary.annotation.HiResponse
@@ -32,8 +33,12 @@ class GsonConvert : HiConvert {
             var jsonObject = JSONObject(rawDate)
             response.code = jsonObject.optInt("code")
             response.msg = jsonObject.optString("msg")
-            var data = jsonObject.opt("data")
 
+//            var data = jsonObject.optString("data")
+            var data = jsonObject.opt("data")//读取为object类型
+
+            //下面data是按照json的格式来解释的，如果data返回的是一个string则会抛出异常
+            //JSONObject和JSONArray都是满足解析条件的
             if ((data is JSONObject) or (data is JSONArray)) {
                 if (response.code == HiResponse.SUCCESS) {
                     response.data = gson.fromJson(data.toString(), dataType)
@@ -44,15 +49,17 @@ class GsonConvert : HiConvert {
                         object : TypeToken<MutableMap<String, String>>() {}.type
                     )
                 }
-            }else{
+            }else{//否则直接赋值给response
                 response.data = data as T?
             }
         } catch (e: JSONException) {
             e.printStackTrace()
             response.code = -1
+            Log.e("BizInterceptor", "JSONException == "+e.message)
             response.msg = e.message
         }
 
+        //可以rawDate自行解析
         response.rawData = rawDate
         return response
     }

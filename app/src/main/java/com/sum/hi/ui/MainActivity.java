@@ -1,5 +1,6 @@
 package com.sum.hi.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,8 +17,10 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.sum.hi.common.component.HiBaseActivity;
 import com.sum.hi.hilibrary.User;
+import com.sum.hi.ui.biz.LoginActivity;
 import com.sum.hi.ui.demo.thread.ThreadDemoActivity;
 import com.sum.hi.ui.logic.MainActivityLogic;
 import com.sum.hi.ui.tab.ActivityManager;
@@ -31,7 +34,7 @@ import java.util.List;
  * @创建时间 2021/12/03 23:40
  * @类描述 ${TODO}
  */
-public class MainActivity extends HiBaseActivity implements MainActivityLogic.ActivityProvider {
+public class  MainActivity extends HiBaseActivity implements MainActivityLogic.ActivityProvider {
 
     private MainActivityLogic activityLogic;
     private String CATEGORY_FRAGMENT = "CategoryFragment";
@@ -42,15 +45,15 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Object instance = getLastCustomNonConfigurationInstance();
         activityLogic = new MainActivityLogic(this, savedInstanceState);
+
 /*        findViewById(R.id.tv_demo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, MainDemoActivity.class));
             }
         });*/
-
+/*
         ActivityManager.Companion.getInstance().addFrontBackCallback(new FrontBackCallback() {
 
             @Override
@@ -58,7 +61,7 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
 
                 Toast.makeText(MainActivity.this, "前台或者后台：fornt == " + font, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 /*
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(CATEGORY_FRAGMENT);
         if (fragment == null) {
@@ -132,5 +135,15 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
         return new Object();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            //Activity来分发给每个Fragment, 每个Fragment接收到时都需要判断是不是自己的
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

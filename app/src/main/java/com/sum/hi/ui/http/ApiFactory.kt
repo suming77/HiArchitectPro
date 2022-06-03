@@ -13,6 +13,7 @@ object ApiFactory {
 
     init {
         hiRestful.addInterceptor(BizInterceptor())
+        hiRestful.addInterceptor(HttpStatusInterceptor())
     }
 
     /**

@@ -97,17 +97,18 @@ class RetrofitCallFactory(val baseUrl: String) : HiCall.Factory {
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
-                    HiLog.dt("BizInterceptor", "bodu == "+body)
-                    rawData = body.toString()
+                    HiLog.dt("BizInterceptor", "successbody == "+body.string())
+                    rawData = body.string()
                 }
             } else {
                 val body = response.errorBody()
                 if (body != null) {
-                    Log.e("BizInterceptor", "body == "+body.toString())
-                    rawData = body.toString()
+//                    Log.e("BizInterceptor", "errorBody == "+body.string())
+                    rawData = body.string()
+//                    Log.e("BizInterceptor", "rawData == "+body.string())
                 }
             }
-
+            Log.e("BizInterceptor", "rawData == "+rawData)
             return gsonConvert.convert(rawData!!, request.returnType!!)
         }
     }

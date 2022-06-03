@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--自动义属性集合，name表示声明的"属性集合"名，可以随便取名，但是建议与自定义控件的名称一致，
+   在该集合下设置不同的自定义属性-->
+    <!--定义属性名和格式-->
+    <declare-styleable name="InputItemLayout">
+        <!--name表示属性名称，format表示属性的类型-->
+        <attr name="hint" format="string" />
+        <attr name="title" format="string" />
+        <attr name="inputType" format="enum">
+            <enum name="text" value="0" />
+            <enum name="password" value="1" />
+            <enum name="number" value="2" />
+        </attr>
+
+        <attr name="inputTextAppearance" format="reference" />
+        <attr name="titleTextAppearance" format="reference" />
+        <attr name="topLineAppearance" format="reference" />
+        <attr name="bottomLineAppearance" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="inputTextAppearance">
+        <attr name="hintColor" format="color" />
+        <attr name="inputColor" format="color" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="titleTextAppearance">
+        <attr name="titleColor" format="color" />
+        <attr name="titleSize" format="dimension" />
+        <attr name="minWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="lineAppearance">
+        <attr name="color" format="color" />
+        <attr name="height" format="dimension" />
+        <attr name="leftMargin" format="dimension" />
+        <attr name="rightMargin" format="dimension" />
+        <attr name="enable" format="boolean" />
+    </declare-styleable>
+</resources>

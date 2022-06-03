@@ -1,6 +1,5 @@
 package com.sum.hi.ui
 
-import android.app.Application
 import androidx.databinding.library.BuildConfig
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.gson.Gson

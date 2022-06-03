@@ -1,6 +1,7 @@
 package com.sum.hi.hilibrary.restful
 
 import com.sum.hi.hilibrary.annotation.HiCall
+import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 import java.util.concurrent.ConcurrentHashMap
@@ -26,19 +27,22 @@ open class HiRestful constructor(val baseUrl: String, val callFactory: HiCall.Fa
     fun <T> create(service: Class<T>): T {
         return Proxy.newProxyInstance(
             service.classLoader,
-            arrayOf<Class<*>>(service)
-        ) { proxy, method, args ->
+            arrayOf<Class<*>>(service), object :InvocationHandler{
+                //bugfix 需要考虑空参数，args有可能为空
+                override fun invoke(proxy: Any?, method: Method, args: Array<out Any>?): Any {
 
-            var methodParser = methodService[method]
-            if (methodParser == null) {
-                methodParser = MethodParser.parse(baseUrl, method, args)
-                methodService.put(method, methodParser)
-            }
+                    var methodParser = methodService[method]
+                    if (methodParser == null) {
+                        methodParser = MethodParser.parse(baseUrl, method)
+                        methodService.put(method, methodParser)
+                    }
 
-            val newRequest = methodParser.newRequest()
+                    //bugfix：此处考虑到methodParser复用，多次调用参数有可能不同，
+                    val newRequest = methodParser.newRequest(method,args)
 
 //            callFactory.newCall(newRequest)
-            scheduler.newCall(newRequest)
-        } as T
+                    return scheduler.newCall(newRequest)
+                }
+            }) as T
     }
 }

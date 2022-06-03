@@ -52,85 +52,85 @@ public class ThreadLocalDemo {
             }).start();
         }
 
-        Log.e("smy", "ThreadLocal user name ==" + threadLocal.get().toString());//新名字1
+        Log.e("smy", "ThreadLocal user name ==" + threadLocal.get());//新名字1
         Log.e("smy", "主线程 user name ==" + user.getName());//新名字1
         //Thread中修改threadLocal的user中的name后，会同步到主线程中的user对象中，会影响到别的线程的user对象的值
         //所以threadLocal不具备线程安全的能力，也不具备线程间数据隔离的能力，它仅仅是简化了参数的传递，方便在线程的任意地方获取数据
 
     }
-
-    class ThreadLocal {
-        public void set(T value) {
-            //获取当前线程的ThreadLocalMap对象
-            Thread t = Thread.currentThread();
-            ThreadLocalMap map = getMap(t);
-            if (map != null)
-                map.set(this, value);//更新值，key=threadLocal
-            else
-                createMap(t, value);//创建并设置值
-        }
-
-        void createMap(Thread t, T firstValue) {
-            //每一个线程都有一个ThreadLocalMap对象，key为ThreadLocal
-            t.threadLocals = new ThreadLocalMap(this, firstValue);
-        }
-
-        public T get() {
-            Thread t = Thread.currentThread();
-            ThreadLocalMap map = getMap(t);
-            if (map != null) {
-                ThreadLocalMap.Entry e = map.getEntry(this);
-                if (e != null) {
-                    @SuppressWarnings("unchecked")
-                    T result = (T) e.value;
-                    return result;
-                }
-            }
-            return setInitialValue();
-        }
-
-        private T setInitialValue() {
-            //得到被调用的threadlocal的初始值(对应上文中的主线程threadLocal对象)
-            T value = initialValue();
-            //得到当前线程，对应线程池的每个线程
-            Thread t = Thread.currentThread();
-            //获取或创建每个线程的ThreadLocalMap,并把初始值存放进去
-            ThreadLocalMap map = getMap(t);
-            if (map != null)
-                map.set(this, value);
-            else
-                createMap(t, value);
-            return value;
-        }
-    }
-
-    static class ThreadLocalMap {
-        //本质是一个数组
-        private Entry[] table;
-
-        static class Entry extends WeakReference<java.lang.ThreadLocal<?>> {
-
-            Object value;
-
-            Entry(java.lang.ThreadLocal<?> k, Object v) {
-                //key被弱引用持有
-                super(k);
-                //value被强引用赋值
-                value = v;
-            }
-        }
-
-        private void set(java.lang.ThreadLocal<?> key, Object value) {
-
-            Entry[] tab = table;
-            int len = tab.length;
-            //获取Key的hash散列值，使得value均价分布在table[]数组内
-            int i = key.threadLocalHashCode & (len - 1);
-            ······
-            replaceStaleEntry(key, value, i);//移除key=null的元素
-            ······
-            tab[i] = new Entry(key, value);
-            ······
-        }
-    }
+//
+//    class ThreadLocal {
+//        public void set(T value) {
+//            //获取当前线程的ThreadLocalMap对象
+//            Thread t = Thread.currentThread();
+//            ThreadLocalMap map = getMap(t);
+//            if (map != null)
+//                map.set(this, value);//更新值，key=threadLocal
+//            else
+//                createMap(t, value);//创建并设置值
+//        }
+//
+//        void createMap(Thread t, T firstValue) {
+//            //每一个线程都有一个ThreadLocalMap对象，key为ThreadLocal
+//            t.threadLocals = new ThreadLocalMap(this, firstValue);
+//        }
+//
+//        public T get() {
+//            Thread t = Thread.currentThread();
+//            ThreadLocalMap map = getMap(t);
+//            if (map != null) {
+//                ThreadLocalMap.Entry e = map.getEntry(this);
+//                if (e != null) {
+//                    @SuppressWarnings("unchecked")
+//                    T result = (T) e.value;
+//                    return result;
+//                }
+//            }
+//            return setInitialValue();
+//        }
+//
+//        private T setInitialValue() {
+//            //得到被调用的threadlocal的初始值(对应上文中的主线程threadLocal对象)
+//            T value = initialValue();
+//            //得到当前线程，对应线程池的每个线程
+//            Thread t = Thread.currentThread();
+//            //获取或创建每个线程的ThreadLocalMap,并把初始值存放进去
+//            ThreadLocalMap map = getMap(t);
+//            if (map != null)
+//                map.set(this, value);
+//            else
+//                createMap(t, value);
+//            return value;
+//        }
+//    }
+//
+//    static class ThreadLocalMap {
+//        //本质是一个数组
+//        private Entry[] table;
+//
+//        static class Entry extends WeakReference<java.lang.ThreadLocal<?>> {
+//
+//            Object value;
+//
+//            Entry(java.lang.ThreadLocal<?> k, Object v) {
+//                //key被弱引用持有
+//                super(k);
+//                //value被强引用赋值
+//                value = v;
+//            }
+//        }
+//
+//        private void set(java.lang.ThreadLocal<?> key, Object value) {
+//
+//            Entry[] tab = table;
+//            int len = tab.length;
+//            //获取Key的hash散列值，使得value均价分布在table[]数组内
+//            int i = key.threadLocalHashCode & (len - 1);
+//            ······
+//            replaceStaleEntry(key, value, i);//移除key=null的元素
+//            ······
+//            tab[i] = new Entry(key, value);
+//            ······
+//        }
+//    }
 }
