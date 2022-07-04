@@ -1,4 +1,4 @@
-package com.sum.hi.ui.http
+package com.sum.hi.ui.http.api
 
 import com.sum.hi.hilibrary.annotation.Filed
 import com.sum.hi.hilibrary.annotation.GET

@@ -52,11 +52,11 @@ class EmptyView : LinearLayout {
         emptyAction = findViewById(R.id.empty_tips)
     }
 
-    fun setIcon(@StringRes iconRes: Int) {
+    open fun setIcon(@StringRes iconRes: Int) {
         mIvIcon!!.setText(iconRes)
     }
 
-    fun setBtnRefresh(text: String, listener: OnClickListener) {
+    open fun setBtnRefresh(text: String, listener: OnClickListener) {
         if (TextUtils.isEmpty(text)) {
             mBtnRefresh?.visibility = View.GONE
         } else {
@@ -72,7 +72,7 @@ class EmptyView : LinearLayout {
         desc.visibility = if (TextUtils.isEmpty(text)) View.GONE else View.VISIBLE
     }
 
-    fun setDesc(text: String) {
+    open fun setDesc(text: String) {
         mTvContent?.text = text
         mTvContent?.visibility = if (TextUtils.isEmpty(text)) View.GONE else View.VISIBLE
     }

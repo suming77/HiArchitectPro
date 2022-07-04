@@ -10,6 +10,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.sum.hi.common.R
 
 /**
  * @创建者 mingyan.su
@@ -18,7 +19,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
  */
 
 fun ImageView.loadUrl(url: String) {
-    Glide.with(this).load(url).into(this)
+    Glide.with(this).load(url).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher)
+        .into(this)
 }
 
 fun ImageView.loadCircle(url: String) {

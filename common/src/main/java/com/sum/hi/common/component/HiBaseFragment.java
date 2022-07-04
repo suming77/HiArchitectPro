@@ -31,6 +31,14 @@ public abstract class HiBaseFragment extends Fragment {
         return mContentView;
     }
 
+    //检测 宿主 是否还存活
+    public boolean isAlive() {
+        if (isRemoving() || isDetached() || getActivity() == null) {
+            return false;
+        }
+        return true;
+    }
+
     public void showToast(String str) {
         if (TextUtils.isEmpty(str)) {
             return;

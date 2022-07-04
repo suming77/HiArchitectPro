@@ -1,4 +1,4 @@
-package com.sum.hi.ui.http
+package com.sum.hi.ui.http.api
 
 import com.google.gson.JsonObject
 import com.sum.hi.hilibrary.annotation.Filed

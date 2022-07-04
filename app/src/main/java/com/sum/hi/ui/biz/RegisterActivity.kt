@@ -11,7 +11,7 @@ import com.sum.hi.common.component.HiBaseActivity
 import com.sum.hi.hilibrary.annotation.HiCallback
 import com.sum.hi.hilibrary.annotation.HiResponse
 import com.sum.hi.ui.R
-import com.sum.hi.ui.http.AccountApi
+import com.sum.hi.ui.http.api.AccountApi
 import com.sum.hi.ui.http.ApiFactory
 import kotlinx.android.synthetic.main.activity_register.*
 

@@ -2,6 +2,7 @@ package com.sum.hi.hiui.tab.bottom;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sum.hi.hilibrary.util.AppGlobals;
 import com.sum.hi.hilibrary.util.HiDisplayUtil;
 import com.sum.hi.hilibrary.util.HiVIewUtil;
 import com.sum.hi.hiui.R;
@@ -179,6 +181,13 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
 
         if (targetView != null) {
             targetView.setPadding(0, 0, 0, HiDisplayUtil.dp2px(tabBottomHeight, getResources()));
+            targetView.setClipToPadding(false);
+        }
+    }
+
+    public static void clipBottomPadding(ViewGroup targetView) {
+        if (targetView != null) {
+            targetView.setPadding(0, 0, 0, HiDisplayUtil.dp2px(tabBottomHeight, AppGlobals.INSTANCE.get().getResources()));
             targetView.setClipToPadding(false);
         }
     }

@@ -39,7 +39,7 @@ public class HiTabViewAdapter {
             fragmentTransaction.show(fragment);
         } else {
             fragment = getItem(position);
-            if (!fragment.isAdded()) {
+            if (fragment!=null && !fragment.isAdded()) {
                 fragmentTransaction.add(container.getId(), fragment, name);
             }
         }

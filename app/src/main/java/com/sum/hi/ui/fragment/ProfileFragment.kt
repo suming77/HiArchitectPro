@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import android.text.SpannedString
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
@@ -26,11 +25,10 @@ import com.sum.hi.hilibrary.util.HiDisplayUtil
 import com.sum.hi.hiui.banner.HiBannerAdapter
 import com.sum.hi.hiui.banner.core.HiBannerMo
 import com.sum.hi.ui.R
-import com.sum.hi.ui.http.AccountApi
+import com.sum.hi.ui.http.api.AccountApi
 import com.sum.hi.ui.http.ApiFactory
 import com.sum.hi.ui.model.UserProfile
 import kotlinx.android.synthetic.main.fragment_profile.*
-import java.net.URI
 
 /**
  * @创建者 mingyan.su

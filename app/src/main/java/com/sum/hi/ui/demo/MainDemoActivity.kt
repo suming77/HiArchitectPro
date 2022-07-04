@@ -6,19 +6,14 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.JsonObject
-import com.sum.hi.hilibrary.User
 import com.sum.hi.hilibrary.annotation.HiCallback
 import com.sum.hi.hilibrary.annotation.HiResponse
 import com.sum.hi.ui.R
 import com.sum.hi.ui.demo.coroutine.CoroutineSense3
-import com.sum.hi.ui.demo.jetpack.HiDataBus
-import com.sum.hi.ui.demo.jetpack.ViewModelDemo
 import com.sum.hi.ui.http.ApiFactory
-import com.sum.hi.ui.http.TestApi
+import com.sum.hi.ui.http.api.TestApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

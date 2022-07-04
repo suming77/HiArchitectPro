@@ -9,12 +9,11 @@ import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.common.component.HiBaseActivity
-import com.sum.hi.hilibrary.annotation.HiCall
 import com.sum.hi.hilibrary.annotation.HiCallback
 import com.sum.hi.hilibrary.annotation.HiResponse
 import com.sum.hi.hilibrary.util.SpUtils
 import com.sum.hi.ui.R
-import com.sum.hi.ui.http.AccountApi
+import com.sum.hi.ui.http.api.AccountApi
 import com.sum.hi.ui.http.ApiFactory
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -57,7 +56,7 @@ class LoginActivity : HiBaseActivity() {
 
                         //UserManager来管理用户信息的读取
                         SpUtils.putString("boarding-pass", data!!)
-                        setResult(Activity.RESULT_OK, Intent())
+                        setResult(RESULT_OK, Intent())
                         finish()
                     } else {
                         showToast("登录失败${response.msg}")

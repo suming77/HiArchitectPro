@@ -3,7 +3,6 @@ package com.sum.hi.ui.hiitem
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import java.text.FieldPosition
 
 /**
  * @Author:         smy
@@ -45,7 +44,7 @@ abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA) {
      * 从列表上移除
      */
     fun removeItem() {
-        mAdapter.removeItem(this)
+        mAdapter.removeItem(this as HiDataItem<*, RecyclerView.ViewHolder>)
     }
 
     /**
@@ -57,5 +56,19 @@ abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA) {
 
     fun setAdapter(adapter: HiAdapter){
         this.mAdapter = adapter
+    }
+
+    /**
+     * 该item被滑进屏幕
+     */
+    open fun onViewAttachedToWindow(holder: VH) {
+
+    }
+
+    /**
+     * 该item被滑出屏幕
+     */
+    open fun onViewDetachedFromWindow(holder: VH) {
+
     }
 }

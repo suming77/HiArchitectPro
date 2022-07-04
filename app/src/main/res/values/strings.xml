@@ -81,4 +81,9 @@
     <string name="authentication">会员权益</string>
     <string name="vip_cash">账户充值</string>
     <string name="all_low">全局降级策略</string>
+
+    <string name="list_empty">&#xe60c;</string>
+    <string name="list_empty_desc">小朋友,你是否有很多问号？</string>
+    <string name="list_empty_action">刷新一把</string>
+    <string name="footer_loading_text">正在加载...</string>
 </resources>
