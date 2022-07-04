@@ -280,4 +280,9 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
         return dataSets[position] as HiDataItem<*, RecyclerView.ViewHolder>
     }
 
+    fun clearItems() {
+        dataSets.clear()
+        notifyDataSetChanged()
+    }
+
 }
