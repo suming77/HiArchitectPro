@@ -30,4 +30,6 @@ open class HiResponse<T> {
     var errorData: Map<String, String>? = null
     var msg: String? = null//错误信息
 
+    val successful: Boolean = code == SUCCESS
+
 }

@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
  * @创建时间 2022/07/04 20:46
  * @类描述 ${TODO}
  */
-class HiAbsFragment : HiBaseFragment(), HiRefresh.HiRefreshListener {
+open class HiAbsFragment : HiBaseFragment(), HiRefresh.HiRefreshListener {
     private var pageIndex: Int = 1
     private lateinit var hiAdapter: HiAdapter
     private lateinit var layoutManager: RecyclerView.LayoutManager
@@ -39,6 +39,10 @@ class HiAbsFragment : HiBaseFragment(), HiRefresh.HiRefreshListener {
 
     override fun getLayoutId(): Int = R.layout.fragment_list
 
+    /**
+     * Fragment 在ViewPage中，左右滑动的时候Fragment是会被回收的，它被回收的时候，Fragment对象不会被销毁，
+     * 只不过它的view对象会被销毁，滑回来的时候它的生命周期是会重新执行的
+     */
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,6 +70,7 @@ class HiAbsFragment : HiBaseFragment(), HiRefresh.HiRefreshListener {
             })
         }
 
+        pageIndex = 1
         contentLoading?.visibility = View.VISIBLE
     }
 
@@ -74,6 +79,7 @@ class HiAbsFragment : HiBaseFragment(), HiRefresh.HiRefreshListener {
         val refresh = pageIndex == 1
         if (refresh) {
             contentLoading?.visibility = View.GONE
+            refreshLayout?.refreshFinished()
             if (success) {
                 emptyView?.visibility = View.GONE
                 hiAdapter.clearItems()

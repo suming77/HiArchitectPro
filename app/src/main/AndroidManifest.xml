@@ -33,6 +33,7 @@
         <activity android:name=".biz.VipActivity" />
         <activity android:name=".biz.LoginActivity" />
         <activity android:name=".biz.RegisterActivity" />
+        <activity android:name=".PersonCenterActivity" />
 
     </application>
 
