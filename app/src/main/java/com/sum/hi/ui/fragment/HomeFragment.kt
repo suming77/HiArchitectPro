@@ -11,14 +11,13 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.sum.hi.common.component.HiBaseFragment
 import com.alibaba.android.arouter.launcher.ARouter
-import com.google.android.material.appbar.AppBarLayout
 import com.sum.hi.hilibrary.annotation.HiCallback
 import com.sum.hi.hilibrary.annotation.HiResponse
 import com.sum.hi.hiui.tab.top.HiTabTopInfo
 import com.sum.hi.ui.R
+import com.sum.hi.ui.home.HomeTabFragment
 import com.sum.hi.ui.http.ApiFactory
-import com.sum.hi.ui.http.api.AccountApi
-import com.sum.hi.ui.model.UserProfile
+import com.sum.hi.ui.http.api.HomeApi
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.devio.`as`.proj.main.model.TabCategory
 
@@ -43,9 +42,9 @@ class HomeFragment : HiBaseFragment() {
 
     private fun queryTabList() {
         updateUI(null)
-        ApiFactory.create(AccountApi::class.java).profile()
-            .enqueue(object : HiCallback<UserProfile> {
-                override fun onSuccess(response: HiResponse<UserProfile>) {
+        ApiFactory.create(HomeApi::class.java).queryTabList()
+            .enqueue(object : HiCallback<List<TabCategory>> {
+                override fun onSuccess(response: HiResponse<List<TabCategory>>) {
                     val data = response.data
                     if (response.code == HiResponse.SUCCESS && data != null) {
 //                    updateUI(data)
