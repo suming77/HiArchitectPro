@@ -42,7 +42,7 @@ class HomeFragment : HiBaseFragment() {
 
     private fun queryTabList() {
         updateUI(null)
-        ApiFactory.create(HomeApi::class.java).queryTabList()
+/*        ApiFactory.create(HomeApi::class.java).queryTabList()
             .enqueue(object : HiCallback<List<TabCategory>> {
                 override fun onSuccess(response: HiResponse<List<TabCategory>>) {
                     val data = response.data
@@ -54,7 +54,7 @@ class HomeFragment : HiBaseFragment() {
                 override fun onFailed(throwable: Throwable) {
                 }
 
-            })
+            })*/
     }
 
     private fun updateUI(data: List<TabCategory>?) {
@@ -93,7 +93,7 @@ class HomeFragment : HiBaseFragment() {
 
         topTabLayout.addTabSelectedChangeListener { index, prevInfo, nextInfo ->
             //点击选中下标
-            if (viewPager.currentItem == index) {
+            if (viewPager.currentItem != index) {
                 viewPager.setCurrentItem(index, false)//不需要平滑效果
             }
         }
@@ -101,7 +101,7 @@ class HomeFragment : HiBaseFragment() {
         viewPager.adapter = HomePagerAdapter(
             childFragmentManager,
             FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
-            data!!
+            tabCategoryList
         )
 
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
@@ -125,15 +125,17 @@ class HomeFragment : HiBaseFragment() {
     ) : FragmentPagerAdapter(fragmentManager, behavior) {
         val fragments = SparseArray<Fragment>(tabs.size)
         override fun getCount(): Int {
-            return fragments.size()
+            return tabs.size
         }
 
         override fun getItem(position: Int): Fragment {
             var fragment = fragments.get(position, null)
+            Log.e("smy", "fragment $fragment")
             if (fragment == null) {
                 fragment = HomeTabFragment.newInstance(tabs[position].categoryId)
                 fragments.put(position, fragment)
             }
+            Log.e("smy", "fragment2 $fragment")
             return fragment
         }
 

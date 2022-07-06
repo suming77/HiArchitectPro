@@ -88,12 +88,14 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
         if (notify) {
             notifyItemChanged(notifyPos)
         }
+        item.setAdapter(this)
     }
 
     fun addItems(list: List<HiDataItem<*, RecyclerView.ViewHolder>>, notify: Boolean) {
         val start = dataSets.size
         for (item in list) {
             dataSets.add(item)
+            item.setAdapter(this)
         }
 
         if (notify) {
@@ -157,11 +159,11 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
             return object : RecyclerView.ViewHolder(view) {}
         }
         val dataItem = typeArrays.get(viewType)
-        var itemView = dataItem.getItemView(parent)
+        var itemView:View? = dataItem.getItemView(parent)
         if (itemView == null) {
             val itemLayoutRes = dataItem.getItemLayoutRes()
             if (itemLayoutRes < 0) {
-                RuntimeException("dataItem ${dataItem.javaClass.name} must override getItemView() or getItemLayoutRes()")
+                throw RuntimeException("dataItem ${dataItem.javaClass.name} must override getItemView() or getItemLayoutRes()")
             }
             itemView = mInflater!!.inflate(itemLayoutRes, parent, false)
         }
@@ -181,9 +183,13 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
                         argument
                     )
                 ) {
-                    //通过反射构建ViewHolder实例
-                    return argument.getConstructor(View::class.java)
-                        .newInstance(itemView) as RecyclerView.ViewHolder
+                    kotlin.runCatching {
+                        //通过反射构建ViewHolder实例
+                        return argument.getConstructor(View::class.java)
+                            .newInstance(itemView) as RecyclerView.ViewHolder
+                    }.onFailure {
+                        it.printStackTrace()
+                    }
                 }
             }
         }
@@ -210,9 +216,11 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                     val itemPosition = position - getHeaderSize()
                     if (itemPosition < dataSets.size) {
-                        val hiDataItem = dataSets[itemPosition]
-                        val spanSize = hiDataItem.getSpanSize()
-                        return if (spanSize <= 0) spanCount else spanSize
+                        val hiDataItem = getItem(itemPosition)
+                        if (hiDataItem!=null){
+                            val spanSize = hiDataItem.getSpanSize()
+                            return if (spanSize <= 0) spanCount else spanSize
+                        }
                     }
                     return spanCount
                 }

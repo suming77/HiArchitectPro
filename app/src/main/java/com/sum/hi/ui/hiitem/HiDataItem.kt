@@ -50,7 +50,7 @@ abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA) {
     /**
      * 该Item在列表上占据几列
      */
-    fun getSpanSize(): Int {
+    open fun getSpanSize(): Int {
         return 0
     }
 

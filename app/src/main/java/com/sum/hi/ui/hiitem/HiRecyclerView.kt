@@ -142,7 +142,7 @@ class HiRecyclerView @JvmOverloads constructor(
     }
 
     fun isLoadingMore(): Boolean {
-        return isLoadingMore()
+        return isLoadMore
     }
 
     fun loadFinished(success: Boolean) {

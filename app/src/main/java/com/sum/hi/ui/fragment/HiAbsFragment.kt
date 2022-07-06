@@ -108,7 +108,7 @@ open class HiAbsFragment : HiBaseFragment(), HiRefresh.HiRefreshListener {
         recyclerView?.enableLoadMore({
             if (refreshHeadView.state == HiOverView.HiRefreshState.STATE_REFRESH) {
                 //正处于刷新状态
-                recyclerView?.loadFinished(true)
+                recyclerView?.loadFinished(false)
                 return@enableLoadMore
             }
             pageIndex++
@@ -128,10 +128,12 @@ open class HiAbsFragment : HiBaseFragment(), HiRefresh.HiRefreshListener {
     override fun onRefresh() {
         if (recyclerView?.isLoadingMore() == true) {
             //正处于分页
-            refreshLayout?.refreshFinished()
+            refreshLayout?.post {
+                refreshLayout?.refreshFinished()
+            }
             return
         }
-        pageIndex == 1
+        pageIndex = 1
     }
 
     override fun enableRefresh(): Boolean {

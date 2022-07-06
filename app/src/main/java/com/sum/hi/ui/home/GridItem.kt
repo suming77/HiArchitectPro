@@ -40,16 +40,12 @@ class GridItem(val list: List<Subcategory>) :
         gridView.layoutParams = params
         gridView.setBackgroundColor(Color.WHITE)
 
-        return super.getItemView(parent)
+        return gridView
     }
 
     inner class GridAdapter(val context: Context, val list: List<Subcategory>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        private lateinit var layoutInflater: LayoutInflater
-
-        init {
-            layoutInflater = LayoutInflater.from(context)
-        }
+        private var layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val view = layoutInflater.inflate(R.layout.layout_home_op_grid_item, parent, false)

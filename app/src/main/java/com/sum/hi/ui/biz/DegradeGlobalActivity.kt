@@ -39,7 +39,7 @@ class DegradeGlobalActivity : AppCompatActivity() {
         //这样才可以在activity的intent当中读取数据，给他们赋值
         ARouter.getInstance().inject(this)
         setContentView(R.layout.activity_degrade_global)
-        val emptyView = findViewById<EmptyView>(R.id.action_back)
+        val emptyView = findViewById<EmptyView>(R.id.empty_view)
         if (!TextUtils.isEmpty(degrade_title)) {
             emptyView.setTitle(degrade_title!!)
         }

@@ -16,7 +16,7 @@
         android:background="@drawable/shape_home_search"
         android:gravity="center"
         android:text="@string/home_search_hint"
-        android:textColor="@color/color_d9f"
+        android:textColor="@color/color_9fa"
         android:textSize="14sp" />
 
     <com.sum.hi.hiui.tab.top.HiTabTopLayout

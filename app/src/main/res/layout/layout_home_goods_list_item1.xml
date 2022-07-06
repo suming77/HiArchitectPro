@@ -13,10 +13,10 @@
         android:layout_height="110dp"
         android:layout_marginLeft="10dp"
         android:background="@color/color_eee"
+        android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@color/color_999" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/item_title"

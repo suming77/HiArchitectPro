@@ -35,6 +35,7 @@ class GoodsItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
             itemLabelContainer.visibility = View.VISIBLE
             val split = goodsModel.tags.split(" ")
             for (index in split.indices) {
+
                 //这里有个复用的问题
                 val labView = if (index > itemLabelContainer.childCount - 1) {
                     createLabelView(context, index != 0)
@@ -84,4 +85,7 @@ class GoodsItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
         return textView
     }
 
+    override fun getSpanSize(): Int {
+        return if (hotTab)super.getSpanSize() else 1
+    }
 }

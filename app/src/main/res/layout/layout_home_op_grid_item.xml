@@ -12,7 +12,7 @@
         android:id="@+id/item_image"
         android:layout_width="@dimen/dp_45"
         android:layout_height="@dimen/dp_45"
-        tools:src="@color/color_999" />
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/item_title"

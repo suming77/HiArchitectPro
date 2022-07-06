@@ -54,10 +54,10 @@ public class HiRefreshLayout extends FrameLayout implements HiRefresh {
 
     @Override
     public void refreshFinished() {
-        View head = getChildAt(0);
+       final View head = getChildAt(0);
         mHiOverView.onFinish();
         mHiOverView.setState(HiOverView.HiRefreshState.STATE_INIT);
-        int bottom = head.getBottom();
+        final int bottom = head.getBottom();
         if (bottom > 0) {
             recover(bottom);
         }
@@ -134,7 +134,7 @@ public class HiRefreshLayout extends FrameLayout implements HiRefresh {
                     }
                     //如果是正在刷新状态，则不允许在滑动时改变状态
                     boolean bool = moveDown(seed, true);
-                    mLastY = (int) -distanceY;
+                    mLastY = (int) (-distanceY);
                     return bool;
                 } else {
                     return false;
@@ -209,6 +209,9 @@ public class HiRefreshLayout extends FrameLayout implements HiRefresh {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (!mAutoScroller.isFinished()){
+            return false;
+        }
         View head = getChildAt(0);
         if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL || ev.getAction() == MotionEvent.ACTION_POINTER_INDEX_MASK) {
             //松开手
