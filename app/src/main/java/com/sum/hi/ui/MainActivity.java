@@ -1,6 +1,7 @@
 package com.sum.hi.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class  MainActivity extends HiBaseActivity implements MainActivityLogic.A
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activityLogic = new MainActivityLogic(this, savedInstanceState);
+        HiStatusBar.INSTANCE.setStatusBar(this, true, Color.WHITE, true);
 
 /*        findViewById(R.id.tv_demo).setOnClickListener(new View.OnClickListener() {
             @Override
