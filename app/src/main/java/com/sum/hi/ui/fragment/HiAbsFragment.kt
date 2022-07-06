@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
  * @类描述 ${TODO}
  */
 open class HiAbsFragment : HiBaseFragment(), HiRefresh.HiRefreshListener {
-    private var pageIndex: Int = 1
+    public var pageIndex: Int = 1
     private lateinit var hiAdapter: HiAdapter
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var refreshHeadView: HiTextOverView

@@ -187,7 +187,7 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
 
     public static void clipBottomPadding(ViewGroup targetView) {
         if (targetView != null) {
-            targetView.setPadding(0, 0, 0, HiDisplayUtil.dp2px(tabBottomHeight, AppGlobals.INSTANCE.get().getResources()));
+            targetView.setPadding(0, 0, 0, HiDisplayUtil.dp2px(tabBottomHeight));
             targetView.setClipToPadding(false);
         }
     }

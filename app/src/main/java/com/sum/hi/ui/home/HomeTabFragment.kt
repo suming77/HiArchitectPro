@@ -1,7 +1,9 @@
 package com.sum.hi.ui.home
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.sum.hi.hilibrary.annotation.HiCallback
 import com.sum.hi.hilibrary.annotation.HiResponse
 import com.sum.hi.ui.fragment.HiAbsFragment
@@ -30,14 +32,20 @@ class HomeTabFragment : HiAbsFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         categoryId = arguments?.getString("categoryId", DEFAULT_TOP_TAB_CRATEGORY_ID)
+        super.onViewCreated(view, savedInstanceState)
         queryTabCategoryList()
         enableLoadMore { queryTabCategoryList() }
     }
 
+    override fun createLayoutManager(): RecyclerView.LayoutManager {
+        val isHotTab = TextUtils.equals(categoryId, DEFAULT_TOP_TAB_CRATEGORY_ID)
+        return super.createLayoutManager()
+    }
+
     private fun queryTabCategoryList() {
-        ApiFactory.create(HomeApi::class.java).queryTabCategoryList(categoryId!!)
+        ApiFactory.create(HomeApi::class.java)
+            .queryTabCategoryList(categoryId!!, pageIndex = pageIndex, pageSize = 10)
             .enqueue(object : HiCallback<HomeModel> {
                 override fun onSuccess(response: HiResponse<HomeModel>) {
                     //不能把response.data!=null合并到response.successful里面，有可能会出现response.successful成功了但是data还是为空的情况
@@ -73,7 +81,7 @@ class HomeTabFragment : HiAbsFragment() {
             dataItmes.add(GridItem(it))
         }
         data.goodsList?.forEachIndexed { index, goodsModel ->
-            dataItmes.add(GoodsItem(goodsModel))
+            dataItmes.add(GoodsItem(goodsModel, categoryId == DEFAULT_TOP_TAB_CRATEGORY_ID))
         }
         finishRefresh(null)
 

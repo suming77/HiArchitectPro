@@ -106,7 +106,7 @@ data class GoodsModel(
     val marketPrice: String,
     val sliderImage: String,
     val sliderImages: List<SliderImage>,
-    val tags: String
+    val tags: String?
 )
 
 data class SliderImage(

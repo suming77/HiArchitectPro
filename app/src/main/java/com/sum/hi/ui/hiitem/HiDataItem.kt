@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @Desc:
  */
 abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA) {
-    private lateinit var mAdapter: HiAdapter
+    public lateinit var mAdapter: HiAdapter
     var mData: DATA? = null
 
     init {
