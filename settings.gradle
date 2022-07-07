@@ -6,3 +6,4 @@ include ':hiui'
 include ':hilibrary'
 include ':app'
 rootProject.name = "HiArchitectPro"
+include ':hi_debugtool'

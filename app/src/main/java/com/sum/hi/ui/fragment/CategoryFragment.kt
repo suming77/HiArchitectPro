@@ -1,5 +1,6 @@
 package com.sum.hi.ui.fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.common.component.HiBaseFragment
 import com.sum.hi.common.view.EmptyView
 import com.sum.hi.common.view.loadUrl
@@ -18,8 +20,10 @@ import com.sum.hi.hilibrary.annotation.HiCallback
 import com.sum.hi.hilibrary.annotation.HiResponse
 import com.sum.hi.hiui.tab.bottom.HiTabBottomLayout
 import com.sum.hi.ui.R
+import com.sum.hi.ui.home.GoodsListActivity
 import com.sum.hi.ui.http.ApiFactory
 import com.sum.hi.ui.http.api.CategoryApi
+import com.sum.hi.ui.route.HiRouter
 import kotlinx.android.synthetic.main.fragment_category.*
 import kotlinx.android.synthetic.main.layout_content_loading_view.view.*
 import org.devio.`as`.proj.main.model.Subcategory
@@ -213,7 +217,13 @@ class CategoryFragment : HiBaseFragment() {
                 holder.findViewById<TextView>(R.id.content_item_title)?.text =
                     subCategory.subcategoryName
             }, OnItemClick = { holder, position ->
-                //todo 跳转到类目的商品列表页
+                val subcategory = data[position]
+/*                val bundle = Bundle()
+                bundle.putString("categoryId", subcategory.categoryId)
+                bundle.putString("subcategoryId", subcategory.subcategoryId)
+                bundle.putString("categoryTitle", subcategory.subcategoryName)
+                HiRouter.startActivity(requireContext(), bundle, HiRouter.Destination.GOODS_LIST)*/
+                context?.startActivity(Intent(requireActivity(), GoodsListActivity::class.java))
                 showToast("you touch me :$position")
             })
     }

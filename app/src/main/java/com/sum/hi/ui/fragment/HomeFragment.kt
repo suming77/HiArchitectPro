@@ -130,12 +130,10 @@ class HomeFragment : HiBaseFragment() {
 
         override fun getItem(position: Int): Fragment {
             var fragment = fragments.get(position, null)
-            Log.e("smy", "fragment $fragment")
             if (fragment == null) {
                 fragment = HomeTabFragment.newInstance(tabs[position].categoryId)
                 fragments.put(position, fragment)
             }
-            Log.e("smy", "fragment2 $fragment")
             return fragment
         }
 

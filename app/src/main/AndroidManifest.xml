@@ -34,6 +34,7 @@
         <activity android:name=".biz.LoginActivity" />
         <activity android:name=".biz.RegisterActivity" />
         <activity android:name=".PersonCenterActivity" />
+        <activity android:name=".home.GoodsListActivity" />
 
     </application>
 

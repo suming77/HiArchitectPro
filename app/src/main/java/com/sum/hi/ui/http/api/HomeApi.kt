@@ -1,17 +1,17 @@
 package com.sum.hi.ui.http.api
 
-import com.sum.hi.hilibrary.annotation.Filed
 import com.sum.hi.hilibrary.annotation.GET
 import com.sum.hi.hilibrary.annotation.HiCall
 import com.sum.hi.hilibrary.annotation.Path
 import org.devio.`as`.proj.main.model.HomeModel
+import org.devio.`as`.proj.main.model.Subcategory
 import org.devio.`as`.proj.main.model.TabCategory
 import retrofit2.http.Query
 
 /**
- * @author tea
- * @date   2022/7/5 16:59
- * @desc
+ * @创建者 mingyan.su
+ * @创建时间 2022/07/01 22:05
+ * @类描述 ${TODO}
  */
 interface HomeApi {
     //首页tab
@@ -24,4 +24,5 @@ interface HomeApi {
         @Query("pageIndex") pageIndex: Int,
         @Query("pageSize") pageSize: Int
     ): HiCall<HomeModel>
+
 }

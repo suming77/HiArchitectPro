@@ -38,7 +38,6 @@ class HomeTabFragment : HiAbsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         categoryId = arguments?.getString("categoryId", DEFAULT_TOP_TAB_CRATEGORY_ID)
-        Log.e("smy", "categoryId $categoryId")
         super.onViewCreated(view, savedInstanceState)
         queryTabCategoryList()
         enableLoadMore { queryTabCategoryList() }

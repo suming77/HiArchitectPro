@@ -35,7 +35,7 @@
             android:textColor="@color/color_000"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="开源上神"/>
+            android:text="开源上神"/>
 
 
         <TextView
