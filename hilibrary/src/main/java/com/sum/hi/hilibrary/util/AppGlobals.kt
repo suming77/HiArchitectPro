@@ -8,17 +8,15 @@ import android.app.Application
  * @类描述 ${TODO}
  */
 object AppGlobals {
-    val application: Application? = null
-
-    //反射获取Application，避免初始化，调用invoke获得application实例
+    private var application: Application? = null
     fun get(): Application? {
         if (application == null) {
             try {
-                Class.forName("android.app.ActivityThread")
+                application = Class.forName("android.app.ActivityThread")
                     .getMethod("currentApplication")
                     .invoke(null) as Application
-            } catch (e: Exception) {
-                e.printStackTrace()
+            } catch (ex: Exception) {
+                ex.printStackTrace()
             }
         }
         return application

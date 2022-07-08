@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
@@ -27,15 +29,15 @@ import com.sum.hi.ui.logic.MainActivityLogic;
 import com.sum.hi.ui.tab.ActivityManager;
 import com.sum.hi.ui.tab.ActivityManager.FrontBackCallback;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-
 
 /**
  * @创建者 mingyan.su
  * @创建时间 2021/12/03 23:40
  * @类描述 ${TODO}
  */
-public class  MainActivity extends HiBaseActivity implements MainActivityLogic.ActivityProvider {
+public class MainActivity extends HiBaseActivity implements MainActivityLogic.ActivityProvider {
 
     private MainActivityLogic activityLogic;
     private String CATEGORY_FRAGMENT = "CategoryFragment";
@@ -74,25 +76,25 @@ public class  MainActivity extends HiBaseActivity implements MainActivityLogic.A
                     .commit();
         }*/
 
-//        HomeFragment homeFragment = new HomeFragment();
-//        FavoriteFragment favoriteFragment = new FavoriteFragment();
-//        ProfileFragment profileFragment = new ProfileFragment();
-//        RecommendFragment recommendFragment = new RecommendFragment();
-//
-//        mList = new ArrayList();
-//        mList.add(homeFragment);
-//        mList.add(favoriteFragment);
-//        mList.add(profileFragment);
-//        mList.add(recommendFragment);
-//
-//        ViewPager2 viewPager = findViewById(R.id.viewPager);
-//        viewPager.setAdapter(new MyFragmentAdapter(this));
-//        viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+        //        HomeFragment homeFragment = new HomeFragment();
+        //        FavoriteFragment favoriteFragment = new FavoriteFragment();
+        //        ProfileFragment profileFragment = new ProfileFragment();
+        //        RecommendFragment recommendFragment = new RecommendFragment();
+        //
+        //        mList = new ArrayList();
+        //        mList.add(homeFragment);
+        //        mList.add(favoriteFragment);
+        //        mList.add(profileFragment);
+        //        mList.add(recommendFragment);
+        //
+        //        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        //        viewPager.setAdapter(new MyFragmentAdapter(this));
+        //        viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
         RecyclerView recyclerView = new RecyclerView(this);
-//        recyclerView.setLayoutManager();
+        //        recyclerView.setLayoutManager();
 
-//        ThreadDemoActivity.testLooperThread();
+        //        ThreadDemoActivity.testLooperThread();
     }
 
     public class MyFragmentAdapter extends FragmentStateAdapter {
@@ -120,7 +122,7 @@ public class  MainActivity extends HiBaseActivity implements MainActivityLogic.A
     public void onSaveInstanceState(@NonNull Bundle outState) {
 
         super.onSaveInstanceState(outState);
-//        activityLogic.onSaveInstanceState(outState);
+        //        activityLogic.onSaveInstanceState(outState);
         Log.e("smy", "onSaveInstanceState " + outState.toString());
     }
 
@@ -131,21 +133,55 @@ public class  MainActivity extends HiBaseActivity implements MainActivityLogic.A
         Log.e("smy", "onRestoreInstanceState " + savedInstanceState.toString());
     }
 
-
-
     @Nullable
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
+
         return new Object();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         for (Fragment fragment : fragments) {
             //Activity来分发给每个Fragment, 每个Fragment接收到时都需要判断是不是自己的
             fragment.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    /**
+     * 监听音量下键显示debugtools
+     *
+     * @param keyCode
+     * @param event
+     *
+     * @return
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            if (BuildConfig.DEBUG) {
+                //通过反射的形式，不能用引用的方式，因为在正式环境中找不到这个类的
+                try {
+                    Class<?> aClass = Class.forName("com.sum.hi_debugtool.DebugToolDialogFragment");
+                    DialogFragment target = (DialogFragment) aClass.getConstructor().newInstance();
+                    target.show(getSupportFragmentManager(), "debug_tools");
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
