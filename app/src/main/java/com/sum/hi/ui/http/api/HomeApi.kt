@@ -1,8 +1,6 @@
 package com.sum.hi.ui.http.api
 
-import com.sum.hi.hilibrary.annotation.GET
-import com.sum.hi.hilibrary.annotation.HiCall
-import com.sum.hi.hilibrary.annotation.Path
+import com.sum.hi.hilibrary.annotation.*
 import org.devio.`as`.proj.main.model.HomeModel
 import org.devio.`as`.proj.main.model.Subcategory
 import org.devio.`as`.proj.main.model.TabCategory
@@ -15,14 +13,16 @@ import retrofit2.http.Query
  */
 interface HomeApi {
     //首页tab
+    @CacheStrategy(CacheStrategy.CACHE_FIRST)
     @GET("category/categories")
     fun queryTabList(): HiCall<List<TabCategory>>
 
     @GET("home/{categoryId}")
     fun queryTabCategoryList(
+        @CacheStrategy cacheStrategy: Int,
         @Path("categoryId") categoryId: String,
-        @Query("pageIndex") pageIndex: Int,
-        @Query("pageSize") pageSize: Int
+        @Filed("pageIndex") pageIndex: Int,
+        @Filed("pageSize") pageSize: Int
     ): HiCall<HomeModel>
 
 }

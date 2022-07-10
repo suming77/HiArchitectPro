@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.sum.hi.hilibrary.cache.HiCacheManager;
 import com.sum.hi.ui.route.RouterFlag;
 
 /**

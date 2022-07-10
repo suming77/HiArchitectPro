@@ -13,6 +13,7 @@ import com.sum.hi.hilibrary.annotation.HiCallback
 import com.sum.hi.hilibrary.annotation.HiResponse
 import com.sum.hi.hilibrary.util.SpUtils
 import com.sum.hi.ui.R
+import com.sum.hi.ui.biz.account.AccountManager
 import com.sum.hi.ui.http.api.AccountApi
 import com.sum.hi.ui.http.ApiFactory
 import kotlinx.android.synthetic.main.activity_login.*
@@ -55,7 +56,8 @@ class LoginActivity : HiBaseActivity() {
                         val data = response.data
 
                         //UserManager来管理用户信息的读取
-                        SpUtils.putString("boarding-pass", data!!)
+//                        SpUtils.putString("boarding-pass", data!!)
+                        AccountManager.loadingSuccess(data!!)
                         setResult(RESULT_OK, Intent())
                         finish()
                     } else {

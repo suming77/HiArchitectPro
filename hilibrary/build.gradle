@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 //    id 'kotlin-android-extensions'
 }
 
@@ -47,4 +48,7 @@ dependencies {
     api 'com.google.code.gson:gson:2.8.6'
     api 'com.squareup.retrofit2:converter-gson:2.0.2'
     api "com.squareup.retrofit2:adapter-rxjava:2.2.0"
+
+    implementation 'androidx.room:room-runtime:2.2.5'
+    kapt 'androidx.room:room-compiler:2.2.5'
 }

@@ -7,12 +7,13 @@ import retrofit2.http.DELETE
 /**
  * @author smy
  * @date   2022/7/8 17:35
- * @desc Dao date access Object 数据访问对象
+ * @desc 2.Dao date access Object 数据访问对象
  *
  * 这里定义数据操作的方法，增删改查
  *
  * 这里一般定义为interface
  */
+@Dao
 interface CacheDao {
 
     //这里需要自己输入sql语句

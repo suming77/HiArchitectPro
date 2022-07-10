@@ -1,5 +1,7 @@
 package com.sum.hi.ui.model
 
+import java.io.Serializable
+
 /**
  * dataclass 关键字为类生成getset方法，equesal, hsashcode， copy等方法HomeModel.kt
  */
@@ -17,7 +19,7 @@ data class UserProfile(
     val userName: String,
     val avatar: String,
     val bannerNoticeList: List<Notice>
-)
+) : Serializable
 
 /**
  * {
@@ -40,6 +42,6 @@ data class Notice(
     val url: String,
     val cover: String,
     val createTime: String
-)
+) : Serializable
 
-data class CourseNotice(val total: Int, val list: List<Notice>?)
+data class CourseNotice(val total: Int, val list: List<Notice>?) : Serializable

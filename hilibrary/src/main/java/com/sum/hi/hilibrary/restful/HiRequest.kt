@@ -1,7 +1,12 @@
 package com.sum.hi.hilibrary.restful
 
+import android.text.TextUtils
 import androidx.annotation.IntDef
+import com.sum.hi.hilibrary.annotation.CacheStrategy
+import java.lang.Exception
+import java.lang.StringBuilder
 import java.lang.reflect.Type
+import java.net.URLEncoder
 
 /**
  * @Author:   smy
@@ -9,6 +14,9 @@ import java.lang.reflect.Type
  * @Desc:
  */
 class HiRequest {
+    private var cacheStrategyKey: String = ""
+    var cacheStrategy: Int = CacheStrategy.NET_ONLY
+
     //只能填METHOD中则值，而不是随便填
     @METHOD
     var httpMethod: Int = 0
@@ -46,6 +54,36 @@ class HiRequest {
         }
 
         headers!![name] = value
+    }
+
+    fun getCacheKey(): String {
+
+        if (!TextUtils.isEmpty(cacheStrategyKey)) {
+            return cacheStrategyKey
+        }
+        val builder = StringBuilder()
+        val endUrl = endPointUrl()
+        if (endUrl.indexOf("?") > 0 || endUrl.indexOf("&") > 0) {
+            builder.append("&")
+        } else {
+            builder.append("?")
+        }
+
+        if (parameters != null) {
+            for ((key, value) in parameters!!) {
+                try {
+                    val encodeValue = URLEncoder.encode(value, "UTF-8")
+                    builder.append(key).append("=").append(encodeValue).append("&")
+                } catch (e: Exception) {
+                    //ignore
+                }
+            }
+            builder.deleteCharAt(builder.length - 1)
+            cacheStrategyKey = builder.toString()
+        } else {
+            cacheStrategyKey = endUrl
+        }
+        return cacheStrategyKey
     }
 
 

@@ -3,15 +3,16 @@ package com.sum.hi.ui.demo.jetpack.room
 import android.graphics.Bitmap
 import androidx.annotation.NonNull
 import androidx.room.*
+import java.io.Serializable
 
 /**
  * @author smy
  * @date   2022/7/8 16:56
  * @desc
  */
-//定义表，需要添加Entity注解，指定表名，如果不指定表名则默认为类名Cache
+//1.定义数据表，需要添加Entity注解，指定表名，如果不指定表名则默认为类名Cache
 @Entity(tableName = "table_cache")
-class Cache {
+class Cache : Serializable {
     //room数据库，它对一张表是有要求的，必须至少要有一个主键，不能为空，autoGenerate表示cache_key的值是否由数据库自动生成
     //这里因为是String类型，所以需要自己生成
     @PrimaryKey(autoGenerate = false)
@@ -35,7 +36,7 @@ class Cache {
 }
 
 @Entity(tableName = "table_user")
-class User {
+class User : Serializable {
     @PrimaryKey
     @NonNull
     val name: String = ""

@@ -1,13 +1,14 @@
 package org.devio.`as`.proj.main.model
 
 import android.transition.Slide
+import java.io.Serializable
 
 
 data class HomeModel(
     val bannerList: List<HomeBanner>?,
     val subcategoryList: List<Subcategory>?,
     val goodsList: List<GoodsModel>?
-)
+) : Serializable
 
 /**
  * {
@@ -16,7 +17,8 @@ data class HomeModel(
 "goodsCount": "1"
 }
  */
-data class TabCategory(val categoryId: String, val categoryName: String, val goodsCount: String)
+data class TabCategory(val categoryId: String, val categoryName: String, val goodsCount: String) :
+    Serializable
 
 
 /**
@@ -40,7 +42,7 @@ data class HomeBanner(
     val title: String,
     val type: String,
     val url: String
-) {
+) : Serializable {
     companion object {
         const val TYPE_GOODS = "goods"
         const val TYPE_RECOMMEND = "recommend"
@@ -65,7 +67,7 @@ data class Subcategory(
     val subcategoryIcon: String,
     val subcategoryId: String,
     val subcategoryName: String
-)
+) : Serializable
 
 /**
  * "goodsId": "1580374361011",
@@ -107,13 +109,13 @@ data class GoodsModel(
     val sliderImage: String,
     val sliderImages: List<SliderImage>?,
     val tags: String?
-)
+) : Serializable
 
 data class SliderImage(
     val type: Int,
     val url: String
-)
+) : Serializable
 
-data class GoodsList(val total: Int, val list: List<GoodsModel>) {
+data class GoodsList(val total: Int, val list: List<GoodsModel>) : Serializable {
 
 }

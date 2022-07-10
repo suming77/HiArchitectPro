@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sum.hi.hilibrary.annotation.CacheStrategy
 import com.sum.hi.hilibrary.annotation.HiCallback
 import com.sum.hi.hilibrary.annotation.HiResponse
+import com.sum.hi.hilibrary.cache.HiCacheManager
 import com.sum.hi.ui.fragment.HiAbsFragment
 import com.sum.hi.ui.hiitem.HiDataItem
 import com.sum.hi.ui.http.ApiFactory
@@ -39,8 +41,8 @@ class HomeTabFragment : HiAbsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         categoryId = arguments?.getString("categoryId", DEFAULT_TOP_TAB_CRATEGORY_ID)
         super.onViewCreated(view, savedInstanceState)
-        queryTabCategoryList()
-        enableLoadMore { queryTabCategoryList() }
+        queryTabCategoryList(CacheStrategy.CACHE_FIRST)
+        enableLoadMore { queryTabCategoryList(CacheStrategy.NET_ONLY) }
     }
 
     override fun createLayoutManager(): RecyclerView.LayoutManager {
@@ -48,7 +50,7 @@ class HomeTabFragment : HiAbsFragment() {
         return if (isHotTab) super.createLayoutManager() else GridLayoutManager(requireContext(), 2)
     }
 
-    private fun queryTabCategoryList() {
+    private fun queryTabCategoryList(cacheStrategy: Int) {
 //        ApiFactory.create(HomeApi::class.java)
 //            .queryTabCategoryList(categoryId!!, pageIndex = pageIndex, pageSize = 10)
 //            .enqueue(object : HiCallback<HomeModel> {
@@ -69,14 +71,14 @@ class HomeTabFragment : HiAbsFragment() {
         updateUI(null)
     }
 
-    override fun onResume() {
-        super.onResume()
-        queryTabCategoryList()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        queryTabCategoryList(CacheStrategy.NET_CACHE)
+//    }
 
     override fun onRefresh() {
         super.onRefresh()
-        queryTabCategoryList()
+        queryTabCategoryList(CacheStrategy.NET_CACHE)
     }
 
     private fun updateUI(data: HomeModel?) {
@@ -151,5 +153,6 @@ class HomeTabFragment : HiAbsFragment() {
 
         Log.e("smy", "dataItmes == $dataItmes")
         finishRefresh(dataItmes!! as List<HiDataItem<*, RecyclerView.ViewHolder>>)
+        HiCacheManager.saveCacheInfo("SubTabCategory", dataItmes)
     }
 }
