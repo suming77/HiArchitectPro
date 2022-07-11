@@ -14,8 +14,10 @@ import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.common.component.HiBaseFragment
 import com.sum.hi.common.view.loadCorner
@@ -25,6 +27,7 @@ import com.sum.hi.hilibrary.util.HiDisplayUtil
 import com.sum.hi.hiui.banner.HiBannerAdapter
 import com.sum.hi.hiui.banner.core.HiBannerMo
 import com.sum.hi.ui.R
+import com.sum.hi.ui.biz.account.AccountManager
 import com.sum.hi.ui.http.api.AccountApi
 import com.sum.hi.ui.http.ApiFactory
 import com.sum.hi.ui.model.UserProfile
@@ -60,28 +63,40 @@ class ProfileFragment : HiBaseFragment() {
         item_history.append(ITEM_PLACE_HOLDE + getString(R.string.item_history))
 
         user_name.setOnClickListener {
-            ARouter.getInstance().build("/account/login")
-                .navigation(activity, REQUEST_CODE_LOGIN_PROFILE)
+//            ARouter.getInstance().build("/account/login")
+//                .navigation(activity, REQUEST_CODE_LOGIN_PROFILE)
+            AccountManager.login(context, Observer {
+                queryLoginUserInfo()
+            })
         }
 
-        quareLoginUserInfo()
+        queryLoginUserInfo()
+        //模拟数据
+        updateUI()
     }
 
-    private fun quareLoginUserInfo() {
-        ApiFactory.create(AccountApi::class.java).profile()
-            .enqueue(object : HiCallback<UserProfile> {
-                override fun onSuccess(response: HiResponse<UserProfile>) {
-                    val data = response.data
-                    if (response.code == HiResponse.SUCCESS && data != null) {
-                        updateUI()
-                    }
-                }
-
-                override fun onFailed(throwable: Throwable) {
-                    showToast(throwable.message)
-                }
-
-            })
+    private fun queryLoginUserInfo() {
+//        ApiFactory.create(AccountApi::class.java).profile()
+//            .enqueue(object : HiCallback<UserProfile> {
+//                override fun onSuccess(response: HiResponse<UserProfile>) {
+//                    val data = response.data
+//                    if (response.code == HiResponse.SUCCESS && data != null) {
+//                        updateUI()
+//                    }
+//                }
+//
+//                override fun onFailed(throwable: Throwable) {
+//                    showToast(throwable.message)
+//                }
+//
+//            })
+        AccountManager.getUserProfile(lifecycleOwner = this, observer = Observer { profie ->
+            if (profie != null) {
+                updateUI()
+            } else {
+                showToast("用户信息获取失败")
+            }
+        }, onlyCache = false)
     }
 
     private fun updateUI() {
@@ -164,7 +179,7 @@ class ProfileFragment : HiBaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_LOGIN_PROFILE && resultCode == Activity.RESULT_OK && data != null) {
-            quareLoginUserInfo()
+            queryLoginUserInfo()
         }
     }
 }

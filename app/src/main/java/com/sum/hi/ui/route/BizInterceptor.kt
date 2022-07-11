@@ -4,12 +4,13 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Interceptor
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.facade.callback.InterceptorCallback
 import com.alibaba.android.arouter.facade.template.IInterceptor
-import com.alibaba.android.arouter.launcher.ARouter
+import com.sum.hi.hilibrary.util.MainHandler
+import com.sum.hi.ui.biz.account.AccountManager
 import java.lang.RuntimeException
 
 
@@ -39,7 +40,7 @@ class BizInterceptor : IInterceptor {
             //login
             callback?.onInterrupt(RuntimeException("need login"))
             showToast("请先登录")
-            loginIntercept()
+            loginIntercept(postcard, callback)
         }/* else if ((flag and (RouterFlag.FLAG_AUTHENTICATION) != 0)) {
             callback?.onInterrupt(RuntimeException("need authentication"))
 //            authentication()
@@ -47,7 +48,7 @@ class BizInterceptor : IInterceptor {
         } else if ((flag and (RouterFlag.FLAG_VIP) != 0)) {
             callback?.onInterrupt(RuntimeException("need become VIP"))
             showToast("需要成为会员")
-        } */else {
+        } */ else {
             /**
              * 路由继续执行
              */
@@ -59,11 +60,21 @@ class BizInterceptor : IInterceptor {
     /**
      * 转到主线程执行
      */
-    private fun loginIntercept() {
-        Handler(Looper.getMainLooper()).post {
+    private fun loginIntercept(postcard: Postcard, callback: InterceptorCallback?) {
+//        Handler(Looper.getMainLooper()).post {
+//            Toast.makeText(mContext, "请先登录", Toast.LENGTH_SHORT).show()
+//            ARouter.getInstance().build("/account/login")
+//        }
+        MainHandler.post(runnable = Runnable {
             Toast.makeText(mContext, "请先登录", Toast.LENGTH_SHORT).show()
-            ARouter.getInstance().build("/account/login")
-        }
+            if (AccountManager.isLogin()) {
+                callback?.onContinue(postcard)
+            } else {
+                AccountManager.login(mContext, Observer { success ->
+                    callback?.onContinue(postcard)
+                })
+            }
+        })
     }
 
     private fun showToast(message: String) {
