@@ -14,6 +14,7 @@ import com.sum.hi.ui.R
 import com.sum.hi.ui.hiitem.HiDataItem
 import kotlinx.android.synthetic.main.layout_home_goods_list_item1.view.*
 import com.sum.hi.ui.model.GoodsModel
+import com.sum.hi.ui.model.getPrice
 import com.sum.hi.ui.route.HiRouter
 
 /**
@@ -21,33 +22,34 @@ import com.sum.hi.ui.route.HiRouter
  * @创建时间 2022/07/06 00:02
  * @类描述 ${TODO}
  */
-class GoodsItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
+open class GoodsItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
     HiDataItem<GoodsModel, RecyclerView.ViewHolder>(goodsModel) {
     override fun onBindData(holder: RecyclerView.ViewHolder, position: Int) {
         val context = holder.itemView.context
         holder.itemView.item_image.loadUrl(goodsModel.sliderImage)
         holder.itemView.item_title.text = goodsModel.goodsName
-        holder.itemView.item_price.text = goodsModel.marketPrice
+        holder.itemView.item_price.text = getPrice(goodsModel.groupPrice, goodsModel.marketPrice)
         holder.itemView.item_sale_desc.text = goodsModel.completedNumText
 
         val itemLabelContainer = holder.itemView.item_label_container
-        if (!goodsModel.tags.isNullOrEmpty()) {
-            itemLabelContainer.visibility = View.VISIBLE
-            val split = goodsModel.tags.split(" ")
-            for (index in split.indices) {
+        if (itemLabelContainer != null) {
+            if (!goodsModel.tags.isNullOrEmpty()) {
+                itemLabelContainer.visibility = View.VISIBLE
+                val split = goodsModel.tags.split(" ")
+                for (index in split.indices) {
 
-                //这里有个复用的问题
-                val labView = if (index > itemLabelContainer.childCount - 1) {
-                    createLabelView(context, index != 0)
-                } else {
-                    itemLabelContainer.getChildAt(index) as TextView
+                    //这里有个复用的问题
+                    val labView = if (index > itemLabelContainer.childCount - 1) {
+                        createLabelView(context, index != 0)
+                    } else {
+                        itemLabelContainer.getChildAt(index) as TextView
+                    }
+                    labView.text = split[index]
                 }
-                labView.text = split[index]
+            } else {
+                itemLabelContainer.visibility = View.GONE
             }
-        } else {
-            itemLabelContainer.visibility = View.GONE
         }
-
 
         //添加 中间间距， 无法使用position来区分是左边还有右边，
         //根据recyclerview的x值和item的x值比较，相等则是左边不等是右边
@@ -93,6 +95,6 @@ class GoodsItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
     }
 
     override fun getSpanSize(): Int {
-        return if (hotTab)super.getSpanSize() else 1
+        return if (hotTab) super.getSpanSize() else 1
     }
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.sum.hi.hilibrary.HiViewHolder
 import java.lang.RuntimeException
 import java.lang.ref.WeakReference
 import java.lang.reflect.ParameterizedType
@@ -18,7 +19,7 @@ import java.lang.reflect.ParameterizedType
  * @Desc:
  */
 class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val recyclerViewRef: WeakReference<RecyclerView>? = null
+    private var recyclerViewRef: WeakReference<RecyclerView>? = null
     private var mContext: Context
     private var mInflater: LayoutInflater? = null
     private var dataSets = ArrayList<HiDataItem<*, out RecyclerView.ViewHolder>>()
@@ -194,7 +195,8 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         }
         //不能返回null，会报错
-        return object : RecyclerView.ViewHolder(itemView!!) {}
+        return object : HiViewHolder(itemView!!) {}
+//        return object : RecyclerView.ViewHolder(itemView!!) {}
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -206,6 +208,7 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
+        recyclerViewRef = WeakReference(recyclerView)
         val layoutManager = recyclerView.layoutManager
         if (layoutManager is GridLayoutManager) {
             val spanCount = layoutManager.spanCount

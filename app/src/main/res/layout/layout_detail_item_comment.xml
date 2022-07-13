@@ -23,6 +23,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:layout_marginTop="10dp"
         android:background="@color/color_eee" />
 
     <com.google.android.material.chip.ChipGroup
@@ -32,8 +33,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="16dp"
-        app:chipSpacingHorizontal="10dp"
-        app:chipSpacingVertical="10dp"
+        app:chipSpacingHorizontal="6dp"
         app:singleLine="false" />
 
     <LinearLayout

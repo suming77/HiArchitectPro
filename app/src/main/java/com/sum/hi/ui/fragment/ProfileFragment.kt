@@ -28,9 +28,11 @@ import com.sum.hi.hiui.banner.HiBannerAdapter
 import com.sum.hi.hiui.banner.core.HiBannerMo
 import com.sum.hi.ui.R
 import com.sum.hi.ui.biz.account.AccountManager
+import com.sum.hi.ui.home.GoodsDetailActivity
 import com.sum.hi.ui.http.api.AccountApi
 import com.sum.hi.ui.http.ApiFactory
 import com.sum.hi.ui.model.UserProfile
+import com.sum.hi.ui.route.HiRouter
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 /**
@@ -65,9 +67,15 @@ class ProfileFragment : HiBaseFragment() {
         user_name.setOnClickListener {
 //            ARouter.getInstance().build("/account/login")
 //                .navigation(activity, REQUEST_CODE_LOGIN_PROFILE)
-            AccountManager.login(context, Observer {
-                queryLoginUserInfo()
-            })
+//            AccountManager.login(context, Observer {
+//                queryLoginUserInfo()
+//            })
+            val bundle = Bundle()
+//            bundle.putParcelable("goodsModel", goodsModel)
+            val intent = Intent(requireContext(), GoodsDetailActivity::class.java)
+            intent.putExtra("goodsId", "1")
+            startActivity(intent)
+//            HiRouter.startActivity(requireContext(), bundle, HiRouter.Destination.GOODS_DETAIL)
         }
 
         queryLoginUserInfo()

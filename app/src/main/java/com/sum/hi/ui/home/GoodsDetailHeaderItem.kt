@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.text.style.AbsoluteSizeSpan
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.sum.hi.common.view.loadUrl
 import com.sum.hi.hilibrary.HiViewHolder
 import com.sum.hi.hiui.banner.HiBanner

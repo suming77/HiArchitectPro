@@ -123,6 +123,7 @@ open class InputItemLayout : LinearLayout {
             )
 
         editText = EditText(context)
+        editText.setPadding(0,0,0,0)
         var params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
         params.weight = 1f
         editText.layoutParams = params

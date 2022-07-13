@@ -16,7 +16,7 @@ data class DetailModel(
     val completedNumText: String,
     val createTime: String,
     val flowGoods: List<GoodsModel>?,
-    val gallery: List<GoodsModel>?,
+    val gallery:  List<SliderImage>?,
     val goodAttr: List<MutableMap<String, String>>?,
     val goodsDescription: String,
     val goodsId: String,
@@ -44,8 +44,8 @@ data class Shop(
     val name: String
 )
 
-fun getPrice(groupPrice: String?, marketPrice: String): String {
-    var price: String? = if (TextUtils.isEmpty(groupPrice)) marketPrice else groupPrice
+fun getPrice(groupPrice: String?, marketPrice: String?): String {
+    var price: String? = if (TextUtils.isEmpty(marketPrice)) groupPrice else marketPrice
     if (price?.startsWith("¥") != true) {
         price = "¥".plus(price)
     }

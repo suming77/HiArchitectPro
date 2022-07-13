@@ -3,10 +3,12 @@ package com.sum.hi.ui.home
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sum.hi.common.component.HiBaseActivity
@@ -42,9 +44,9 @@ class GoodsDetailActivity : HiBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        HiStatusBar.setStatusBar(this, true, statusBarColor = Color.TRANSPARENT, true)
+        HiStatusBar.setStatusBar(this, true, statusBarColor = Color.TRANSPARENT, translucent = true)
         HiRouter.inject(this)
-        assert(!TextUtils.isEmpty(goodsId)) { "goodsId must not be null" }
+//        assert(!TextUtils.isEmpty(goodsId)) { "goodsId must not be null" }
         setContentView(R.layout.activity_goods_detail)
         initView()
     }
@@ -54,8 +56,9 @@ class GoodsDetailActivity : HiBaseActivity() {
         recycler_view.layoutManager = GridLayoutManager(this, 2)
         recycler_view.adapter = HiAdapter(this)
         preBindData()
-        viewModel = GoodsDetailViewModel.get(goodsId, this)
+        viewModel = GoodsDetailViewModel.get("1", this)
         viewModel.queryGoodsDetail().observe(this, Observer {
+            Log.e("smy", "detailData == $it")
             if (it == null) {
                 showEmptyView()
             } else {
@@ -73,7 +76,7 @@ class GoodsDetailActivity : HiBaseActivity() {
         val hiAdapter = recycler_view.adapter as HiAdapter
         hiAdapter.addItem(0, GoodsDetailHeaderItem(
             goodsModel!!.sliderImages,
-            getPrice(goodsModel!!.groupPrice, goodsModel!!.marketPrice),
+            getPrice(goodsModel!!.groupPrice, goodsModel!!.marketPrice!!),
             goodsModel!!.completedNumText,
             goodsModel!!.goodsName
         ), false)
@@ -99,10 +102,11 @@ class GoodsDetailActivity : HiBaseActivity() {
 
     private fun bindData(detailModel: DetailModel) {
         recycler_view.visibility = View.VISIBLE
-        emptyView!!.visibility = View.GONE
+        emptyView?.visibility = View.GONE
 
-        recycler_view.adapter = HiAdapter(this)
+        val hiAdapter = recycler_view.adapter as HiAdapter
         val dataItems = mutableListOf<HiDataItem<*, *>>()
+        //头部模块
         dataItems.add(
             GoodsDetailHeaderItem(
                 detailModel.sliderImages,
@@ -111,5 +115,17 @@ class GoodsDetailActivity : HiBaseActivity() {
                 detailModel.goodsName
             )
         )
+        //评论模块
+        dataItems.add(CommentItem(model = detailModel))
+
+        //店铺
+        dataItems.add(ShopItem(detailModel))
+        //商品描述
+        dataItems.add(GoodsAttrItem(detailModel))
+        //图库
+        //相似商品
+
+        hiAdapter.clearItems()
+        hiAdapter.addItems(dataItems, true)
     }
 }

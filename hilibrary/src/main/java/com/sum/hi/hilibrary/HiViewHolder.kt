@@ -4,7 +4,7 @@ import android.util.SparseArray
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class HiViewHolder(val view: View) : RecyclerView.ViewHolder(view){
+open class HiViewHolder(val view: View) : RecyclerView.ViewHolder(view){
 //    override val containerView: View?
 //        get() = view
 

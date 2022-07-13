@@ -65,9 +65,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/purple_200"
             android:gravity="center"
             android:text="&#xe60e;\n收藏"
-            android:textColor="@color/color_999"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
         <TextView
@@ -75,10 +76,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/color_f8e"
+            android:background="@color/color_298"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="14sp"
-            tools:text="¥30\n现在购买" />
+            android:text="¥30\n现在购买" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,4 +30,17 @@
     <style name="lineMargin_Appearance" parent="lineAppearance">
         <item name="leftMargin">10dp</item>
     </style>
+
+    <style name="GoodsDetailAttrItemTitleStyle">
+        <item name="titleColor">@color/color_666</item>
+        <item name="textSize">14sp</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="minWidth">160dp</item>
+    </style>
+
+    <style name="GoodsDetailAttrItemHintStyle">
+        <item name="android:textColor">@color/color_666</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>

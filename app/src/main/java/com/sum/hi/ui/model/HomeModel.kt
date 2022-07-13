@@ -107,7 +107,7 @@ data class GoodsModel(
     val groupPrice: String,
     val hot: Boolean,
     val joinedAvatars: List<SliderImage>?,
-    val marketPrice: String,
+    val marketPrice: String?,
     val sliderImage: String,
     val sliderImages: List<SliderImage>?,
     val tags: String?
