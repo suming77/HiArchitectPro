@@ -4,13 +4,17 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.sum.hi.common.R
+import com.sum.hi.hilibrary.util.HiVIewUtil
 
 /**
  * @创建者 mingyan.su
@@ -19,16 +23,37 @@ import com.sum.hi.common.R
  */
 
 fun ImageView.loadUrl(url: String) {
+    if(HiVIewUtil.isActivityDestroy(context)){
+        return
+    }
     Glide.with(this).load(url).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher)
         .into(this)
 }
 
+fun ImageView.loadUrl(url: String, callBack: (Drawable) -> Unit) {
+    if(HiVIewUtil.isActivityDestroy(context)){
+        return
+    }
+    //you cannot load url form destory activity
+    Glide.with(this).load(url).into(object : SimpleTarget<Drawable>() {
+        override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+            callBack(resource)
+        }
+    })
+}
+
 fun ImageView.loadCircle(url: String) {
+    if(HiVIewUtil.isActivityDestroy(context)){
+        return
+    }
     Glide.with(this).load(url).transform(CircleCrop()).into(this)
 }
 
 //巨坑，glide的图片裁剪和IamgeView  scaleType有冲突
 fun ImageView.loadCorner(url: String, corner: Int) {
+    if(HiVIewUtil.isActivityDestroy(context)){
+        return
+    }
     Glide.with(this).load(url).transform(CenterCrop(), RoundedCorners(corner)).into(this)
 //    Glide.with(this).load(url).transform(RoundedCorners(corner)).into(this)
 }

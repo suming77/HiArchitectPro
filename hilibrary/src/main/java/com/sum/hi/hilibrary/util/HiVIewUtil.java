@@ -1,5 +1,11 @@
 package com.sum.hi.hilibrary.util;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,15 +20,18 @@ import java.util.Deque;
  * @类描述 ${TODO}
  */
 public class HiVIewUtil {
+
     /**
      * 获取指定类型的子View
      *
      * @param group viewGroup
      * @param cls   如：RecyclerView.class
      * @param <T>
+     *
      * @return 指定类型的View
      */
     public static <T> T findTypeView(@Nullable ViewGroup group, Class<T> cls) {
+
         if (group == null) {
             return null;
         }
@@ -38,6 +47,32 @@ public class HiVIewUtil {
                     deque.add(container.getChildAt(i));
                 }
             }
+        }
+        return null;
+    }
+
+    public static boolean isActivityDestroy(Context context) {
+
+        Activity activity = findActivity(context);
+        if (activity != null) {
+            if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
+                return activity.isDestroyed() || activity.isFinishing();
+            }
+            return activity.isFinishing();
+        }
+        return true;
+    }
+
+    private static Activity findActivity(Context context) {
+        //怎么判断context是不是Activity
+        if (context instanceof Activity) {//这种方法不够严谨
+            return (Activity) context;
+        }
+
+        //ContextWrapper是context的包装类AppcompatActivity，service,application实际上都是ContextWrapper的子类
+        //AppcompatXXX类的context都会被包装成TintContextWrapper
+        else if (context instanceof ContextWrapper) {
+            return findActivity(((ContextWrapper) context).getBaseContext());
         }
         return null;
     }
