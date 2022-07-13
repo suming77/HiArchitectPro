@@ -14,7 +14,7 @@ import com.sum.hi.common.view.loadUrl
 import com.sum.hi.hilibrary.util.HiDisplayUtil
 import com.sum.hi.ui.R
 import com.sum.hi.ui.hiitem.HiDataItem
-import org.devio.`as`.proj.main.model.Subcategory
+import com.sum.hi.ui.model.Subcategory
 
 /**
  * @创建者 mingyan.su

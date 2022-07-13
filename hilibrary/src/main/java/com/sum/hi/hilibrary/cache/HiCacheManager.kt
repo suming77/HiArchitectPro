@@ -1,5 +1,6 @@
 package com.sum.hi.hilibrary.cache
 
+import com.sum.hi.hilibrary.executor.HiExecutor
 import java.io.*
 import java.lang.Exception
 
@@ -14,11 +15,13 @@ object HiCacheManager {
         val cacheInfo = CacheInfo()
         cacheInfo.key = key
         cacheInfo.data = toByteArray(body)
-        CacheInfoDatabase.get().cacheInfoDao.saveCacheInfo(cacheInfo)
+        HiExecutor.execute(runnable = Runnable {
+            CacheInfoDatabase.get().cacheInfoDao().saveCacheInfo(cacheInfo)
+        })
     }
 
     fun <T> getCacheBody(key: String): T? {
-        val cacheInfo = CacheInfoDatabase.get().cacheInfoDao.getCacheInfo(key)
+        val cacheInfo = CacheInfoDatabase.get().cacheInfoDao().getCacheInfo(key)
         return (if (cacheInfo?.data != null) {
             toObject(cacheInfo.data!!)
         } else null) as? T
@@ -28,7 +31,7 @@ object HiCacheManager {
     fun deleteCacheInfo(key: String) {
         val cacheInfo = CacheInfo()
         cacheInfo.key = key
-        CacheInfoDatabase.get().cacheInfoDao.deleteCacheInfo(cacheInfo)
+        CacheInfoDatabase.get().cacheInfoDao().deleteCacheInfo(cacheInfo)
     }
 
     private fun <T> toByteArray(body: T): ByteArray? {

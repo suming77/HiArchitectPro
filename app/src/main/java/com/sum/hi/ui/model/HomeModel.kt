@@ -1,6 +1,7 @@
-package org.devio.`as`.proj.main.model
+package com.sum.hi.ui.model
 
-import android.transition.Slide
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 
@@ -96,6 +97,7 @@ data class Subcategory(
 "createTime": "2020-01-30 16:52:41",
 "sliderImage": "https://o.devio.org/images/as/goods/images/2018-12-21/5c3672e33377b65d5f1bef488686462b.jpeg"
  */
+@Parcelize
 data class GoodsModel(
     val categoryId: String,
     val completedNumText: String,
@@ -109,12 +111,13 @@ data class GoodsModel(
     val sliderImage: String,
     val sliderImages: List<SliderImage>?,
     val tags: String?
-) : Serializable
+) : Serializable, Parcelable
 
+@Parcelize
 data class SliderImage(
     val type: Int,
     val url: String
-) : Serializable
+) : Serializable, Parcelable
 
 data class GoodsList(val total: Int, val list: List<GoodsModel>) : Serializable {
 

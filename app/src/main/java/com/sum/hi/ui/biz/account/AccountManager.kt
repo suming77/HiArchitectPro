@@ -11,12 +11,10 @@ import com.sum.hi.hilibrary.cache.HiCacheManager
 import com.sum.hi.hilibrary.executor.HiExecutor
 import com.sum.hi.hilibrary.util.AppGlobals
 import com.sum.hi.hilibrary.util.SpUtils
-import com.sum.hi.ui.HiStatusBar
 import com.sum.hi.ui.biz.LoginActivity
 import com.sum.hi.ui.http.ApiFactory
 import com.sum.hi.ui.http.api.AccountApi
 import com.sum.hi.ui.model.UserProfile
-import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 
 /**

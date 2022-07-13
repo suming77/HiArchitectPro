@@ -25,8 +25,12 @@ object HiRouter {
     }
 
 
-    enum class Destination(val path: String) {
-        GOODS_LIST("/goods/list")
+    enum class Destination(val desc: String, val path: String) {
+        GOODS_LIST("商品列表", "/goods/list"),
+        GOODS_DETAIL("商品详情页", "/goods/detail"),
+        ACCOUNT_REGISTRATION("注册", "/account/registration"),
+        ACCOUNT_LOGIN("登录", "/account/login"),
+        DEGRADE_GLOBAL("全局降级页", "/degrade/global")
     }
 
     fun startActivity(

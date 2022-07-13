@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.ui.fragment.HiAbsFragment
-import org.devio.`as`.proj.main.model.GoodsList
-import org.devio.`as`.proj.main.model.GoodsModel
+import com.sum.hi.ui.model.GoodsList
+import com.sum.hi.ui.model.GoodsModel
 
 /**
  * @author tea

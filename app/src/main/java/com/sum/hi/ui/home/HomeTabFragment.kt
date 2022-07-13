@@ -7,17 +7,13 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sum.hi.hilibrary.annotation.CacheStrategy
-import com.sum.hi.hilibrary.annotation.HiCallback
-import com.sum.hi.hilibrary.annotation.HiResponse
 import com.sum.hi.hilibrary.cache.HiCacheManager
 import com.sum.hi.ui.fragment.HiAbsFragment
 import com.sum.hi.ui.hiitem.HiDataItem
-import com.sum.hi.ui.http.ApiFactory
-import com.sum.hi.ui.http.api.HomeApi
-import org.devio.`as`.proj.main.model.GoodsModel
-import org.devio.`as`.proj.main.model.HomeBanner
-import org.devio.`as`.proj.main.model.HomeModel
-import org.devio.`as`.proj.main.model.Subcategory
+import com.sum.hi.ui.model.GoodsModel
+import com.sum.hi.ui.model.HomeBanner
+import com.sum.hi.ui.model.HomeModel
+import com.sum.hi.ui.model.Subcategory
 
 /**
  * @author tea

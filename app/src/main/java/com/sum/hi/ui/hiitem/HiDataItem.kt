@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @CreateDate:     2022/2/13 0:01
  * @Desc:
  */
-abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA) {
+abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA? = null) {
     public lateinit var mAdapter: HiAdapter
     var mData: DATA? = null
 

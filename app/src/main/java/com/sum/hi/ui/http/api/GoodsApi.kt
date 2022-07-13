@@ -1,7 +1,7 @@
 package com.sum.hi.ui.http.api
 
 import com.sum.hi.hilibrary.annotation.*
-import org.devio.`as`.proj.main.model.GoodsList
+import com.sum.hi.ui.model.GoodsList
 
 /**
  * @author tea

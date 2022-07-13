@@ -21,8 +21,8 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
     private val recyclerViewRef: WeakReference<RecyclerView>? = null
     private var mContext: Context
     private var mInflater: LayoutInflater? = null
-    private var dataSets = ArrayList<HiDataItem<*, RecyclerView.ViewHolder>>()
-    private var typeArrays = SparseArray<HiDataItem<*, RecyclerView.ViewHolder>>()//在查询方面效率高
+    private var dataSets = ArrayList<HiDataItem<*, out RecyclerView.ViewHolder>>()
+    private var typeArrays = SparseArray<HiDataItem<*, out RecyclerView.ViewHolder>>()//在查询方面效率高
 
     private var heads = SparseArray<View>()
     private var foots = SparseArray<View>()
@@ -77,7 +77,7 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
         return dataSets.size
     }
 
-    fun addItem(index: Int, item: HiDataItem<*, RecyclerView.ViewHolder>, notify: Boolean) {
+    fun addItem(index: Int, item: HiDataItem<*, out RecyclerView.ViewHolder>, notify: Boolean) {
         if (index > 0) {
             dataSets.add(index, item)
         } else {
@@ -91,7 +91,7 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
         item.setAdapter(this)
     }
 
-    fun addItems(list: List<HiDataItem<*, RecyclerView.ViewHolder>>, notify: Boolean) {
+    fun addItems(list: List<HiDataItem<*, out RecyclerView.ViewHolder>>, notify: Boolean) {
         val start = dataSets.size
         for (item in list) {
             dataSets.add(item)
@@ -103,7 +103,7 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    fun removeItem(index: Int): HiDataItem<*, RecyclerView.ViewHolder>? {
+    fun removeItem(index: Int): HiDataItem<*, out RecyclerView.ViewHolder>? {
         if (index > 0 && index < dataSets.size) {
             val remove = dataSets.removeAt(index)
             notifyItemRemoved(index)
@@ -113,7 +113,7 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    fun removeItem(item: HiDataItem<*, RecyclerView.ViewHolder>?) {
+    fun removeItem(item: HiDataItem<*, out RecyclerView.ViewHolder>?) {
         if (item != null) {
             val index = dataSets.indexOf(item)
             notifyItemRemoved(index)
@@ -171,7 +171,7 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private fun createViewHolderInternal(
-        javaClass: Class<HiDataItem<*, RecyclerView.ViewHolder>>,
+        javaClass: Class<HiDataItem<*, out RecyclerView.ViewHolder>>,
         itemView: View?
     ): RecyclerView.ViewHolder {
         val superclass = javaClass.superclass//超类
@@ -200,7 +200,7 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (isHeaderPosition(position) || isFooterPosition(position)) return
         val itemPosition = position - getHeaderSize()
-        val item = dataSets[itemPosition]
+        val item = getItem(itemPosition)
         item?.onBindData(holder, itemPosition)
     }
 

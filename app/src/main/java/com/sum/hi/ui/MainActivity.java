@@ -49,7 +49,7 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activityLogic = new MainActivityLogic(this, savedInstanceState);
-        HiStatusBar.INSTANCE.setStatusBar(this, true, Color.WHITE, true);
+        HiStatusBar.INSTANCE.setStatusBar(this, true, Color.WHITE, false);
 
 /*        findViewById(R.id.tv_demo).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,10 +10,10 @@ import com.sum.hi.hilibrary.util.AppGlobals
  * @创建时间 2022/07/09 18:06
  * @类描述 ${TODO}
  */
-@Database(entities = [CacheInfo::class], version = 1)
+@Database(entities = [CacheInfo::class], version = 1, exportSchema = false)
 abstract class CacheInfoDatabase : RoomDatabase() {
     //获取操作数据库数据的dao对象
-    abstract var cacheInfoDao: CacheInfoDao
+    abstract fun cacheInfoDao(): CacheInfoDao
 
     companion object {
         private var database: CacheInfoDatabase? = null

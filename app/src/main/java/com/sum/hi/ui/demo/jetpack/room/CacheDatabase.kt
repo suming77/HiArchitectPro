@@ -16,7 +16,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 @Database(entities = [Cache::class, User::class], version = 1, exportSchema = true)
 abstract class CacheDatabase : RoomDatabase() {
     //抽象方法或者抽象类标记
-    abstract val cacheDao: CacheDao
+    abstract fun cacheDao(): CacheDao
 
     //单例
     companion object {

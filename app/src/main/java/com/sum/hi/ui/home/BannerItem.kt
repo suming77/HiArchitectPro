@@ -1,8 +1,6 @@
 package com.sum.hi.ui.home
 
-import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -13,7 +11,7 @@ import com.sum.hi.hiui.banner.HiBanner
 import com.sum.hi.hiui.banner.core.HiBannerMo
 import com.sum.hi.ui.hiitem.HiDataItem
 import com.sum.hi.ui.route.HiRouter
-import org.devio.`as`.proj.main.model.HomeBanner
+import com.sum.hi.ui.model.HomeBanner
 
 /**
  * @创建者 mingyan.su

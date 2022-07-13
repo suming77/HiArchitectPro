@@ -12,17 +12,13 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.sum.hi.common.component.HiBaseFragment
 import com.alibaba.android.arouter.launcher.ARouter
-import com.sum.hi.hilibrary.annotation.HiCallback
-import com.sum.hi.hilibrary.annotation.HiResponse
 import com.sum.hi.hilibrary.cache.HiCacheManager
 import com.sum.hi.hiui.tab.common.IHiTabLayout
 import com.sum.hi.hiui.tab.top.HiTabTopInfo
 import com.sum.hi.ui.R
 import com.sum.hi.ui.home.HomeTabFragment
-import com.sum.hi.ui.http.ApiFactory
-import com.sum.hi.ui.http.api.HomeApi
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.devio.`as`.proj.main.model.TabCategory
+import com.sum.hi.ui.model.TabCategory
 
 /**
  * @创建者 mingyan.su
@@ -124,10 +120,8 @@ class HomeFragment : HiBaseFragment() {
 
                 }
             })
-        }
-
         (viewPager.adapter as HomePagerAdapter).updateTabs(tabCategoryList)
-
+        }
     }
 
     inner class HomePagerAdapter(

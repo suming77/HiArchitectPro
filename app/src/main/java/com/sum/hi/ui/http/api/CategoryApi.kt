@@ -3,8 +3,8 @@ package com.sum.hi.ui.http.api
 import com.sum.hi.hilibrary.annotation.GET
 import com.sum.hi.hilibrary.annotation.HiCall
 import com.sum.hi.hilibrary.annotation.Path
-import org.devio.`as`.proj.main.model.Subcategory
-import org.devio.`as`.proj.main.model.TabCategory
+import com.sum.hi.ui.model.Subcategory
+import com.sum.hi.ui.model.TabCategory
 
 /**
  * @创建者 mingyan.su

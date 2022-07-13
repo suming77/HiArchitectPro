@@ -81,9 +81,9 @@ class Scheduler(
             //方式1：request的URl增加一个参数
             //方式2：CacheStrategy增加一个cacheKey参数
             val cacheKey = newRequest.getCacheKey()
-            val cacheBody = HiCacheManager.getCacheBody<T>(cacheKey)
+//            val cacheBody = HiCacheManager.getCacheBody<T>(cacheKey)
             val cacheResponse = HiResponse<T>()
-            cacheResponse.data = cacheBody
+//            cacheResponse.data = cacheBody
             cacheResponse.code = HiResponse.CACHE_SUCCESS
             cacheResponse.msg = "缓存获取成功"
             return cacheResponse

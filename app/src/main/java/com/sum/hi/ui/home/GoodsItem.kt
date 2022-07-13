@@ -1,6 +1,7 @@
 package com.sum.hi.ui.home
 
 import android.content.Context
+import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
@@ -9,12 +10,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.sum.hi.common.view.loadUrl
 import com.sum.hi.hilibrary.util.HiDisplayUtil
-import com.sum.hi.hiui.refresh.HiScrollUtil
 import com.sum.hi.ui.R
 import com.sum.hi.ui.hiitem.HiDataItem
 import kotlinx.android.synthetic.main.layout_home_goods_list_item1.view.*
-import org.devio.`as`.proj.main.model.GoodsModel
-import org.w3c.dom.Text
+import com.sum.hi.ui.model.GoodsModel
+import com.sum.hi.ui.route.HiRouter
 
 /**
  * @创建者 mingyan.su
@@ -64,6 +64,13 @@ class GoodsItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
                 params.leftMargin = margin
             }
             holder.itemView.layoutParams = params
+        }
+
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("goodsId", goodsModel.goodsId)
+            bundle.putParcelable("goodsModel", goodsModel)
+            HiRouter.startActivity(context, bundle, HiRouter.Destination.GOODS_DETAIL)
         }
     }
 
