@@ -16,7 +16,7 @@ data class DetailModel(
     val completedNumText: String,
     val createTime: String,
     val flowGoods: List<GoodsModel>?,
-    val gallery:  List<SliderImage>?,
+    val gallery: List<SliderImage>?,
     val goodAttr: List<MutableMap<String, String>>?,
     val goodsDescription: String,
     val goodsId: String,
@@ -28,7 +28,8 @@ data class DetailModel(
     val shop: Shop,
     val sliderImage: String,
     val sliderImages: List<SliderImage>?,
-    val tags: String?
+    val tags: String?,
+    val isFavorite: Boolean
 )
 
 data class CommentModel(
@@ -50,5 +51,6 @@ fun getPrice(groupPrice: String?, marketPrice: String?): String {
         price = "¥".plus(price)
     }
     return price
-
 }
+
+data class Favorite(val goodsId: String, var isFavorite: Boolean)

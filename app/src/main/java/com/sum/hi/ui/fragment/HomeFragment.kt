@@ -102,7 +102,7 @@ class HomeFragment : HiBaseFragment() {
 
         topTabLayout.addTabSelectedChangeListener(onTabSelectListener)
 
-        if (viewPager.adapter != null) {
+        if (viewPager.adapter == null) {
             viewPager.adapter = HomePagerAdapter(
                 childFragmentManager,
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
@@ -117,11 +117,10 @@ class HomeFragment : HiBaseFragment() {
                         topTabLayout.defaultSelected(topTabs[position])
                         topTabSelectIndex = position
                     }
-
                 }
             })
-        (viewPager.adapter as HomePagerAdapter).updateTabs(tabCategoryList)
         }
+        (viewPager.adapter as HomePagerAdapter).updateTabs(tabCategoryList)
     }
 
     inner class HomePagerAdapter(

@@ -39,6 +39,7 @@ class HomeTabFragment : HiAbsFragment() {
         super.onViewCreated(view, savedInstanceState)
         queryTabCategoryList(CacheStrategy.CACHE_FIRST)
         enableLoadMore { queryTabCategoryList(CacheStrategy.NET_ONLY) }
+
     }
 
     override fun createLayoutManager(): RecyclerView.LayoutManager {

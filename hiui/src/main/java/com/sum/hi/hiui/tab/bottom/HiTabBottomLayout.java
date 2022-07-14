@@ -2,7 +2,6 @@ package com.sum.hi.hiui.tab.bottom;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,9 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sum.hi.hilibrary.util.AppGlobals;
 import com.sum.hi.hilibrary.util.HiDisplayUtil;
-import com.sum.hi.hilibrary.util.HiVIewUtil;
+import com.sum.hi.hilibrary.util.HiViewUtil;
 import com.sum.hi.hiui.R;
 import com.sum.hi.hiui.tab.common.IHiTabLayout;
 
@@ -171,12 +169,12 @@ public class HiTabBottomLayout extends FrameLayout implements IHiTabLayout<HiTab
         }
 
         ViewGroup rootView = (ViewGroup) getChildAt(0);
-        ViewGroup targetView = HiVIewUtil.findTypeView(rootView, RecyclerView.class);
+        ViewGroup targetView = HiViewUtil.findTypeView(rootView, RecyclerView.class);
         if (targetView == null) {
-            targetView = HiVIewUtil.findTypeView(rootView, ScrollView.class);
+            targetView = HiViewUtil.findTypeView(rootView, ScrollView.class);
         }
         if (targetView == null) {
-            targetView = HiVIewUtil.findTypeView(rootView, AbsListView.class);
+            targetView = HiViewUtil.findTypeView(rootView, AbsListView.class);
         }
 
         if (targetView != null) {

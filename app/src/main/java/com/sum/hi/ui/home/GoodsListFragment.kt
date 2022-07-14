@@ -18,11 +18,11 @@ import com.sum.hi.ui.model.GoodsModel
 class GoodsListFragment : HiAbsFragment() {
     @JvmField
     @Autowired
-    val subCategoryId: String = ""
+    var subCategoryId: String = ""
 
     @JvmField
     @Autowired
-    val categoryId: String = ""
+    var categoryId: String = ""
 
     companion object {
         fun newInstance(categoryId: String, subCategoryId: String): GoodsListFragment {

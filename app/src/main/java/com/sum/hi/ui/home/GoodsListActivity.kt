@@ -17,15 +17,15 @@ import kotlinx.android.synthetic.main.actiivty_goods_list.*
 class GoodsListActivity : AppCompatActivity() {
     @JvmField
     @Autowired
-    val categoryTitle: String? = null
+    var categoryTitle: String? = null
 
     @JvmField
     @Autowired
-    val subCategoryId: String = ""
+    var subCategoryId: String = ""
 
     @JvmField
     @Autowired
-    val categoryId: String = ""
+    var categoryId: String = ""
     private val FRAGMENT_TAG = "GOODS_LIST_FRAGMENT"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

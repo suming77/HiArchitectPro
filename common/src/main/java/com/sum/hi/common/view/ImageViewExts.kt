@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.sum.hi.common.R
-import com.sum.hi.hilibrary.util.HiVIewUtil
+import com.sum.hi.hilibrary.util.HiViewUtil
 
 /**
  * @创建者 mingyan.su
@@ -23,7 +23,7 @@ import com.sum.hi.hilibrary.util.HiVIewUtil
  */
 
 fun ImageView.loadUrl(url: String) {
-    if(HiVIewUtil.isActivityDestroy(context)){
+    if (HiViewUtil.isActivityDestroy(context)) {
         return
     }
     Glide.with(this).load(url).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher)
@@ -31,11 +31,12 @@ fun ImageView.loadUrl(url: String) {
 }
 
 fun ImageView.loadUrl(url: String, callBack: (Drawable) -> Unit) {
-    if(HiVIewUtil.isActivityDestroy(context)){
+    if (HiViewUtil.isActivityDestroy(context)) {
         return
     }
-    //you cannot load url form destory activity
-    Glide.with(this).load(url).into(object : SimpleTarget<Drawable>() {
+    //you cannot load url form destroy activity
+    Glide.with(this).load(url).placeholder(R.mipmap.ic_launcher_round)
+        .error(R.mipmap.ic_launcher_round).into(object : SimpleTarget<Drawable>() {
         override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
             callBack(resource)
         }
@@ -43,7 +44,7 @@ fun ImageView.loadUrl(url: String, callBack: (Drawable) -> Unit) {
 }
 
 fun ImageView.loadCircle(url: String) {
-    if(HiVIewUtil.isActivityDestroy(context)){
+    if (HiViewUtil.isActivityDestroy(context)) {
         return
     }
     Glide.with(this).load(url).transform(CircleCrop()).into(this)
@@ -51,7 +52,7 @@ fun ImageView.loadCircle(url: String) {
 
 //巨坑，glide的图片裁剪和IamgeView  scaleType有冲突
 fun ImageView.loadCorner(url: String, corner: Int) {
-    if(HiVIewUtil.isActivityDestroy(context)){
+    if (HiViewUtil.isActivityDestroy(context)) {
         return
     }
     Glide.with(this).load(url).transform(CenterCrop(), RoundedCorners(corner)).into(this)

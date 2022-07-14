@@ -1,6 +1,7 @@
 package com.sum.hi.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.common.view.loadUrl
 import com.sum.hi.hilibrary.util.HiDisplayUtil
 import com.sum.hi.ui.R
@@ -73,6 +75,10 @@ open class GoodsItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
             bundle.putString("goodsId", goodsModel.goodsId)
             bundle.putParcelable("goodsModel", goodsModel)
             HiRouter.startActivity(context, bundle, HiRouter.Destination.GOODS_DETAIL)
+//ARouter.getInstance().build("/goods/detail").navigation()
+//            val intent = Intent(requireContext(), GoodsDetailActivity::class.java)
+//            intent.putExtra("goodsId", "1")
+//            startActivity(intent)
         }
     }
 

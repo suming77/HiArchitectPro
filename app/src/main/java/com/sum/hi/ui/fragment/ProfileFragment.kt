@@ -65,17 +65,11 @@ class ProfileFragment : HiBaseFragment() {
         item_history.append(ITEM_PLACE_HOLDE + getString(R.string.item_history))
 
         user_name.setOnClickListener {
-//            ARouter.getInstance().build("/account/login")
-//                .navigation(activity, REQUEST_CODE_LOGIN_PROFILE)
-//            AccountManager.login(context, Observer {
-//                queryLoginUserInfo()
-//            })
-            val bundle = Bundle()
-//            bundle.putParcelable("goodsModel", goodsModel)
-            val intent = Intent(requireContext(), GoodsDetailActivity::class.java)
-            intent.putExtra("goodsId", "1")
-            startActivity(intent)
-//            HiRouter.startActivity(requireContext(), bundle, HiRouter.Destination.GOODS_DETAIL)
+            ARouter.getInstance().build("/account/login")
+                .navigation(activity, REQUEST_CODE_LOGIN_PROFILE)
+            AccountManager.login(context, Observer {
+                queryLoginUserInfo()
+            })
         }
 
         queryLoginUserInfo()

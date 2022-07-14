@@ -19,7 +19,7 @@ import java.util.Deque;
  * @创建时间 2021/12/03 00:48
  * @类描述 ${TODO}
  */
-public class HiVIewUtil {
+public class HiViewUtil {
 
     /**
      * 获取指定类型的子View

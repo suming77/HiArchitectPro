@@ -82,6 +82,8 @@ class GoodsDetailViewModel(val goodsId: String?) : ViewModel() {
                 "https://pics5.baidu.com/feed/00e93901213fb80e18f91c3e0ebdb42bb83894a4.jpeg?token=a36c485d8022cf38914f9dff1957c73d&s=50342C764552E3CC1E403C640200F07A"
             val head4 =
                 "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2F80%2Fv2-c348c322c87c8cd7220297a14f3e39f3_720w.jpg%3Fsource%3D1940ef5c&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1660275495&t=a832484cc0028f1455030c54733c9592"
+            val sliderImage3 = SliderImage(3, head4)
+            sliderImages.add(sliderImage3)
             val commentModel1 = CommentModel(head1, "衣服颜色很好，穿起来很舒服，喜欢的亲赶紧下单，准备回购", "Sandm 旧颜")
             val commentModel2 = CommentModel(head2, "衣服颜色很好，穿起来很舒服，喜欢的亲赶紧下单，准备回购", "Sandm 旧颜")
             val commentModel3 = CommentModel(head3, "衣服颜色很好，穿起来很舒服，喜欢的亲赶紧下单，准备回购", "Sandm 旧颜")
@@ -142,11 +144,31 @@ class GoodsDetailViewModel(val goodsId: String?) : ViewModel() {
                 shop,
                 "",
                 sliderImages,
-                "退货包运费 极速退款 全场包邮 极速退货 商品很好 物流很快 物美价廉 包装很精致 颜色很好"
+                "退货包运费 极速退款 全场包邮 极速退货 商品很好 物流很快 物美价廉 包装很精致 颜色很好",
+                true
             )
             pageData.postValue(detailModel)
         }
         return pageData
+    }
+
+    fun toggleFavorite(): LiveData<Boolean?> {
+        val toggleFavoriteLiveData = MediatorLiveData<Boolean?>()
+        goodsId?.let {
+            ApiFactory.create(GoodsDetailApi::class.java).favorite("1")
+                .enqueue(object : HiCallback<Favorite> {
+                    override fun onSuccess(response: HiResponse<Favorite>) {
+                        toggleFavoriteLiveData.postValue(response.data?.isFavorite)
+                    }
+
+                    override fun onFailed(throwable: Throwable) {
+                        toggleFavoriteLiveData.postValue(null)
+                    }
+
+                })
+        }
+
+        return toggleFavoriteLiveData
     }
 
 }

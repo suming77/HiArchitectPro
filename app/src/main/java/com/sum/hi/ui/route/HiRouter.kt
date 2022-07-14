@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.hilibrary.util.AppGlobals
 
@@ -41,6 +42,7 @@ object HiRouter {
     ) {
         //这里不能用destination.name，否则是获取的值GOODS_LIST而不是"goods_list"
         val postcard = ARouter.getInstance().build(destination.path).with(bundle)
+        Log.e("smy", "destination.path == ${destination.path}")
         if (requestCode != -1 || context !is Activity) {
             postcard.navigation(context)
         } else {

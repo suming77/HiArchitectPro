@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,8 @@ import com.sum.hi.common.component.HiBaseActivity
 import com.sum.hi.common.view.EmptyView
 import com.sum.hi.ui.HiStatusBar
 import com.sum.hi.ui.R
+import com.sum.hi.ui.TitleScrollListener
+import com.sum.hi.ui.biz.account.AccountManager
 import com.sum.hi.ui.hiitem.HiAdapter
 import com.sum.hi.ui.hiitem.HiDataItem
 import com.sum.hi.ui.model.DetailModel
@@ -55,6 +58,9 @@ class GoodsDetailActivity : HiBaseActivity() {
         action_back.setOnClickListener { onBackPressed() }
         recycler_view.layoutManager = GridLayoutManager(this, 2)
         recycler_view.adapter = HiAdapter(this)
+        recycler_view.addOnScrollListener(TitleScrollListener(callback = {
+            title_bar.setBackgroundColor(it)
+        }))
         preBindData()
         viewModel = GoodsDetailViewModel.get("1", this)
         viewModel.queryGoodsDetail().observe(this, Observer {
@@ -74,12 +80,14 @@ class GoodsDetailActivity : HiBaseActivity() {
 
         //notify为false，不能刷新，因为布局尚未完成，否则会报错
         val hiAdapter = recycler_view.adapter as HiAdapter
-        hiAdapter.addItem(0, GoodsDetailHeaderItem(
-            goodsModel!!.sliderImages,
-            getPrice(goodsModel!!.groupPrice, goodsModel!!.marketPrice!!),
-            goodsModel!!.completedNumText,
-            goodsModel!!.goodsName
-        ), false)
+        hiAdapter.addItem(
+            0, GoodsDetailHeaderItem(
+                goodsModel!!.sliderImages,
+                getPrice(goodsModel!!.groupPrice, goodsModel!!.marketPrice!!),
+                goodsModel!!.completedNumText,
+                goodsModel!!.goodsName
+            ), false
+        )
     }
 
     private fun showEmptyView() {
@@ -123,9 +131,59 @@ class GoodsDetailActivity : HiBaseActivity() {
         //商品描述
         dataItems.add(GoodsAttrItem(detailModel))
         //图库
+        detailModel.gallery?.forEach {
+            dataItems.add(GoodsGalleryItem(it))
+        }
         //相似商品
-
+        detailModel.similarGoods?.let {
+            dataItems.add(GoodsSimilarTitleItem())
+            it.forEach {
+                dataItems.add(GoodsItem(it, false))
+            }
+        }
         hiAdapter.clearItems()
         hiAdapter.addItems(dataItems, true)
+
+        updateFavoriteActionFace(detailModel.isFavorite)
+        updateOrderAction(detailModel)
+    }
+
+    private fun updateOrderAction(detailModel: DetailModel) {
+        action_order.text = getPrice(detailModel.groupPrice, detailModel.marketPrice) + "\n立即购买"
+    }
+
+    private fun updateFavoriteActionFace(favorite: Boolean) {
+        action_favorite.setOnClickListener {
+            toggleFavorite()
+        }
+        action_favorite.setTextColor(
+            ContextCompat.getColor(
+                this,
+                if (favorite) R.color.color_dd2 else R.color.color_999
+            )
+        )
+    }
+
+    private fun toggleFavorite() {
+        if (!AccountManager.isLogin()) {
+            AccountManager.login(this, Observer { loginSuccess ->
+                if (loginSuccess) {
+                    toggleFavorite()
+                }
+            })
+        } else {
+            action_favorite.isClickable = false
+            viewModel.toggleFavorite().observe(this, Observer { success ->
+                action_favorite.isClickable = true
+                if (success != null) {//网络成功
+                    updateFavoriteActionFace(success)
+                    val message = if (success) "收藏成功" else "取消收藏"
+                    showToast(message)
+                } else {//网络失败
+
+                }
+            })
+        }
+
     }
 }

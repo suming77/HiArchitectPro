@@ -24,6 +24,7 @@ class GoodsGalleryItem(val sliderImage: SliderImage) : HiDataItem<SliderImage, H
         val imageView = holder.itemView as ImageView
         if (!sliderImage.url.isNullOrEmpty()) {
 
+            //需要添加展位图
             //需要拿到图片加载后的回调
             //根据图片宽高的值，计算imageView的高度值
             imageView.loadUrl(sliderImage.url) {
@@ -34,7 +35,7 @@ class GoodsGalleryItem(val sliderImage: SliderImage) : HiDataItem<SliderImage, H
                     RecyclerView.LayoutParams.WRAP_CONTENT
                 )
                 params.width = parentWidth
-                params.height = (drawableHeight / drawableWidth * 1.0f / parentWidth).toInt()
+                params.height = (drawableHeight / (drawableWidth * 1.0f / parentWidth)).toInt()
                 imageView.layoutParams = params
                 ViewCompat.setBackground(imageView, it)
             }
@@ -49,11 +50,11 @@ class GoodsGalleryItem(val sliderImage: SliderImage) : HiDataItem<SliderImage, H
     }
 
     /**
-     * 当getItemView添加到列表中的时候，给IamgeView预设宽高值
+     * 当getItemView添加到列表中的时候，给ImageView预设宽高值
      */
     override fun onViewAttachedToWindow(holder: HiViewHolder) {
         super.onViewAttachedToWindow(holder)
-        //提前给ImageView预设一个宽高值
+        //提前给ImageView预设一个宽高值,实际还需要根据图片宽高来设置，能满足大部分需求
         parentWidth = (holder.itemView.parent as ViewGroup).measuredWidth
         val layoutParams = holder.itemView.layoutParams
         if (holder.itemView.width == parentWidth) {

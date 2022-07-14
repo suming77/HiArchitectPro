@@ -70,7 +70,7 @@ dependencies {
 
     //arouter路由
     implementation 'com.alibaba:arouter-api:1.5.0'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'

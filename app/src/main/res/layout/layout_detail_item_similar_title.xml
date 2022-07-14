@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sum.hi.common.view.IconFontTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    android:gravity="center"
+    android:text="&#xe6d1;相似商品"
+    android:textColor="@color/color_dd2"
+    android:textSize="@dimen/sp16"
+    android:textStyle="bold">
+
+</com.sum.hi.common.view.IconFontTextView>
