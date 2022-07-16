@@ -1,14 +1,21 @@
 package com.sum.hi.ui;
 
+import android.Manifest;
+import android.Manifest.permission;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -24,12 +31,16 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.sum.hi.common.component.HiBaseActivity;
 import com.sum.hi.hilibrary.User;
 import com.sum.hi.ui.biz.LoginActivity;
+import com.sum.hi.ui.demo.handler.HotFix;
+import com.sum.hi.ui.demo.handler.HotFixTest;
 import com.sum.hi.ui.demo.thread.ThreadDemoActivity;
 import com.sum.hi.ui.logic.MainActivityLogic;
 import com.sum.hi.ui.tab.ActivityManager;
 import com.sum.hi.ui.tab.ActivityManager.FrontBackCallback;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,6 +106,48 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
         //        recyclerView.setLayoutManager();
 
         //        ThreadDemoActivity.testLooperThread();
+        findViewById(R.id.tv_test).setOnClickListener(v -> {
+            test();
+        });
+        findViewById(R.id.tv_fix).setOnClickListener(v -> {
+            fixBug();
+        });
+    }
+
+    public void test() {
+
+        Toast.makeText(this, new HotFixTest().test(), Toast.LENGTH_LONG).show();
+    }
+
+    public void fixBug() {
+
+        String readExternalStorage = permission.READ_EXTERNAL_STORAGE;
+        if (ActivityCompat.checkSelfPermission(this, readExternalStorage) == PackageManager.PERMISSION_GRANTED) {
+            fix();
+        } else {
+            String[] strings = new String[]{readExternalStorage};
+            ActivityCompat.requestPermissions(this, strings, 1000);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            fix();
+        }
+    }
+
+    private void fix() {
+
+        try {
+            HotFix.fix(this, new File(Environment.getExternalStorageDirectory(), "patch.dex"));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     public class MyFragmentAdapter extends FragmentStateAdapter {

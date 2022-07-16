@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sum.hi.hiui.tab.bottom.HiTabBottomLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout     xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<com.sum.hi.hiui.tab.bottom.HiTabBottomLayout
     android:id="@+id/tab_bottom_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,17 +13,29 @@
         android:id="@+id/fragment_tab_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-<!--    <TextView
-        android:id="@+id/tv_demo"
+
+</com.sum.hi.hiui.tab.bottom.HiTabBottomLayout>
+    <TextView
+        android:id="@+id/tv_fix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/purple_700"
         android:padding="20dp"
+        android:text="fixbug"
+        android:textColor="@color/white" />
+    <TextView
+        android:id="@+id/tv_test"
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@color/purple_700"
+        android:padding="20dp"
         android:text="测试demo"
-        android:textColor="@color/white" />-->
+        android:textColor="@color/white" />
 
 
-</com.sum.hi.hiui.tab.bottom.HiTabBottomLayout>
+</RelativeLayout>
 <!--
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -50,7 +50,7 @@ fun ImageView.loadCircle(url: String) {
     Glide.with(this).load(url).transform(CircleCrop()).into(this)
 }
 
-//巨坑，glide的图片裁剪和IamgeView  scaleType有冲突
+//巨坑，glide的图片裁剪和ImageView  scaleType有冲突
 fun ImageView.loadCorner(url: String, corner: Int) {
     if (HiViewUtil.isActivityDestroy(context)) {
         return
