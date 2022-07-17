@@ -3,6 +3,8 @@
     package="com.sum.hi.ui">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <!--//android:usesCleartextTraffic="true" 允许明文传输 高版本上面已经禁止http图片加载 为了能让http能加载出来-->
     <application

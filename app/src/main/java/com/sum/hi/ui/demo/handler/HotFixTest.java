@@ -9,6 +9,6 @@ public class HotFixTest {
 
     public String test() {
 
-        return "f'i'x";
+        return "fix";
     }
 }

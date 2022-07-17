@@ -17,6 +17,11 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        //x86主要是方便在模拟器上运行，armeabi-v7a是能够兼容其他CPU架构的
+        //如果不配置则会把所有平台的动态库都会打到我们的apk里面，会显的非常大
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {

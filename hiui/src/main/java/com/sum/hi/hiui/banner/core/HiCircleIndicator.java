@@ -105,7 +105,7 @@ public class HiCircleIndicator extends FrameLayout implements HiIndicator<FrameL
         ViewGroup viewGroup = (ViewGroup) getChildAt(0);
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             ImageView imageView = (ImageView) viewGroup.getChildAt(i);
-                Log.e("smy", "is == "+ (i == current));
+//                Log.e("smy", "is == "+ (i == current));
             if (i == current) {
                 imageView.setImageResource(mPointSelected);
             } else {

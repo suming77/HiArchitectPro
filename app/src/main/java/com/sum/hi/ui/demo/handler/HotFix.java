@@ -2,7 +2,6 @@ package com.sum.hi.ui.demo.handler;
 
 import android.content.Context;
 
-import com.sum.hi.hilibrary.annotation.Filed;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
