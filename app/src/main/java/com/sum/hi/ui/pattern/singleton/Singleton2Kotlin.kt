@@ -1,4 +1,4 @@
-package com.sum.hi.ui.pattern
+package com.sum.hi.ui.pattern.singleton
 
 /**
  * @创建者 mingyan.su
@@ -34,6 +34,5 @@ class Singleton2Kotlin private constructor() {
     /**
      * lazy有两个参数：fun <T> lazy(lock: Any?, initializer: () -> T)
      * lock:线程模式， LazyThreadSafetyMode.SYNCHRONIZED线程安全模式，在SynchronizedLazyImpl中实现了
-     *
      */
 }

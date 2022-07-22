@@ -71,6 +71,9 @@ class ProfileFragment : HiBaseFragment() {
                 queryLoginUserInfo()
             })
         }
+        ll_notice.setOnClickListener {
+            ARouter.getInstance().build("/notice/list").navigation()
+        }
 
         queryLoginUserInfo()
         //模拟数据

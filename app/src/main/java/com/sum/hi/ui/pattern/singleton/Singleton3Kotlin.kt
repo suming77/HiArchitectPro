@@ -1,4 +1,4 @@
-package com.sum.hi.ui.pattern
+package com.sum.hi.ui.pattern.singleton
 
 /**
  * @创建者 mingyan.su
