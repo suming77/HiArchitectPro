@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -37,10 +38,10 @@ fun ImageView.loadUrl(url: String, callBack: (Drawable) -> Unit) {
     //you cannot load url form destroy activity
     Glide.with(this).load(url).placeholder(R.mipmap.ic_launcher_round)
         .error(R.mipmap.ic_launcher_round).into(object : SimpleTarget<Drawable>() {
-        override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-            callBack(resource)
-        }
-    })
+            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                callBack(resource)
+            }
+        })
 }
 
 fun ImageView.loadCircle(url: String) {
@@ -51,12 +52,17 @@ fun ImageView.loadCircle(url: String) {
 }
 
 //巨坑，glide的图片裁剪和ImageView  scaleType有冲突
+@BindingAdapter(value = ["url", "corner"], requireAll = false)
 fun ImageView.loadCorner(url: String, corner: Int) {
     if (HiViewUtil.isActivityDestroy(context)) {
         return
     }
-    Glide.with(this).load(url).transform(CenterCrop(), RoundedCorners(corner)).into(this)
-//    Glide.with(this).load(url).transform(RoundedCorners(corner)).into(this)
+
+    val transform = Glide.with(this).load(url).transform(CenterCrop())
+    if (corner > 0) {
+        RoundedCorners(corner)
+    }
+    transform.into(this)
 }
 
 fun ImageView.loadCircleBorder(

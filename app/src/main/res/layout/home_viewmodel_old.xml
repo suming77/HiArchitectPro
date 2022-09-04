@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.sum.hi.ui.demo.framework.mvvm.HomeViewModelOld" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--@单向绑定-->
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.userField.name}" />
+        <!--@=双向绑定-->
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@={viewModel.userField.name}" />
+
+        <!--在布局文件中如下使用，便能实现图片圆角和资源URL绑定功能-->
+        <com.sum.hi.ui.demo.jetpack.databinding.HiImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:image_url="@{viewModel.userField.name}"
+            app:radius="@{50}" />
+    </LinearLayout>
+</layout>

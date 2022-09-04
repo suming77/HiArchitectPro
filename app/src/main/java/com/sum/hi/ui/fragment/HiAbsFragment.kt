@@ -74,7 +74,7 @@ open class HiAbsFragment : HiBaseFragment(), HiRefresh.HiRefreshListener {
         contentLoading?.visibility = View.VISIBLE
     }
 
-    fun finishRefresh(dataItem: List<HiDataItem<*, RecyclerView.ViewHolder>>?) {
+    fun finishRefresh(dataItem: List<HiDataItem<*, out RecyclerView.ViewHolder>>?) {
         val success = !dataItem.isNullOrEmpty()
         val refresh = pageIndex == 1
         if (refresh) {

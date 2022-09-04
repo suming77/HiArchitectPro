@@ -39,6 +39,8 @@
         <attr name="enable" format="boolean" />
     </declare-styleable>
     
+    <attr name="navigationStyle" format="reference"/>
+
     <declare-styleable name="HiNavigationBar">
         //按钮的大小颜色，使用iconfont
         <attr name="text_btn_text_size" format="dimension"/>

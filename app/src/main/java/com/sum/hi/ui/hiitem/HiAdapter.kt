@@ -2,6 +2,7 @@ package com.sum.hi.ui.hiitem
 
 import android.content.Context
 import android.util.SparseArray
+import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,9 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
     private var mContext: Context
     private var mInflater: LayoutInflater? = null
     private var dataSets = ArrayList<HiDataItem<*, out RecyclerView.ViewHolder>>()
-    private var typeArrays = SparseArray<HiDataItem<*, out RecyclerView.ViewHolder>>()//在查询方面效率高
+
+    //    private var typeArrays = SparseArray<HiDataItem<*, out RecyclerView.ViewHolder>>()//在查询方面效率高
+    private var typePosition = SparseIntArray()
 
     private var heads = SparseArray<View>()
     private var foots = SparseArray<View>()
@@ -136,9 +139,10 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
         val item = dataSets[itemPosition]
         val type = item.javaClass.hashCode()
         //如果还没有这种类型的viewType则添加
-        if (typeArrays.indexOfKey(type) < 0) {
-            typeArrays.put(type, item)
-        }
+//        if (typeArrays.indexOfKey(type) < 0) {
+//            typeArrays.put(type, item)
+//        }
+        typePosition.put(type, position)
         return type
     }
 
@@ -159,8 +163,12 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
             val view = foots[viewType]
             return object : RecyclerView.ViewHolder(view) {}
         }
-        val dataItem = typeArrays.get(viewType)
-        var itemView:View? = dataItem.getItemView(parent)
+        val position = typePosition.get(viewType)
+//        val dataItem = typeArrays.get(viewType)
+        val dataItem = dataSets.get(position)
+        val vh = dataItem.onCreateViewHolder(parent)
+        if (vh != null) return vh
+        var itemView: View? = dataItem.getItemView(parent)
         if (itemView == null) {
             val itemLayoutRes = dataItem.getItemLayoutRes()
             if (itemLayoutRes < 0) {
@@ -220,7 +228,7 @@ class HiAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder
                     val itemPosition = position - getHeaderSize()
                     if (itemPosition < dataSets.size) {
                         val hiDataItem = getItem(itemPosition)
-                        if (hiDataItem!=null){
+                        if (hiDataItem != null) {
                             val spanSize = hiDataItem.getSpanSize()
                             return if (spanSize <= 0) spanCount else spanSize
                         }

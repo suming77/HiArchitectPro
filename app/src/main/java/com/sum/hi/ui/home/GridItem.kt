@@ -11,8 +11,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sum.hi.common.view.loadUrl
+import com.sum.hi.hilibrary.HiViewHolder
 import com.sum.hi.hilibrary.util.HiDisplayUtil
 import com.sum.hi.ui.R
+import com.sum.hi.ui.databinding.LayoutHomeOpGridItemBinding
 import com.sum.hi.ui.hiitem.HiDataItem
 import com.sum.hi.ui.model.Subcategory
 
@@ -44,23 +46,29 @@ class GridItem(val list: List<Subcategory>) :
     }
 
     inner class GridAdapter(val context: Context, val list: List<Subcategory>) :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        RecyclerView.Adapter<GridAdapter.GridItemViewHolder>() {
         private var layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val view = layoutInflater.inflate(R.layout.layout_home_op_grid_item, parent, false)
-            return object : RecyclerView.ViewHolder(view) {}
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GridItemViewHolder {
+//            val view = layoutInflater.inflate(R.layout.layout_home_op_grid_item, parent, false)
+            val binding = LayoutHomeOpGridItemBinding.inflate(layoutInflater, parent, false)
+            return GridItemViewHolder(binding.root, binding)
         }
 
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: GridItemViewHolder, position: Int) {
             val subcategory = list[position]
-            holder.itemView.findViewById<ImageView>(R.id.item_image)
-                .loadUrl(subcategory.subcategoryIcon)
-            holder.itemView.findViewById<TextView>(R.id.item_title).text =
-                subcategory.subcategoryName
+            holder.binding.subCategory = subcategory
+//            holder.itemView.findViewById<ImageView>(R.id.item_image)
+//                .loadUrl(subcategory.subcategoryIcon)
+//            holder.itemView.findViewById<TextView>(R.id.item_title).text =
+//                subcategory.subcategoryName
             holder.itemView.setOnClickListener {
                 Toast.makeText(context, "you touch me:" + position, Toast.LENGTH_SHORT).show()
             }
+        }
+
+        inner class GridItemViewHolder(view:View, val binding: LayoutHomeOpGridItemBinding):HiViewHolder(view){
+
         }
 
         override fun getItemCount(): Int {

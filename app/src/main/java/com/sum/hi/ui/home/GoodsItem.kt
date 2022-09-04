@@ -4,14 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.common.view.loadUrl
+import com.sum.hi.hilibrary.HiViewHolder
 import com.sum.hi.hilibrary.util.HiDisplayUtil
+import com.sum.hi.ui.BR
 import com.sum.hi.ui.R
 import com.sum.hi.ui.hiitem.HiDataItem
 import kotlinx.android.synthetic.main.layout_home_goods_list_item1.view.*
@@ -25,13 +31,17 @@ import com.sum.hi.ui.route.HiRouter
  * @类描述 ${TODO}
  */
 open class GoodsItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
-    HiDataItem<GoodsModel, RecyclerView.ViewHolder>(goodsModel) {
-    override fun onBindData(holder: RecyclerView.ViewHolder, position: Int) {
+    HiDataItem<GoodsModel, GoodsItem.GoodsItemHolder>(goodsModel) {
+
+    override fun onBindData(holder: GoodsItemHolder, position: Int) {
         val context = holder.itemView.context
-        holder.itemView.item_image.loadUrl(goodsModel.sliderImage)
-        holder.itemView.item_title.text = goodsModel.goodsName
-        holder.itemView.item_price.text = getPrice(goodsModel.groupPrice, goodsModel.marketPrice)
-        holder.itemView.item_sale_desc.text = goodsModel.completedNumText
+//        holder.itemView.item_image.loadUrl(goodsModel.sliderImage)
+//        holder.itemView.item_title.text = goodsModel.goodsName
+//        holder.itemView.item_price.text = getPrice(goodsModel.groupPrice, goodsModel.marketPrice)
+//        holder.itemView.item_sale_desc.text = goodsModel.completedNumText
+
+        //BR文件是哪里来的呢，就是在布局当中定义的一个个参数，每定义一个参数它就会在BR当中生成一个整型的id
+        holder.binding.setVariable(BR.goodsModel, goodsModel)
 
         val itemLabelContainer = holder.itemView.item_label_container
         if (itemLabelContainer != null) {
@@ -102,5 +112,19 @@ open class GoodsItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
 
     override fun getSpanSize(): Int {
         return if (hotTab) super.getSpanSize() else 1
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup): GoodsItemHolder? {
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(parent.context),
+            getItemLayoutRes(),
+            parent,
+            false
+        )
+        return GoodsItemHolder(binding)
+    }
+
+    inner class GoodsItemHolder(val binding: ViewDataBinding) : HiViewHolder(binding.root) {
+
     }
 }

@@ -54,7 +54,7 @@ abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA? = null
         return 0
     }
 
-    fun setAdapter(adapter: HiAdapter){
+    fun setAdapter(adapter: HiAdapter) {
         this.mAdapter = adapter
     }
 
@@ -71,4 +71,9 @@ abstract class HiDataItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA? = null
     open fun onViewDetachedFromWindow(holder: VH) {
 
     }
+
+    open fun onCreateViewHolder(parent: ViewGroup): VH? {
+        return null
+    }
+
 }

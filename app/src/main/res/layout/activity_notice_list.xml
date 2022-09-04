@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".biz.notice.NoticeListActivity">
 
+    <com.sum.hi.common.view.HiNavigationBar
+        android:id="@+id/nav_bar"
+        app:nav_title="搜索你想要的商品"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

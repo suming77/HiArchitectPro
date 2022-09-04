@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.sum.hi.common.component.HiBaseFragment
@@ -17,6 +19,7 @@ import com.sum.hi.hiui.tab.common.IHiTabLayout
 import com.sum.hi.hiui.tab.top.HiTabTopInfo
 import com.sum.hi.ui.R
 import com.sum.hi.ui.home.HomeTabFragment
+import com.sum.hi.ui.home.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import com.sum.hi.ui.model.TabCategory
 
@@ -28,7 +31,6 @@ import com.sum.hi.ui.model.TabCategory
 class HomeFragment : HiBaseFragment() {
     private var topTabSelectIndex: Int = 0
     private val selectTabIndex: Int = 0
-    private lateinit var tabCategoryList: MutableList<TabCategory>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +38,12 @@ class HomeFragment : HiBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        queryTabList()
+        val viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel.queryTabList().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                updateUI(it)
+            }
+        })
     }
 
     private fun queryTabList() {
@@ -64,25 +71,12 @@ class HomeFragment : HiBaseFragment() {
             }
         }
 
-    private fun updateUI(data: List<TabCategory>?) {
+    private fun updateUI(tabCategoryList: List<TabCategory>?) {
         //正在被移除，和容器解除关联，或者所在的activity已经被销毁了
         //viewModel+liveData就不需要这样判断了，它是和宿主的生命周期相关联
         if (isRemoving || isDetached || activity == null) {
             return
         }
-        tabCategoryList = mutableListOf<TabCategory>()
-        tabCategoryList.add(TabCategory("0", "热门", getGoodsCount()))
-        tabCategoryList.add(TabCategory("1", "女装", getGoodsCount()))
-        tabCategoryList.add(TabCategory("2", "鞋包", getGoodsCount()))
-        tabCategoryList.add(TabCategory("3", "内衣", getGoodsCount()))
-        tabCategoryList.add(TabCategory("4", "百货", getGoodsCount()))
-        tabCategoryList.add(TabCategory("5", "手机", getGoodsCount()))
-        tabCategoryList.add(TabCategory("6", "食品", getGoodsCount()))
-        tabCategoryList.add(TabCategory("7", "男装", getGoodsCount()))
-        tabCategoryList.add(TabCategory("8", "母婴", getGoodsCount()))
-        tabCategoryList.add(TabCategory("9", "美妆", getGoodsCount()))
-        tabCategoryList.add(TabCategory("10", "数码", getGoodsCount()))
-        tabCategoryList.add(TabCategory("11", "生鲜", getGoodsCount()))
 
         HiCacheManager.saveCacheInfo("TabCategory", tabCategoryList)
 
@@ -90,7 +84,7 @@ class HomeFragment : HiBaseFragment() {
         val defaultColor = ContextCompat.getColor(requireContext(), R.color.color_333)
         val selectColor = ContextCompat.getColor(requireContext(), R.color.color_dd2)
         //快速拿到元素和下标
-        tabCategoryList.forEachIndexed { index, tabCategory ->
+        tabCategoryList?.forEachIndexed { index, tabCategory ->
             val topTabInfo = HiTabTopInfo<Int>(tabCategory.categoryName, defaultColor, selectColor)
             topTabs.add(topTabInfo)
         }
@@ -120,7 +114,7 @@ class HomeFragment : HiBaseFragment() {
                 }
             })
         }
-        (viewPager.adapter as HomePagerAdapter).updateTabs(tabCategoryList)
+        (viewPager.adapter as HomePagerAdapter).updateTabs(tabCategoryList!!)
     }
 
     inner class HomePagerAdapter(
@@ -169,13 +163,6 @@ class HomeFragment : HiBaseFragment() {
             //返回PagerAdapter.POSITION_NONE，这样在调用notifyDataSetChanged后viewpage会把所有已加载的Fragment
             //都detach调，然后调用 getItem(position: Int)，再逐个attach上去，再重新执行他们的声明周期。
         }
-    }
-
-    var goodsCount = 5
-
-    fun getGoodsCount(): String {
-        goodsCount++
-        return goodsCount.toString()
     }
 
     private fun navigationView(path: String) {

@@ -112,7 +112,7 @@ class ShopItem(val detailModel: DetailModel) : HiDataItem<DetailModel, RecyclerV
         /**
          * 动态去改变图片宽高的值
          */
-        override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        override fun onViewAttachedToWindow(holder: GoodsItemHolder ) {
             super.onViewAttachedToWindow(holder)
             val viewParent: ViewGroup = holder.itemView.parent as ViewGroup
             val availableWidth =

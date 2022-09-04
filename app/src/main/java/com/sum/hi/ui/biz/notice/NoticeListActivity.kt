@@ -2,6 +2,7 @@ package com.sum.hi.ui.biz.notice
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sum.hi.ui.R
@@ -18,6 +19,11 @@ class NoticeListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notice_list)
         initView()
+        nav_bar.setNavListener(View.OnClickListener {
+            onBackPressed()
+        })
+        nav_bar.addRightTextButton("确定", View.generateViewId())
+        nav_bar.addRightTextButton("下一步", View.generateViewId())
     }
 
     private fun initView() {
@@ -27,7 +33,16 @@ class NoticeListActivity : AppCompatActivity() {
 
         val list = mutableListOf<NoticeItem>()
         for (i in 0..20) {
-            val item = Notice(i.toString(), 0, "0", "标题", "二级标题", "https://www.baidu.com", "", "1658469369")
+            val item = Notice(
+                i.toString(),
+                0,
+                "0",
+                "标题",
+                "二级标题",
+                "https://www.baidu.com",
+                "",
+                "1658469369"
+            )
             list.add(NoticeItem(item))
         }
         adapter.addItems(list, true)

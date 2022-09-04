@@ -2,6 +2,7 @@ package com.sum.hi.common.view
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.annotation.StringRes
 import com.sum.hi.common.R
 import com.sum.hi.hilibrary.util.HiDisplayUtil
@@ -28,9 +30,9 @@ class HiNavigationBar @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : RelativeLayout(context, attributeSet, defStyleAttr) {
     //主副标题
-    private val titleTextView: IconFontTextView? = null
-    private val subTitleTextView: IconFontTextView? = null
-    private val textContainer: LinearLayout? = null
+    private var titleTextView: IconFontTextView? = null
+    private var subTitleTextView: IconFontTextView? = null
+    private var titleContainer: LinearLayout? = null
 
     //解析获的对象
     private var navAttrs: Attrs
@@ -43,33 +45,105 @@ class HiNavigationBar @JvmOverloads constructor(
 
     init {
         navAttrs = parseNavAttrs(context, attributeSet, defStyleAttr)
+        if (!navAttrs.navTitle.isNullOrEmpty()) {
+            setTitle(navAttrs.navTitle!!)
+        }
+        if (!navAttrs.navSubtitle.isNullOrEmpty()) {
+            setSubTitle(navAttrs.navSubtitle!!)
+        }
     }
 
-    fun setTitle(){
-        if (titleTextView == null){
-            val titleView = IconFontTextView(context, null)
-            titleView?.apply {
+    fun setNavListener(listener: OnClickListener) {
+        if (!TextUtils.isEmpty(navAttrs.navIconStr)) {
+            val addLeftTextButton =
+                addLeftTextButton(navAttrs.navIconStr!!, R.integer.id_left_back_view)
+            addLeftTextButton.setOnClickListener(listener)
+        }
+    }
+
+    fun setTitle(title: String) {
+        ensureTitle()
+        titleTextView?.text = title
+        titleTextView?.visibility = if (TextUtils.isEmpty(title)) View.GONE else View.VISIBLE
+    }
+
+    fun setSubTitle(subtitle: String) {
+        ensureSubTitle()
+        updateTitleViewStyle()
+        subTitleTextView?.text = subtitle
+        subTitleTextView?.visibility = if (TextUtils.isEmpty(subtitle)) View.GONE else View.VISIBLE
+    }
+
+    fun ensureTitle() {
+        if (titleTextView == null) {
+            titleTextView = IconFontTextView(context, null)
+            titleTextView?.apply {
                 isSingleLine = true
                 gravity = Gravity.CENTER
                 ellipsize = TextUtils.TruncateAt.END
                 setTextColor(navAttrs.titleTextColor)
+
                 updateTitleViewStyle()
+                ensureTitleContainer()
+                titleContainer?.addView(titleTextView, 0)
+            }
+        }
+    }
+
+    fun ensureSubTitle() {
+        if (subTitleTextView == null) {
+            subTitleTextView = IconFontTextView(context, null)
+            subTitleTextView?.apply {
+                isSingleLine = true
+                gravity = Gravity.CENTER
+                ellipsize = TextUtils.TruncateAt.END
+                setTextColor(navAttrs.titleTextColor)
+                textSize = navAttrs.subTitleSize
+
+                ensureTitleContainer()
+            }
+        }
+    }
+
+    private fun ensureTitleContainer() {
+        if (titleContainer == null) {
+            titleContainer = LinearLayout(context)
+            titleContainer?.apply {
+                orientation = LinearLayout.VERTICAL
+                gravity = Gravity.CENTER
+                val params = LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+                )
+                params.addRule(RelativeLayout.CENTER_IN_PARENT)
+                this@HiNavigationBar.addView(titleContainer, params)
             }
         }
     }
 
     private fun updateTitleViewStyle() {
-
+        if (titleTextView != null) {
+            if (subTitleTextView != null && !TextUtils.isEmpty(subTitleTextView!!.text)) {
+                titleTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, navAttrs.titleTextSize)
+                titleTextView!!.typeface = Typeface.DEFAULT_BOLD
+            } else {
+                titleTextView!!.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    navAttrs.titleTextSizeWithSubtitle
+                )
+                titleTextView!!.typeface = Typeface.DEFAULT
+            }
+        }
     }
 
     /**
      * 左侧添加按钮的能力
      */
-    fun addLeftTextButton(@StringRes strRes: Int, viewId: Int): Button {
+    fun addLeftTextButton(@StringRes strRes: Int, viewId: Int): TextView {
         return addLeftTextButton(HiResUtil.string(strRes), viewId)
     }
 
-    fun addLeftTextButton(buttonText: String, viewId: Int): Button {
+    fun addLeftTextButton(buttonText: String, viewId: Int): TextView {
         val button = generateButton()
         button.text = buttonText
         button.id = viewId
@@ -105,11 +179,11 @@ class HiNavigationBar @JvmOverloads constructor(
     /**
      * 右侧侧添加按钮的能力
      */
-    fun addRightTextButton(@StringRes strRes: Int, viewId: Int): Button {
+    fun addRightTextButton(@StringRes strRes: Int, viewId: Int): TextView {
         return addRightTextButton(HiResUtil.string(strRes), viewId)
     }
 
-    fun addRightTextButton(buttonText: String, viewId: Int): Button {
+    fun addRightTextButton(buttonText: String, viewId: Int): TextView {
         val button = generateButton()
         button.text = buttonText
         button.id = viewId
@@ -146,8 +220,8 @@ class HiNavigationBar @JvmOverloads constructor(
         return LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
     }
 
-    private fun generateButton(): Button {
-        val button = IconFontButton(context)
+    private fun generateButton(): TextView {
+        val button = TextView(context)
         button.setBackgroundResource(0)
         button.minWidth = 0
         button.width = 0
@@ -164,11 +238,17 @@ class HiNavigationBar @JvmOverloads constructor(
         attributeSet: AttributeSet?,
         defStyleAttr: Int
     ): Attrs {
+        //解析全局的navigationStyle
+        val value = TypedValue()
+        context.theme.resolveAttribute(R.attr.navigationStyle, value, true)
+        //xml -》 them-navigationStyle -> navigationStyle
+        val defStyleRes =
+            if (value.resourceId != 0) value.resourceId else R.style.navigationStyle//默认使用navigationStyle中的属性
         val array = context.obtainStyledAttributes(
             attributeSet,
             R.styleable.HiNavigationBar,
             defStyleAttr,
-            R.style.navigationStyle//默认使用navigationStyle中的属性
+            defStyleRes
         )
 
         val navIcon = array.getString(R.styleable.HiNavigationBar_nav_icon)
@@ -212,7 +292,7 @@ class HiNavigationBar @JvmOverloads constructor(
             btnTextSize.toFloat(),
             btnTextColor,
             titleTextSize.toFloat(),
-            titleTextSizeWithSubtitle,
+            titleTextSizeWithSubtitle.toFloat(),
             titleTextColor,
             subTitleSize.toFloat(),
             subTitleColor
@@ -227,9 +307,33 @@ class HiNavigationBar @JvmOverloads constructor(
         val btnTextSize: Float,
         val btnTextColor: ColorStateList?,
         val titleTextSize: Float,
-        val titleTextSizeWithSubtitle: Int,
+        val titleTextSizeWithSubtitle: Float,
         val titleTextColor: Int,
         val subTitleSize: Float,
         val subTitleTextColor: Int
     )
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        if (titleContainer != null) {
+            //计算标题栏左侧占用空间
+            var leftUseSpace = paddingLeft
+            for (view in leftViewList) {
+                leftUseSpace += view.measuredWidth
+            }
+
+            var rightUseSpace = paddingRight
+            for (view in rightViewList) {
+                rightUseSpace += view.measuredWidth
+            }
+
+            val titleContainerWidth = titleContainer!!.measuredWidth
+            //为了让标题居中显示
+            val remainingSpace = measuredWidth - Math.max(leftUseSpace, rightUseSpace) * 2
+            if (remainingSpace < titleContainerWidth) {
+                val size = MeasureSpec.makeMeasureSpec(remainingSpace, MeasureSpec.EXACTLY)
+                titleContainer!!.measure(size, heightMeasureSpec)
+            }
+        }
+    }
 }
