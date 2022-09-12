@@ -1,4 +1,4 @@
-package com.sum.hi.ui.biz.account
+package com.example.biz_login
 
 import android.app.Application
 import android.content.Context
@@ -21,8 +21,6 @@ import java.lang.IllegalStateException
  * @创建者 mingyan.su
  * @创建时间 2022/07/11 00:09
  * @类描述 ${TODO}
- * AccountManager已经提取到了biz_login模块，首页和详情页就无法使用这里的accountmanager来拉起登录了
- * 那么我们需要把登录需要暴露的的能力以接口的形式提供出去，
  */
 object AccountManager {
     private var userProfile: UserProfile? = null

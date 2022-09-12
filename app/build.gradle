@@ -55,23 +55,22 @@ android {
         //noinspection DataBindingWithoutKapt
         enabled = true
     }
+//    resourcePrefix 'home_'
 }
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
-    api project(path: ':hilibrary')
-    implementation project(path: ':hiui')
+//    api project(path: ':hilibrary')
+//    implementation project(path: ':hiui')
     implementation project(path: ':common')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
-    implementation 'com.google.code.gson:gson:2.6.2'
 
     //arouter路由
     implementation 'com.alibaba:arouter-api:1.5.0'

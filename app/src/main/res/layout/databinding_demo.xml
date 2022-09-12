@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="java.util.List" />
+
+        <import type="java.util.Set" />
+
+        <import type="java.util.Map" />
+
+        <import type="android.util.SparseArray" />
+
+        <variable
+            name="array"
+            type="String[]" />
+        <!--List<String>泛型的尖括号需要转义，否则会在编译阶段报错-->
+        <variable
+            name="list"
+            type="List&lt;String&gt;" />
+
+        <variable
+            name="map"
+            type="Map&lt;String, String&gt;" />
+
+        <variable
+            name="set"
+            type="Set&lt;String&gt;" />
+
+        <variable
+            name="sparse"
+            type="SparseArray&lt;String&gt;" />
+
+        <variable
+            name="index"
+            type="int" />
+
+        <variable
+            name="key"
+            type="String" />
+
+        <variable
+            name="user"
+            type="com.sum.hi.hilibrary.User" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{array[1]}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{sparse[index]}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{list[index]}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{map[key]}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{map['移动罐架构师']}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text='@{set.contains("xxx")?"移动端架构师":key}' />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"//不能使用DataBinding动态绑定
+                    android:onClick="@{()->UserManger.login()}" //调用静态方法，类必须先导入
+                    android:text="@{user.name}" //单向绑定，数据变更自动通知UI
+                    android:text="@{user.name+@string/suffix}" //字符串的拼接需要引用资源
+                    android:text="@{UserManager.getUserName()}" //
+                    android:textSize="@{@dimen/16sp}" /> //资源引用
+
+                &lt;!&ndash;双向绑定，数据变更自动更新UI,UI变更了也能自动更新user中的name数据，比单向绑定多了个=&ndash;&gt;
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@={user.name}" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

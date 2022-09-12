@@ -7,3 +7,6 @@ include ':hilibrary'
 include ':app'
 rootProject.name = "HiArchitectPro"
 include ':hi_debugtool'
+include ':biz_login'
+include ':public_mod'
+include ':service_login'
