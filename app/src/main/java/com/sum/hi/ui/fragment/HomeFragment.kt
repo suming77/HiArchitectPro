@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.util.SparseArray
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -15,6 +18,8 @@ import androidx.viewpager.widget.ViewPager
 import com.sum.hi.common.component.HiBaseFragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.hilibrary.cache.HiCacheManager
+import com.sum.hi.hilibrary.util.HiDisplayUtil
+import com.sum.hi.hiui.search.HiSearchView
 import com.sum.hi.hiui.tab.common.IHiTabLayout
 import com.sum.hi.hiui.tab.top.HiTabTopInfo
 import com.sum.hi.ui.R
@@ -44,6 +49,17 @@ class HomeFragment : HiBaseFragment() {
                 updateUI(it)
             }
         })
+
+        navigationBar.setNavListener(View.OnClickListener { })
+        navigationBar.addRightTextButton("搜索", View.generateViewId())
+
+        val searchView = HiSearchView(requireContext())
+        searchView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, HiDisplayUtil.dp2px(40f))
+        searchView?.postDelayed(Runnable {
+            searchView.setKeyWord("iphone", View.OnClickListener { })
+        }, 3000)
+        searchView.setHintText("搜索你想要的商品")
+        navigationBar.setContainerView(searchView)
     }
 
     private fun queryTabList() {

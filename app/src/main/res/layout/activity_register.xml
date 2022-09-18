@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_45">
 
-        <com.sum.hi.common.view.IconFontTextView
+        <com.sum.hi.hiui.search.IconFontTextView
             android:id="@+id/tv_back"
             android:layout_width="@dimen/dp_45"
             android:layout_height="@dimen/dp_45"

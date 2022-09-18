@@ -7,11 +7,9 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.example.biz_login.api.AccountApi
 import com.sum.hi.common.component.HiBaseActivity
 import com.sum.hi.common.http.ApiFactory
-import com.sum.hi.common.view.IconFontTextView
 import com.sum.hi.common.view.InputItemLayout
 import com.sum.hi.hilibrary.annotation.HiCallback
 import com.sum.hi.hilibrary.annotation.HiResponse

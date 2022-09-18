@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.sum.hi.common.view.IconFontTextView
+        <com.sum.hi.hiui.search.IconFontTextView
             android:id="@+id/action_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -19,7 +19,7 @@
         android:textSize="16sp" />
 
 
-    <com.sum.hi.common.view.IconFontTextView
+    <com.sum.hi.hiui.search.IconFontTextView
         android:id="@+id/search_container"
         android:layout_width="match_parent"
         android:layout_height="35dp"

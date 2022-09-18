@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.sum.hi.common.view.IconFontTextView
+    <com.sum.hi.hiui.search.IconFontTextView
         android:id="@+id/action_back"
         android:layout_width="45dp"
         android:layout_height="45dp"

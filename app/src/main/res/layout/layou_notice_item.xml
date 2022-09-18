@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:padding="10dp">
 
-    <com.sum.hi.common.view.IconFontTextView
+    <com.sum.hi.hiui.search.IconFontTextView
         android:id="@+id/icon"
         android:layout_width="50dp"
         android:layout_height="50dp"

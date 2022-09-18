@@ -112,7 +112,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <com.sum.hi.common.view.IconFontTextView
+        <com.sum.hi.hiui.search.IconFontTextView
             android:id="@+id/item_course"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -150,7 +150,7 @@
         android:background="@color/color_eee"/>
 
 
-    <com.sum.hi.common.view.IconFontTextView
+    <com.sum.hi.hiui.search.IconFontTextView
         android:id="@+id/item_collection"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_45"
@@ -166,7 +166,7 @@
         android:background="@color/color_eee" />
 
 
-    <com.sum.hi.common.view.IconFontTextView
+    <com.sum.hi.hiui.search.IconFontTextView
         android:id="@+id/item_adress"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_45"
@@ -182,7 +182,7 @@
         android:background="@color/color_eee" />
 
 
-    <com.sum.hi.common.view.IconFontTextView
+    <com.sum.hi.hiui.search.IconFontTextView
         android:id="@+id/item_history"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_45"

@@ -48,7 +48,7 @@
             type="android.view.View" />
     </data>
 
-    <LinearLayout
+<!--    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text='@{set.contains("xxx")?"移动端架构师":key}' />
-    </LinearLayout>
+    </LinearLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

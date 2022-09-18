@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:background="@color/purple_700"
         android:padding="20dp"
+        android:layout_centerVertical="true"
         android:text="fixbug"
         android:textColor="@color/white" />
     <TextView
@@ -29,6 +30,7 @@
         android:layout_alignParentEnd="true"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:layout_centerVertical="true"
         android:background="@color/purple_700"
         android:padding="20dp"
         android:text="测试demo"

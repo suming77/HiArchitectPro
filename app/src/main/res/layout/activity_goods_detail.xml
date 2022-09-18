@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.sum.hi.common.view.IconFontTextView
+        <com.sum.hi.hiui.search.IconFontTextView
             android:id="@+id/action_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:text="@string/if_back"
             android:textSize="18sp" />
 
-        <com.sum.hi.common.view.IconFontTextView
+        <com.sum.hi.hiui.search.IconFontTextView
             android:id="@+id/action_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.sum.hi.common.view.IconFontTextView
+        <com.sum.hi.hiui.search.IconFontTextView
             android:id="@+id/action_favorite"
             android:layout_width="0dp"
             android:layout_height="match_parent"

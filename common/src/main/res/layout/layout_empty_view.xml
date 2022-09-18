@@ -14,14 +14,14 @@
             android:src="@mipmap/empty_default" />-->
 
 
-    <com.sum.hi.common.view.IconFontTextView
+    <com.sum.hi.hiui.search.IconFontTextView
         android:id="@+id/empty_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="&#xe601;"
-        android:textSize="60sp"></com.sum.hi.common.view.IconFontTextView>
+        android:textSize="60sp"></com.sum.hi.hiui.search.IconFontTextView>
 
     <TextView
         android:id="@+id/empty_title"
@@ -51,7 +51,7 @@
             tools:text="什么也没有，点击刷新重试"
             tools:visibility="visible"></TextView>
 
-        <com.sum.hi.common.view.IconFontTextView
+        <com.sum.hi.hiui.search.IconFontTextView
             android:id="@+id/empty_tips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

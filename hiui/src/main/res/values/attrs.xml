@@ -6,4 +6,65 @@
         <attr name="intervalTime" format="integer|reference" />
     </declare-styleable>
 
+    <!--//可以在应用的appthem中全局配置，hiSearchView回去读取，读取不到再读取默认的style-->
+    <attr name="hiSearchViewStyle" format="reference" />
+
+    <declare-styleable name="HiSearchView">
+        <!--搜索框背景-->
+        <attr name="search_background" format="reference" />
+        <!--搜索图标 大小-->
+        <attr name="search_icon" format="string" />
+        <attr name="search_icon_size" format="dimension" />
+        <!--搜索栏上文字与icon的间距-->
+        <attr name="search_icon_padding" format="dimension" />
+        <!--清除图标 大小-->
+        <attr name="search_clear_icon" format="string" />
+        <attr name="search_clear_icon_size" format="dimension" />
+
+        <!--提示语大小颜色-->
+        <attr name="search_hint_text" format="string" />
+        <attr name="search_hint_text_size" format="dimension" />
+        <attr name="search_hint_text_color" format="color" />
+
+        <!--提示语位置-->
+        <attr name="search_hint_gravity" format="enum">
+            <enum name="hint_center" value="0" />
+            <enum name="hint_left" value="1" />
+        </attr>
+        <!--输入搜索词颜色，大小-->
+        <attr name="search_text_size" format="dimension"/>
+        <attr name="search_text_color" format="color"/>
+
+        <!--关键字大小，颜色，背景，清除icon，最大显示字符数，icon与字符的间距-->
+        <attr name="search_keyword_size" format="dimension"/>
+        <attr name="search_keyword_color" format="color"/>
+        <attr name="search_keyword_background" format="reference"/>
+        <attr name="search_keyword_icon" format="string"/>
+        <attr name="search_keyword_max_length" format="integer"/>
+        <attr name="search_keyword_padding" format="dimension"/>
+        
+    </declare-styleable>
+
+    <!--默认属性配置-->
+    <style name="hiSearchViewStyle">
+        <item name="search_background">@drawable/shape_search_view</item>
+        <item name="search_icon">&#xe987;</item>
+        <item name="search_icon_size">16sp</item>
+        <item name="search_icon_padding">10dp</item>
+        <item name="search_clear_icon">&#xe60b;</item>
+        <item name="search_clear_icon_size">16sp</item>
+        <item name="search_hint_text">请输入你要搜索的内容</item>
+        <item name="search_hint_text_size">16sp</item>
+        <item name="search_hint_text_color">#888888</item>
+        <item name="search_hint_gravity">hint_left</item>
+
+        <item name="search_text_size">16sp</item>
+        <item name="search_text_color">#000000</item>
+        <item name="search_keyword_size">14sp</item>
+        <item name="search_keyword_color">#ffffff</item>
+        <item name="search_keyword_background">@drawable/shape_key_word</item>
+        <item name="search_keyword_icon">&#xe611;</item>
+        <item name="search_keyword_max_length">10</item>
+        <item name="search_keyword_padding">4dp</item>
+    </style>
 </resources>

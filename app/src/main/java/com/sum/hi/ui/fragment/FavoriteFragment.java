@@ -1,6 +1,13 @@
 package com.sum.hi.ui.fragment;
 
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.sum.hi.common.component.HiBaseFragment;
 import com.sum.hi.ui.R;
@@ -15,6 +22,13 @@ public class FavoriteFragment extends HiBaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_favorite;
     }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     @Override
     public void onStart() {
 

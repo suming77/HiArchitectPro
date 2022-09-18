@@ -3,7 +3,6 @@ package com.sum.hi.common.http
 import com.sum.hi.hilibrary.log.HiLog
 import com.sum.hi.hilibrary.restful.HiInterceptor
 import com.sum.hi.hilibrary.util.SpUtils
-import com.sum.hi.ui.biz.account.AccountManager
 
 /**
  * @Author:   smy
@@ -16,7 +15,7 @@ class BizInterceptor : HiInterceptor {
             val request = china.request()
             //每次发起网络请求的时候都会带上这个字段
 //            val boarding_pass = SpUtils.getString("boarding-pass") ?: ""
-            request.addHeader("boarding-pass", AccountManager.getBoardingPass()!!)
+//            request.addHeader("boarding-pass", AccountManager.getBoardingPass()!!)
             request.addHeader("auth-token", "fd82d1e882462e23b8e88aa82198f197")
         } else if (china.response() != null) {
             HiLog.dt("BizInterceptor", china.request().endPointUrl())

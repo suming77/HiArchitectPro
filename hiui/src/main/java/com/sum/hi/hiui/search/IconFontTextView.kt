@@ -1,4 +1,4 @@
-package com.sum.hi.common.view
+package com.sum.hi.hiui.search
 
 import android.content.Context
 import android.graphics.Typeface

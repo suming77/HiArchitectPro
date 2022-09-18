@@ -8,8 +8,6 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -17,6 +15,7 @@ import androidx.annotation.StringRes
 import com.sum.hi.common.R
 import com.sum.hi.hilibrary.util.HiDisplayUtil
 import com.sum.hi.hilibrary.util.HiResUtil
+import com.sum.hi.hiui.search.IconFontTextView
 import java.lang.IllegalStateException
 
 /**
@@ -56,7 +55,7 @@ class HiNavigationBar @JvmOverloads constructor(
     fun setNavListener(listener: OnClickListener) {
         if (!TextUtils.isEmpty(navAttrs.navIconStr)) {
             val addLeftTextButton =
-                addLeftTextButton(navAttrs.navIconStr!!, R.integer.id_left_back_view)
+                addLeftTextButton(navAttrs.navIconStr!!, R.id.id_left_back_view)
             addLeftTextButton.setOnClickListener(listener)
         }
     }
@@ -335,5 +334,23 @@ class HiNavigationBar @JvmOverloads constructor(
                 titleContainer!!.measure(size, heightMeasureSpec)
             }
         }
+    }
+
+    /**
+     * 需要判断params，如果不是RealtvieLayout的params，直接添加进来回报错
+     */
+    fun setContainerView(view: View) {
+        var params = view.layoutParams
+        if (params == null) {
+            params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+        } else if (params !is LayoutParams) {
+            params = LayoutParams(params)
+        }
+
+        val containerParams = params as LayoutParams
+        containerParams.addRule(RIGHT_OF, leftLastViewId)
+        containerParams.addRule(LEFT_OF, rightLastViewId)
+        params.addRule(CENTER_VERTICAL)
+        addView(view, containerParams)
     }
 }
