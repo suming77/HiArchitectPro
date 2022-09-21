@@ -26,4 +26,8 @@ object MainHandler {
         val message = Message.obtain(mainHandler, runnable)
         mainHandler.sendMessageAtFrontOfQueue(message)
     }
+
+    fun remove(runnable: Runnable) {
+        mainHandler.removeCallbacks(runnable)
+    }
 }

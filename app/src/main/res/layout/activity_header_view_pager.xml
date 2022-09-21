@@ -1,70 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@drawable/shape_key_word"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/shape_key_word">
 
     <com.sum.hi.ui.demo.headviewpager.HeaderViewPager
         android:id="@+id/head_view_pager"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:hvp_topOffset="0dp"
-        android:layout_height="match_parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:id="@+id/rl_head"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="200dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/iv_goods"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/fire" />
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/tabBottomTintColor"
+            app:layout_constraintBottom_toTopOf="@id/ll_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
+            android:id="@+id/ll_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_height="wrap_content">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_head">
 
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
+            <ScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="sfsfsfsfsdfsfdsfsfsfsfsfsfsfsdfsfdsfsdfsfdsfsfsfsfsdfsfdsfsfsfsfsdfsfd"
-                    android:textColor="@color/black" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="sfsfsfsfsdfsfdsfsfsfsfsfsfsfsdfsfdsfsdfsfdsfsfsfsfsdfsfdsfsfsfsfsdfsfd"
-                    android:textColor="@color/black" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="sfsfsfsfsdfsfdsfsfsfsfsfsfsfsdfsfdsfsdfsfdsfsfsfsfsdfsfdsfsfsfsfsdfsfd"
+                        android:textColor="@color/black" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="sfsfsfsfsdfsfdsfsfsfsfsfsfsfsdfsfdsfsdfsfdsfsfsfsfsdfsfdsfsfsfsfsdfsfd"
-                    android:textColor="@color/black" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="sfsfsfsfsdfsfdsfsfsfsfsfsfsfsdfsfdsfsdfsfdsfsfsfsfsdfsfdsfsfsfsfsdfsfd"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="sfsfsfsfsdfsfdsfsfsfsfsfsfsfsdfsfdsfsdfsfdsfsfsfsfsdfsfdsfsfsfsfsdfsfd"
+                        android:textColor="@color/black" />
 
 
-            </LinearLayout>
-        </ScrollView>
+                </LinearLayout>
+            </ScrollView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,4 +95,4 @@
 
         </LinearLayout>
     </com.sum.hi.ui.demo.headviewpager.HeaderViewPager>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -86,4 +86,7 @@
     <string name="list_empty_desc">小朋友,你是否有很多问号？</string>
     <string name="list_empty_action">刷新一把</string>
     <string name="footer_loading_text">正在加载...</string>
+
+    <string name="nav_item_search">搜索</string>
+    <string name="search_hint">试试输入iphone搜索</string>
 </resources>

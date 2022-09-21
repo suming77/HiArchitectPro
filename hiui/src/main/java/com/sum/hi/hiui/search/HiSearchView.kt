@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.sum.hi.hilibrary.util.MainHandler
 import com.sum.hi.hiui.R
 
 /**
@@ -32,9 +33,11 @@ class HiSearchView @JvmOverloads constructor(
     companion object {
         const val LEFT = 1
         const val CENTER = 0
+        const val DEBOUNCE_TRIGGER_DURATION = 200L
     }
 
-    private var editText: EditText? = null
+    private var simpleTextWatcher: SimpleTextWatcher? = null
+    var editText: EditText? = null
 
     //搜索小图标和默认提示语，以及container
     private var searchIcon: IconFontTextView? = null
@@ -51,8 +54,11 @@ class HiSearchView @JvmOverloads constructor(
     val viewAttrs: Attrs = SearchAttrsParse.parseSearchViewAttrs(context, attrs, defStyleAttr)
 
     init {
+        //初始化editText -create-bing property --addView
         initEditText()
+        //初始化右侧一键清楚的小图标 -create-bing property --addView
         initClearIcon()
+        //初始化 默认提示语和searchIcon -create-bing property --addView
         initSearchIconHintContainer()
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
             background = viewAttrs.searchBackground
@@ -63,9 +69,22 @@ class HiSearchView @JvmOverloads constructor(
                 clearIcon?.visibility = if (hasContent) View.VISIBLE else View.GONE
                 searchIconHintContainer?.visibility = if (hasContent) View.GONE else View.VISIBLE
 
+                //不能马上回调，需要延迟一段时间
+                simpleTextWatcher?.apply {
+                    MainHandler.remove(debounceRunnable)
+                    MainHandler.postDelay(DEBOUNCE_TRIGGER_DURATION, debounceRunnable)
+                }
             }
         })
 
+    }
+
+    private val debounceRunnable = Runnable {
+        simpleTextWatcher?.afterTextChanged(editText?.text)
+    }
+
+    fun setDebounceTextChangeListener(simpleTextWatcher: SimpleTextWatcher) {
+        this.simpleTextWatcher = simpleTextWatcher
     }
 
     /**
@@ -252,5 +271,10 @@ class HiSearchView @JvmOverloads constructor(
         //添加要由 RelativeLayout 解释的布局规则。
         params.addRule(CENTER_VERTICAL)
         addView(editText, params)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        MainHandler.remove(debounceRunnable)
     }
 }

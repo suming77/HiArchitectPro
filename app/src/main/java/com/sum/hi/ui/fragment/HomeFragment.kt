@@ -19,6 +19,7 @@ import com.sum.hi.common.component.HiBaseFragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.hilibrary.cache.HiCacheManager
 import com.sum.hi.hilibrary.util.HiDisplayUtil
+import com.sum.hi.hiui.route.HiRouter
 import com.sum.hi.hiui.search.HiSearchView
 import com.sum.hi.hiui.tab.common.IHiTabLayout
 import com.sum.hi.hiui.tab.top.HiTabTopInfo
@@ -50,7 +51,10 @@ class HomeFragment : HiBaseFragment() {
             }
         })
 
-        navigationBar.setNavListener(View.OnClickListener { })
+        navigationBar.setNavListener(View.OnClickListener {
+//            HiRouter.startActivity(requireContext(), null, "/search/main")
+            ARouter.getInstance().build("/search/main").navigation()
+        })
         navigationBar.addRightTextButton("搜索", View.generateViewId())
 
         val searchView = HiSearchView(requireContext())

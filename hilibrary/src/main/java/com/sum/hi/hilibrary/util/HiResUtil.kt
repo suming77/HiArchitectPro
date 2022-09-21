@@ -1,6 +1,7 @@
 package com.sum.hi.hilibrary.util
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -27,5 +28,9 @@ object HiResUtil {
 
     fun drawable(@DrawableRes id: Int): Drawable? {
         return ContextCompat.getDrawable(context(), id)
+    }
+
+    fun getColorStateList(@ColorRes id: Int): ColorStateList? {
+        return ContextCompat.getColorStateList(context(), id)
     }
 }

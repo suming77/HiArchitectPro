@@ -6,7 +6,9 @@ plugins {
 //模块build.gradle
 apply plugin: 'com.alibaba.arouter'
 apply plugin: 'kotlin-kapt'
-
+kapt {
+    generateStubs = true
+}
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -68,6 +70,7 @@ dependencies {
 //    api project(path: ':hilibrary')
 //    implementation project(path: ':hiui')
     implementation project(path: ':common')
+    implementation project(path: ':public_mod')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -82,4 +85,7 @@ dependencies {
 
     //debug包才编译
     debugImplementation project(":hi_debugtool")
+
+    //版本要与gradle版本一致
+    kapt  "com.android.databinding:compiler:4.1.3"
 }

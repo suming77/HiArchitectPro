@@ -12,11 +12,13 @@ import android.view.ViewConfiguration;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.sum.hi.hilibrary.util.HiDisplayUtil;
 import com.sum.hi.ui.R;
 
 
-public class HeaderViewPager extends LinearLayout {
+public class HeaderViewPager extends ConstraintLayout {
 
     private static final int DIRECTION_UP = 1;
     private static final int DIRECTION_DOWN = 2;
