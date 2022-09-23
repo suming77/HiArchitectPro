@@ -6,9 +6,7 @@ plugins {
 //模块build.gradle
 apply plugin: 'com.alibaba.arouter'
 apply plugin: 'kotlin-kapt'
-kapt {
-    generateStubs = true
-}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -85,7 +83,4 @@ dependencies {
 
     //debug包才编译
     debugImplementation project(":hi_debugtool")
-
-    //版本要与gradle版本一致
-    kapt  "com.android.databinding:compiler:4.1.3"
 }

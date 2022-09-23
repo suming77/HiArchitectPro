@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.layout_content_loading_view.view.*
  * @创建时间 2022/07/03 15:04
  * @类描述 ${TODO}
  */
-class HiRecyclerView @JvmOverloads constructor(
+open class HiRecyclerView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -50,10 +50,13 @@ class HiRecyclerView @JvmOverloads constructor(
             val canScrollVertically = canScrollVertically(1)
             // 特殊情况，滑动到底部，但是加载失败了
             val lastVisibleItem = findLastVisibleItem(recyclerView)
+            val firstVisibleItem = findFirstVisibleItem(recyclerView)
             if (lastVisibleItem <= 0) {
                 return
             }
-            val arriveBottom = lastVisibleItem >= totalItemCount - 1//最后一个位置是14，总共数目是15
+            //列表不可滑动，但是没有撑满屏幕，此时lastVisibleItem就等于最后一条item，为了避免这种情况，就需要添加firstVisibleItem!=0
+            val arriveBottom =
+                lastVisibleItem >= totalItemCount - 1 && firstVisibleItem > 0 //最后一个位置是14，总共数目是15
             //可以向下滑动，或者到底部时拖动，可以分页
             if (newState == SCROLL_STATE_DRAGGING && (canScrollVertically || arriveBottom)) {
                 addFooterView()
@@ -96,6 +99,21 @@ class HiRecyclerView @JvmOverloads constructor(
                 }
                 is StaggeredGridLayoutManager -> {
                     return manager.findLastVisibleItemPositions(null)[0]
+                }
+                else -> {
+                    return -1
+                }
+            }
+        }
+
+        private fun findFirstVisibleItem(recyclerView: RecyclerView): Int {
+            when (val manager = layoutManager) {
+                //GridLayoutManager 是 LinearLayoutManager的子类
+                is LinearLayoutManager -> {
+                    return manager.findFirstVisibleItemPosition()
+                }
+                is StaggeredGridLayoutManager -> {
+                    return manager.findFirstVisibleItemPositions(null)[0]
                 }
                 else -> {
                     return -1

@@ -2,6 +2,8 @@ package com.sum.hi.ui.search
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
@@ -14,6 +16,7 @@ import com.sum.hi.hilibrary.util.HiDisplayUtil
 import com.sum.hi.hilibrary.util.HiResUtil
 import com.sum.hi.hiui.search.HiSearchView
 import com.sum.hi.hiui.search.SimpleTextWatcher
+import com.sum.hi.ui.R
 import kotlinx.android.synthetic.main.activity_search.*
 
 /**
@@ -24,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 @Route(path = "/search/main")
 class SearchActivity : AppCompatActivity() {
 
+    private var historyView: HistorySearchView? = null
     private var goodsSearchView: GoodsSearchView? = null
     private var quickSearchView: QuickSearchView? = null
     private var mEmptyView: EmptyView? = null
@@ -45,10 +49,14 @@ class SearchActivity : AppCompatActivity() {
         doKeyWordSearch(KeyWord(null, keyWord))
 
     }
+
+    /**
+     * 输入关键词后显示快搜页面
+     */
     private val debounceTextWatcher = object : SimpleTextWatcher() {
         override fun afterTextChanged(s: Editable?) {
             val hasContent = s.isNullOrBlank()
-            if (hasContent) {
+            if (!hasContent) {
                 viewModel.quickSearch(s.toString())
                     .observe(this@SearchActivity, Observer { keyWords ->
                         if (keyWords.isNullOrEmpty()) {
@@ -56,6 +64,7 @@ class SearchActivity : AppCompatActivity() {
                         } else {
                             updateViewStatus(STATUS_QUICK_SEARCH)
                             quickSearchView?.bindData(keyWords, callback = { keyWord ->
+                                Log.e("smy", "debounceTextWatcher == ${keyWord}")
                                 doKeyWordSearch(keyWord)
                             })
                         }
@@ -64,6 +73,9 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 关键词搜索
+     */
     private fun doKeyWordSearch(keyWord: KeyWord) {
         //1.搜索框高亮，搜索词
         searchView?.setKeyWord(keyWord.keyWord, updateHistoryListener)
@@ -73,24 +85,30 @@ class SearchActivity : AppCompatActivity() {
         val keyWordClearIconView: View? =
             searchView.findViewById<View>(R.id.id_search_keyword_clear_icon)
         keyWordClearIconView?.isEnabled = false
-        viewModel.goodsSearch(keyWord.keyWord)
+        viewModel.goodsSearch(keyWord.keyWord, true)
         viewModel.goodsSearchLiveData.observe(this, Observer { goodsList ->
             keyWordClearIconView?.isEnabled = true
+            val loadInit = viewModel.pageIndex == 1
             if (goodsList == null) {
-                if (viewModel.pageIndex == 1) {
+                if (loadInit) {
                     updateViewStatus(STATUS_EMPTY)
                 }
             } else {
                 updateViewStatus(STATUS_GOODS_SEARCH)
                 //搜索结果可能需要1s后才能返回，但是你手快点击了keyWord上的一键清除，页面会被回退到空布局或者历史搜索状态
                 //那么搜索结果回来后显示搜索结果还是显示空布局？这里统一一下，在搜索结果没有回来之前不允许点击keyWord上的一键清除按钮
-                goodsSearchView?.bindData(goodsList)
+                goodsSearchView?.bindData(goodsList, loadInit)
             }
         })
     }
 
     private val updateHistoryListener = View.OnClickListener {
-        updateViewStatus(STATUS_EMPTY)
+        if (viewModel.cacheKeyWords.isNullOrEmpty()) {
+            updateViewStatus(STATUS_EMPTY)
+        } else {
+            updateViewStatus(STATUS_HISTORY)
+            historyView?.bindData(viewModel.cacheKeyWords)
+        }
     }
     private lateinit var searchView: HiSearchView
 
@@ -98,13 +116,24 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-
         viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         initTopBar()
         updateViewStatus(STATUS_EMPTY)
-        //queryLocalHistory()
+        queryLocalHistory()
     }
 
+    private fun queryLocalHistory() {
+        viewModel.queryLocalHistory().observe(this, Observer { histories ->
+            if (histories != null) {
+                updateViewStatus(STATUS_HISTORY)
+                historyView?.bindData(histories)
+            }
+        })
+    }
+
+    /**
+     * 更新页面状态
+     */
     private fun updateViewStatus(status: Int) {
         if (status == newStatus) return
         newStatus = status
@@ -130,8 +159,35 @@ class SearchActivity : AppCompatActivity() {
             STATUS_GOODS_SEARCH -> {
                 if (goodsSearchView == null) {
                     goodsSearchView = GoodsSearchView(this)
+                    //分页
+                    goodsSearchView?.enableLoadMore({
+                        val str = searchView.getKeyWord()
+                        if (TextUtils.isEmpty(str)) {
+                            return@enableLoadMore
+                        }
+                        viewModel.goodsSearch(str, false)
+                    }, 5)
                 }
                 showView = goodsSearchView
+            }
+            STATUS_HISTORY -> {
+                if (historyView == null) {
+                    historyView = HistorySearchView(context = this)
+                    historyView!!.setOnCheckChangeListener { keyWord ->
+                        doKeyWordSearch(keyWord)
+                    }
+                    historyView!!.setOnHistoryClearListener {
+                        viewModel.clearHistory()
+                        updateViewStatus(STATUS_EMPTY)
+                    }
+                }
+//                HiExecutor.execute(runnable = Runnable {
+//                    val cache =
+//                        HiCacheManager.getCacheBody<List<KeyWord>>(SearchViewModel.SEARCH_HISTORY_KEY)
+//                    historyView.bindData(cache)
+//                })
+
+
             }
         }
 
@@ -151,12 +207,14 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun initTopBar() {
-        hiNavigationBar.setNavListener { onBackPressed() }
+        hiNavigationBar.setNavListener(View.OnClickListener {
+            onBackPressed()
+        })
         val searchButton =
             hiNavigationBar.addRightTextButton(R.string.nav_item_search, R.id.id_nav_item_search)
         searchButton.setTextColor(HiResUtil.getColorStateList(R.color.color_nav_item_search))
-        searchView.setOnClickListener(searchListener)
         searchButton.isEnabled = false
+        searchButton.setOnClickListener(searchListener)
 
         searchView = HiSearchView(context = this)
         searchView.layoutParams = RelativeLayout.LayoutParams(

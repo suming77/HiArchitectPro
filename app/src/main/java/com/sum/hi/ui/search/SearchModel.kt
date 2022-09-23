@@ -1,6 +1,7 @@
 package com.sum.hi.ui.search
 
 import com.sum.hi.ui.model.GoodsModel
+import java.io.Serializable
 
 /**
  * @author smy
@@ -10,6 +11,6 @@ import com.sum.hi.ui.model.GoodsModel
 
 data class QuickSearchList(val list: List<KeyWord>, val total: Int)
 
-data class KeyWord(val id: String?, val keyWord: String)
+data class KeyWord(val id: String?, val keyWord: String) : Serializable
 
-data class GoodsListSearch(val total:Int, val list: List<GoodsModel>)
+data class GoodsListSearch(val total: Int, val list: List<GoodsModel>)

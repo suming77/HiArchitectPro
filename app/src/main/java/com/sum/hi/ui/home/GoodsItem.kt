@@ -47,7 +47,7 @@ open class GoodsItem(val goodsModel: GoodsModel, val hotTab: Boolean) :
         if (itemLabelContainer != null) {
             if (!goodsModel.tags.isNullOrEmpty()) {
                 itemLabelContainer.visibility = View.VISIBLE
-                val split = goodsModel.tags.split(" ")
+                val split = goodsModel?.tags!!.split(" ")
                 for (index in split.indices) {
 
                     //这里有个复用的问题

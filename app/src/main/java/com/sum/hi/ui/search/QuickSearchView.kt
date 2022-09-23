@@ -3,11 +3,13 @@ package com.sum.hi.ui.search
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sum.hi.hilibrary.HiViewHolder
-import com.sum.hi.hiui.baseadapter.HiAdapter
-import com.sum.hi.hiui.baseadapter.HiDataItem
+import com.sum.hi.ui.R
+import com.sum.hi.ui.hiitem.HiAdapter
+import com.sum.hi.ui.hiitem.HiDataItem
 import kotlinx.android.synthetic.main.layout_quick_search_list_item.view.*
 
 /**
@@ -42,7 +44,8 @@ class QuickSearchView @JvmOverloads constructor(
     private inner class QuickSearchItem(val keyWord: KeyWord, val callback: (KeyWord) -> Unit) :
         HiDataItem<KeyWord, HiViewHolder>() {
         override fun onBindData(holder: HiViewHolder, position: Int) {
-            item_title.text = keyWord.keyWord
+           val item_title = holder.findViewById<TextView>(R.id.item_title)
+            item_title?.text = keyWord.keyWord
             holder.itemView.setOnClickListener {
                 callback(keyWord)
             }

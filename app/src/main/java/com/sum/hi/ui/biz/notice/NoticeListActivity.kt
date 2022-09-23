@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sum.hi.ui.R
 import com.sum.hi.ui.hiitem.HiAdapter
-import com.sum.hi.ui.model.CourseNotice
 import com.sum.hi.ui.model.Notice
 import kotlinx.android.synthetic.main.activity_notice_list.*
 

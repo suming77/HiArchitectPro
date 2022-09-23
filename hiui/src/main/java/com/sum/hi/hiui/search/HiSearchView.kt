@@ -277,4 +277,8 @@ class HiSearchView @JvmOverloads constructor(
         super.onDetachedFromWindow()
         MainHandler.remove(debounceRunnable)
     }
+
+    fun getKeyWord(): String? {
+        return keyWordTv?.text.toString()
+    }
 }

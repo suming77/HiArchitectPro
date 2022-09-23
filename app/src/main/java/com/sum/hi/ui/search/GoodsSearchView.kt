@@ -4,9 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sum.hi.hiui.baseadapter.GoodsItem
-import com.sum.hi.hiui.baseadapter.HiAdapter
-import com.sum.hi.hiui.baseadapter.HiRecyclerView
+import com.sum.hi.ui.hiitem.HiAdapter
+import com.sum.hi.ui.hiitem.HiRecyclerView
+import com.sum.hi.ui.home.GoodsItem
+
 import com.sum.hi.ui.model.GoodsModel
 
 /**
@@ -22,12 +23,13 @@ class GoodsSearchView(context: Context, attributeSet: AttributeSet? = null, defS
         adapter = HiAdapter(context)
     }
 
-    fun bindData(list: List<GoodsModel>) {
+    fun bindData(list: List<GoodsModel>, loadInit: Boolean) {
         val dataItems = mutableListOf<GoodsItem>()
         for (good in list) {
             dataItems.add(GoodsItem(good, true))
         }
         val hiAdapter = adapter as HiAdapter
+        if (loadInit) hiAdapter.clearItems()
         hiAdapter.addItems(dataItems, true)
     }
 }

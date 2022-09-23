@@ -178,7 +178,7 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
 
         super.onSaveInstanceState(outState);
         //        activityLogic.onSaveInstanceState(outState);
-        Log.e("smy", "onSaveInstanceState " + outState.toString());
+//        Log.e("smy", "onSaveInstanceState " + outState.toString());
     }
 
     @Override
