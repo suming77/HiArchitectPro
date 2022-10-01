@@ -32,17 +32,17 @@
             <enum name="hint_left" value="1" />
         </attr>
         <!--输入搜索词颜色，大小-->
-        <attr name="search_text_size" format="dimension"/>
-        <attr name="search_text_color" format="color"/>
+        <attr name="search_text_size" format="dimension" />
+        <attr name="search_text_color" format="color" />
 
         <!--关键字大小，颜色，背景，清除icon，最大显示字符数，icon与字符的间距-->
-        <attr name="search_keyword_size" format="dimension"/>
-        <attr name="search_keyword_color" format="color"/>
-        <attr name="search_keyword_background" format="reference"/>
-        <attr name="search_keyword_icon" format="string"/>
-        <attr name="search_keyword_max_length" format="integer"/>
-        <attr name="search_keyword_padding" format="dimension"/>
-        
+        <attr name="search_keyword_size" format="dimension" />
+        <attr name="search_keyword_color" format="color" />
+        <attr name="search_keyword_background" format="reference" />
+        <attr name="search_keyword_icon" format="string" />
+        <attr name="search_keyword_max_length" format="integer" />
+        <attr name="search_keyword_padding" format="dimension" />
+
     </declare-styleable>
 
     <!--默认属性配置-->
@@ -66,5 +66,42 @@
         <item name="search_keyword_icon">&#xe611;</item>
         <item name="search_keyword_max_length">10</item>
         <item name="search_keyword_padding">4dp</item>
+    </style>
+
+    <declare-styleable name="AmountView">
+        <!--左右两个按钮加减的文字大小，颜色，尺寸，margin,背景色-->
+        <attr name="btn_text_size" format="dimension" />
+        <attr name="btn_color" format="color" />
+        <attr name="btn_size" format="dimension" />
+        <attr name="btn_margin" format="dimension" />
+        <attr name="btn_background" format="color" />
+
+        <!--中间显示数字view的，大小，颜色，尺寸，背景色-->
+        <attr name="amount_text_size" format="dimension" />
+        <attr name="amount_color" format="color" />
+        <attr name="amount_size" format="dimension" />
+        <attr name="amount_background" format="color" />
+
+        <!--计数器当前值，最小值，最大值-->
+        <attr name="value" format="integer" />
+        <attr name="max_value" format="integer" />
+        <attr name="min_value" format="integer" />
+    </declare-styleable>
+
+    <style name="hiAmountViewStyle">
+        <item name="btn_text_size">14dp</item>
+        <item name="btn_color">#999999</item>
+        <item name="btn_size">20dp</item>
+        <item name="btn_margin">5dp</item>
+        <item name="btn_background">#eeeeee</item>
+
+        <item name="amount_text_size">16dp</item>
+        <item name="amount_color">#000000</item>
+        <item name="amount_size">20dp</item>
+        <item name="amount_background">@android:color/white</item>
+
+        <item name="value">1</item>
+        <item name="max_value">1</item>
+        <!--<item name="min_value">1</item>不配置，就是Int.max_value-->
     </style>
 </resources>
