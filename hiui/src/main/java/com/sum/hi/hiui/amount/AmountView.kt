@@ -91,6 +91,8 @@ class AmountView @JvmOverloads constructor(
     private fun generateBtn(): Button {
         val btn = Button(context)
         btn.setBackgroundResource(0)
+        //这里的主题是Meaterl component，它会为普通的weight设置一个内间距的效果
+        btn.setPadding(0,0,0,0)
         btn.includeFontPadding = false // 不显示文字内间距
         btn.setTextColor(avAttrs.btnTextColor)
 
@@ -100,6 +102,10 @@ class AmountView @JvmOverloads constructor(
 
         btn.layoutParams = ViewGroup.LayoutParams(avAttrs.btnSize, avAttrs.btnSize)
         return btn
+    }
+
+    fun getAmountValue(): Int {
+        return amountValue
     }
 
     fun setAmountValueChangeListener(amountValueChangeCallback: (Int) -> Unit) {

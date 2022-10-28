@@ -82,7 +82,6 @@
                         android:text="sfsfsfsfsdfsfdsfsfsfsfsfsfsfsdfsfdsfsdfsfdsfsfsfsfsdfsfdsfsfsfsfsdfsfd"
                         android:textColor="@color/black" />
 
-
                 </LinearLayout>
             </ScrollView>
 

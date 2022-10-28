@@ -2,5 +2,6 @@
 <resources>
     <item name="hi_tab_bottom" type="id" />
     <item name="id_nav_item_search" type="id" />
+    <item name="nav_id_add_address" type="id" />
 
 </resources>

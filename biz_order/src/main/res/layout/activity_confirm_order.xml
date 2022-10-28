@@ -14,7 +14,7 @@
         app:nav_title="确认订单" />
 
     <TextView
-        android:id="@+id/tv_address"
+        android:id="@+id/tv_add_address"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="1dp"
@@ -32,6 +32,7 @@
         tools:visibility="visible" />
 
     <RelativeLayout
+        android:id="@+id/rl_address"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="1dp"
@@ -226,6 +227,7 @@
             android:textColor="@color/color_333" />
 
         <TextView
+            android:id="@+id/order_buy"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:background="@color/colorAccent"

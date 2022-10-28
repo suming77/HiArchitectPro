@@ -14,7 +14,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.HeaderMap
+import retrofit2.http.PUT
 import retrofit2.http.QueryMap
 import retrofit2.http.Url
 import java.lang.IllegalStateException
@@ -50,7 +52,7 @@ class RetrofitCallFactory(val baseUrl: String) : HiCall.Factory {
                     call: Call<ResponseBody>,
                     response: Response<ResponseBody>
                 ) {
-                    val parseResponse:HiResponse<T> = parseResponse(response)
+                    val parseResponse: HiResponse<T> = parseResponse(response)
                     callback.onSuccess(parseResponse)
                 }
 
@@ -65,28 +67,13 @@ class RetrofitCallFactory(val baseUrl: String) : HiCall.Factory {
             if (request.httpMethod == HiRequest.METHOD.GET) {
                 return apiService.get(request.headers, request.endPointUrl(), request.parameters)
             } else if (request.httpMethod == HiRequest.METHOD.POST) {
-                val parameters = request.parameters
-                val builder = FormBody.Builder()
-                var requestBody: RequestBody? = null
-                var jsonObject = JSONObject()
-                for ((key, value) in parameters!!) {
-                    //如果是表单提交，通过frombody通过key value通过表单的形式提交上去
-                    if (request.formPost) {
-                        builder.add(key, value)
-                    } else {//非表单提交，parameters中的key value组装成json格式
-                        jsonObject.put(key, value)
-                    }
-                }
-
-                if (request.formPost) {
-                    requestBody = builder.build()
-                } else {
-                    requestBody = RequestBody.create(
-                        MediaType.parse("application/json;charset=utf-8"),
-                        jsonObject.toString()
-                    )
-                }
+                var requestBody: RequestBody? = buildRequestBody(request)
                 return apiService.post(request.headers, request.endPointUrl(), requestBody)
+            } else if (request.httpMethod == HiRequest.METHOD.PUT) {
+                var requestBody: RequestBody? = buildRequestBody(request)
+                return apiService.put(request.headers, request.endPointUrl(), requestBody)
+            } else if (request.httpMethod == HiRequest.METHOD.DELETE) {
+                return apiService.delete(request.headers, request.endPointUrl())
             } else {
                 throw  IllegalStateException("hirestful only support GET POST for now, url = " + request.endPointUrl())
             }
@@ -97,7 +84,7 @@ class RetrofitCallFactory(val baseUrl: String) : HiCall.Factory {
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {
-                    HiLog.dt("BizInterceptor", "successbody == "+body.string())
+                    HiLog.dt("BizInterceptor", "successbody == " + body.string())
                     rawData = body.string()
                 }
             } else {
@@ -108,9 +95,34 @@ class RetrofitCallFactory(val baseUrl: String) : HiCall.Factory {
 //                    Log.e("BizInterceptor", "rawData == "+body.string())
                 }
             }
-            Log.e("BizInterceptor", "rawData == "+rawData)
+            Log.e("BizInterceptor", "rawData == " + rawData)
             return gsonConvert.convert(rawData!!, request.returnType!!)
         }
+    }
+
+    private fun buildRequestBody(request: HiRequest): RequestBody? {
+        val parameters = request.parameters
+        val builder = FormBody.Builder()
+        var requestBody: RequestBody? = null
+        var jsonObject = JSONObject()
+        for ((key, value) in parameters!!) {
+            //如果是表单提交，通过frombody通过key value通过表单的形式提交上去
+            if (request.formPost) {
+                builder.add(key, value)
+            } else {//非表单提交，parameters中的key value组装成json格式
+                jsonObject.put(key, value)
+            }
+        }
+
+        if (request.formPost) {
+            requestBody = builder.build()
+        } else {
+            requestBody = RequestBody.create(
+                MediaType.parse("application/json;charset=utf-8"),
+                jsonObject.toString()
+            )
+        }
+        return requestBody
     }
 
 
@@ -131,5 +143,15 @@ class RetrofitCallFactory(val baseUrl: String) : HiCall.Factory {
             @Body body: RequestBody?
         ): Call<ResponseBody>
 
+        @PUT
+        fun put(
+            @HeaderMap headers: MutableMap<String, String>?, @Url url: String,
+            @Body body: RequestBody?
+        ): Call<ResponseBody>
+
+        @DELETE//不可携带requestBody
+        fun delete(
+            @HeaderMap headers: MutableMap<String, String>?, @Url url: String
+        ): Call<ResponseBody>
     }
 }

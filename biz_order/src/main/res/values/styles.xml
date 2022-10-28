@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="titleTextAppearance">
+        <item name="titleColor">@color/color_565</item>
+        <item name="titleSize">14sp</item>
+        <item name="minWidth">100dp</item>
+    </style>
+
+    <attr name="color" format="color" />
+    <attr name="height" format="dimension" />
+    <attr name="leftMargin" format="dimension" />
+    <attr name="rightMargin" format="dimension" />
+    <attr name="enable" format="boolean" />
+
+    <style name="lineAppearance">
+        <item name="color">@color/color_C1B</item>
+        <item name="height">0.5dp</item>
+        <item name="leftMargin">0dp</item>
+        <item name="rightMargin">0dp</item>
+        <item name="enable">true</item>
+    </style>
+</resources>

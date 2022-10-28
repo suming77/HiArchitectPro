@@ -55,10 +55,10 @@ class HomeFragment : HiBaseFragment() {
 
         val searchView = HiSearchView(requireContext())
         searchView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, HiDisplayUtil.dp2px(40f))
-        searchView?.postDelayed(Runnable {
-            searchView.setKeyWord("iphone", View.OnClickListener { })
-            ARouter.getInstance().build("/search/main").navigation()
-        }, 3000)
+//        searchView?.postDelayed(Runnable {
+//            searchView.setKeyWord("iphone", View.OnClickListener { })
+//            ARouter.getInstance().build("/search/main").navigation()
+//        }, 3000)
         searchView.setHintText("搜索你想要的商品")
         navigationBar.setContainerView(searchView)
     }

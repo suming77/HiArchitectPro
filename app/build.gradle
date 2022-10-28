@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    //hilt插件
+    id 'dagger.hilt.android.plugin'
 }
 //模块build.gradle
 apply plugin: 'com.alibaba.arouter'
@@ -24,9 +26,11 @@ android {
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //这里+=号，hilt也是需要参数的，如果使用的是=会把它的参数覆盖掉，这里相当于参数追加的意思
+
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+                arguments += [AROUTER_MODULE_NAME: project.getName()]
             }
         }
     }
@@ -69,6 +73,8 @@ dependencies {
 //    implementation project(path: ':hiui')
     implementation project(path: ':common')
     implementation project(path: ':public_mod')
+    //暂时依赖
+    implementation project(path: ':biz_order')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -83,4 +89,9 @@ dependencies {
 
     //debug包才编译
     debugImplementation project(":hi_debugtool")
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    kapt "androidx.hilt:hilt-compiler:1.0.0-alpha01"
 }

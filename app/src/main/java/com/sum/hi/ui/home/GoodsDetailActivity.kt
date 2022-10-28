@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.common.component.HiBaseActivity
 import com.sum.hi.common.view.EmptyView
 import com.sum.hi.ui.HiStatusBar
@@ -52,6 +53,17 @@ class GoodsDetailActivity : HiBaseActivity() {
 //        assert(!TextUtils.isEmpty(goodsId)) { "goodsId must not be null" }
         setContentView(R.layout.activity_goods_detail)
         initView()
+        Log.e("smy", "goodsModel ==$goodsModel")
+        action_order.setOnClickListener {
+
+            ARouter.getInstance().build("/confirm/order")
+                .withString("goodsImage", goodsModel?.sliderImage)
+                .withString("goodsName", goodsModel?.goodsName)
+                .withString("shopLogo", goodsModel?.sliderImage)
+                .withString("shopName", "良品铺子")
+                .withString("goodsPrice", goodsModel?.groupPrice)
+                .navigation()
+        }
     }
 
     private fun initView() {

@@ -41,7 +41,7 @@
         <activity android:name=".home.GoodsDetailActivity" />
         <activity android:name=".demo.headviewpager.CoorActivity" />
         <activity android:name=".search.SearchActivity" />
-
+        <activity android:name=".address.AddressListActivity"/>
     </application>
 
 </manifest>

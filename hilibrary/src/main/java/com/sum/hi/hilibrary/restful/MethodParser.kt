@@ -132,6 +132,13 @@ class MethodParser(val baseUrl: String, method: Method) {
                 relativeUrl = annotation.value
                 httpMethod = HiRequest.METHOD.POST
                 formPost = annotation.fromPost
+            } else if (annotation is PUT) {
+                formPost = annotation.formPost
+                httpMethod = HiRequest.METHOD.PUT
+                relativeUrl = annotation.value
+            } else if (annotation is DELETE) {
+                httpMethod = HiRequest.METHOD.DELETE
+                relativeUrl = annotation.value
             } else if (annotation is Headers) {
                 val headerArray = annotation.value
                 for (header in headerArray) {
@@ -156,7 +163,10 @@ class MethodParser(val baseUrl: String, method: Method) {
         }
 
         //校验,不满足括号内的条件才会执行[]里面的
-        require((httpMethod == HiRequest.METHOD.GET) || (httpMethod == HiRequest.METHOD.POST)) {
+        require(
+            (httpMethod == HiRequest.METHOD.GET) || (httpMethod == HiRequest.METHOD.POST ||
+                    httpMethod == HiRequest.METHOD.PUT || httpMethod == HiRequest.METHOD.DELETE)
+        ) {
             String.format("method %s must has one of GET ，POST", method.name)
         }
 
