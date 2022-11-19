@@ -1,3 +1,44 @@
+
+//项目构建的生命周期
+//1.在setting.gradle文件下配置如下代码监听构建生命周期阶段回调
+gradle.buildStarted {
+    println "项目构建开始……"
+}
+
+//2.初始化阶段完成
+gradle.projectsLoaded {
+    println "从setting.gradle解析完成参与构建的所有项目"
+}
+
+//3.配置阶段开始 解析每一个project/build.gradle
+gradle.beforeProject { proj ->
+    println "${proj.name} build.gradle解析之前"
+}
+
+gradle.afterProject { proj ->
+    println "${proj.name} build.gradle解析完成"
+}
+
+gradle.projectsEvaluated {
+    println "所有项目的build.gradle配置解析完成" //-->配置阶段完成
+}
+
+gradle.getTaskGraph().addTaskExecutionListener(new TaskExecutionListener() {
+    @Override
+    void beforeExecute(Task task) {
+        println("任务执行：start" + task.name)
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState taskState) {
+        println("任务执行：end" + task.name)
+    }
+})
+
+gradle.buildFinished {
+    println "项目构建结束"
+}
+
 include ':biz_order'
 include ':hi_hilt'
 include ':nav-compiler'

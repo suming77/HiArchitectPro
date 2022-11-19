@@ -40,3 +40,48 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+//
+////构建阶段Task依赖关系以及输入输出
+////afterEvaluate类似与gradle.afterProject，只不过gradle.afterEvaluate能监听到所有模块build.gradle文件的解析,
+//// afterEvaluate只能监听当前项目和和当前项目下面的子项目得build.gradle文件的解析
+////放在根目录，意味着根目录和它下面子项目的build.gradle文件都已经配置完成之后会回调给afterEvaluate这个方法
+//afterEvaluate { proj ->
+//    //收集所有project的task集合
+//    Map<Project, Set<Task>> allTasks = proj.getAllTasks(true)
+//    //遍历每一个project下的Task集合
+//    allTasks.entrySet().each { projTasks ->
+//        projTasks.value.each { task ->
+//            //输出task的名称和dependOn依赖
+//            System.out.println(task.getName());
+//            for (Object o : task.getDependsOn()) {
+//                System.out.println("dependOn-->" + o.toString());
+//            }
+//            //打印每个任务的输入，输出
+//            for (File file : task.getInputs().getFiles().getFiles()) {
+//                System.out.println("input-->" + file.getAbsolutePath());
+//            }
+//            for (File file : task.getOutputs().getFiles().getFiles()) {
+//                System.out.println("output-->" + file.getAbsolutePath());
+//            }
+//            System.out.println("--------------------------------");
+//        }
+//    }
+//}
+
+task taskA{
+    doFirst {
+        println "taskA"
+    }
+}
+
+task taskB {
+
+    //dependsOn(taskA) 也可以写在闭包代码块里面gradlew
+    doFirst {
+        println "taskB"
+    }
+}
+
+taskB.dependsOn taskA //B执行时，首先执行它的依赖任务A
+//taskB.mustRunAfter taskA //任务A必须先于任务B执行。在一次执行任务流程中，A,B都存在，这里的设置顺序才有效
+//taskB.finalizedBy taskA //B执行完，会执行A

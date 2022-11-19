@@ -13,11 +13,11 @@
         android:background="@drawable/shape_white_r10"
         android:orientation="vertical">
 
-<!--        <com.sum.hi.common.view.HiNavigationBar-->
-<!--            android:id="@+id/nav_bar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:nav_title="新建地址" />-->
+        <!--        <com.sum.hi.common.view.HiNavigationBar-->
+        <!--            android:id="@+id/nav_bar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:nav_title="新建地址" />-->
 
         <com.sum.hi.common.view.InputItemLayout
             android:id="@+id/user_name"

@@ -1,0 +1,23 @@
+plugins {
+    id 'groovy'
+}
+
+repositories {
+    google()
+    jcenter()
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //3.使用android plugin.相当于使用jetpack库
+    implementation 'com.android.tools.build:gradle:3.4.2'
+    //2.使用gradleApi相当于使用Android sdk
+    implementation gradleApi()
+    //1.使用groovy库
+    implementation localGroovy()
+    implementation 'org.javassist:javassist:3.27.0-GA'
+}

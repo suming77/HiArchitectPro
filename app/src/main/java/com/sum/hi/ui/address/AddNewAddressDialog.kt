@@ -135,7 +135,7 @@ class AddNewAddressDialog : AppCompatDialogFragment() {
         val p = selectProvince?.districtName ?: address?.province
         val c = selectProvince?.selectCity?.districtName ?: address?.city
         val a = selectProvince?.selectDistrict?.districtName ?: address?.area
-        if (TextUtils.isEmpty(p)||TextUtils.isEmpty(c)||TextUtils.isEmpty(a)){
+        if (TextUtils.isEmpty(p) || TextUtils.isEmpty(c) || TextUtils.isEmpty(a)) {
             showToast("数据不能为空")
             return
         }
