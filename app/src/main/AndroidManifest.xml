@@ -41,7 +41,23 @@
         <activity android:name=".home.GoodsDetailActivity" />
         <activity android:name=".demo.headviewpager.CoorActivity" />
         <activity android:name=".search.SearchActivity" />
-        <activity android:name=".address.AddressListActivity"/>
+        <activity android:name=".address.AddressListActivity" />
+        <activity android:name="com.sum.hi_debugtool.CrashLogActivity"/>
+
+        <!--7.0需要做URI适配
+        authorities：应用进程的ApplicationID+任意字符串
+        name:表示FileProvider的绝对路径
+        grantUriPermissions:允许临时授权
+        -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!--这里的name就在FileProvider源码里面,resource需要指定一个xml文件-->
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
     </application>
 
 </manifest>

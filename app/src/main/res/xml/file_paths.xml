@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--源码里面有标签的写法-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--name一般和标签名一致
+    path：给个“.”就可以了，指定是应用内部的样式
+    /data/user/0/com.sum.hi.ui/cache/java_crash/2022_11_30.txt-->
+    <!--当我们使用FileProvider进行转义的时候就会转成标准的URI路径格式：
+    content://com.sum.hi.ui.fileProvider/cache-path/java_crash/2022_11_30.txt-->
+
+    <cache-path
+        name="cache-path"
+        path="." />
+    <!--外部存储-->
+    <external-path
+        name="external-path"
+        path="." />
+    <!--/data/user/0/com.sum.hi.ui/files/java_crash/2022_11_30.txt-->
+    <files-path
+        name="files-path"
+        path="." />
+    <!--外部的缓存路径-->
+    <external-cache-path
+        name="external-cache-path"
+        path="." />
+</paths>

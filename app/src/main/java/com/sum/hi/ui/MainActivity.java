@@ -1,6 +1,5 @@
 package com.sum.hi.ui;
 
-import android.Manifest;
 import android.Manifest.permission;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,8 +8,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,30 +16,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.paging.DataSource;
-import androidx.paging.ItemKeyedDataSource;
-import androidx.paging.LivePagedListBuilder;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.sum.hi.common.component.HiBaseActivity;
-import com.sum.hi.hilibrary.User;
-import com.sum.hi.ui.biz.LoginActivity;
 import com.sum.hi.ui.demo.handler.HotFix;
 import com.sum.hi.ui.demo.handler.HotFixTest;
-import com.sum.hi.ui.demo.thread.ThreadDemoActivity;
 import com.sum.hi.ui.logic.MainActivityLogic;
-import com.sum.hi.ui.tab.ActivityManager;
-import com.sum.hi.ui.tab.ActivityManager.FrontBackCallback;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

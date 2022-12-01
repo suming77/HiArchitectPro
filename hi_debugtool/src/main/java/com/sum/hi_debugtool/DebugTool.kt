@@ -46,10 +46,10 @@ class DebugTool {
     }
 
     @HiDebug(name = "一键开启Https降级", desc = "将继承Http,可以使用抓包工具文明抓包")
-    fun degrade2Http(){
+    fun degrade2Http() {
         SpUtils.putBoolean("degrade2Http", true)
         //重新指定域名，只能通过重启
-        val context = AppGlobals.get()?:return
+        val context = AppGlobals.get() ?: return
         //找到当前启动项是哪一项
         val intent =
             context.packageManager.getLaunchIntentForPackage(context.packageName)
@@ -60,5 +60,15 @@ class DebugTool {
         //杀死当前线程，并主动启动新的启动页，完成重启的动作
         Process.killProcess(Process.myPid())
         return
+    }
+
+    @HiDebug(name = "查看crash日志", desc = "可以一键分享给开发同学，迅速定位问题")
+    fun crashLog() {
+        val context = AppGlobals.get()?.applicationContext ?: return
+        //找到当前启动项是哪一项
+        val intent = Intent(context, CrashLogActivity::class.java)
+        //因为是通过Application启动的，需要添加flag:FLAG_ACTIVITY_NEW_TASK
+        intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
     }
 }

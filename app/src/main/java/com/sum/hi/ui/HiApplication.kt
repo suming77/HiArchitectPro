@@ -7,7 +7,9 @@ import com.sum.hi.common.component.HiBaseApplication
 import com.sum.hi.hilibrary.log.HiConsolePrinter
 import com.sum.hi.hilibrary.log.HiLogConfig
 import com.sum.hi.hilibrary.log.HiLogManager
-import com.sum.hi.ui.tab.ActivityManager
+import com.sum.hi.hilibrary.util.ActivityManager
+import com.sum.hi.hilibrary.crash.CrashHandler
+import com.sum.hi.hilibrary.crash.CrashManger
 
 /**
  * @创建者 mingyan.su
@@ -32,7 +34,7 @@ class HiApplication : HiBaseApplication() {
         }, HiConsolePrinter())
 
         ActivityManager.instance.init(this)
-
+        CrashManger.init()
         //ARouter初始化
         if (BuildConfig.DEBUG) {
             ARouter.openLog()

@@ -1,4 +1,4 @@
-package com.sum.hi.ui.tab
+package com.sum.hi.hilibrary.util
 
 import android.app.Activity
 import android.app.Application
@@ -9,7 +9,7 @@ class ActivityManager private constructor() {
     private val mActivityRefs = ArrayList<WeakReference<Activity>>()//弱引用，防止内存泄漏
     private val mFrontbackCallback = ArrayList<FrontBackCallback>()
     private var activityStartCount = 0
-    private var front = true
+     var front = true
 
 
     //单例，线程安全模式

@@ -63,7 +63,8 @@ android {
 }
 
 dependencies {
-
+    //libs目录下的jar包和aar包都会被添加进来
+    implementation fileTree(dir:'libs', include:['*.jar', "*.aar"])
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
