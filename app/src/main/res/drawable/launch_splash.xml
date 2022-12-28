@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/white" />
+    <item
+        android:drawable="@drawable/fire"
+        android:gravity="center" />
+  <!--  <item
+        android:width="50dp"
+        android:height="50dp"
+        android:drawable="@drawable/rotate_daisy"
+        android:gravity="bottom|center" />-->
+</layer-list>

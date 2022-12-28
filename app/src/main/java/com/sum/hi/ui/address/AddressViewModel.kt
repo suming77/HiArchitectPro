@@ -3,12 +3,7 @@ package com.sum.hi.ui.address
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sum.hi.common.http.ApiFactory
-import com.sum.hi.hi_order.address.Address
-import com.sum.hi.hi_order.address.AddressApi
-import com.sum.hi.hi_order.address.AddressModel
-import com.sum.hi.hilibrary.annotation.HiCallback
-import com.sum.hi.hilibrary.annotation.HiResponse
+import com.sum.hi.bie_order2.address.Address
 
 /**
  * @创建者 mingyan.su

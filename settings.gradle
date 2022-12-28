@@ -1,4 +1,4 @@
-
+include ':bie_order2'
 //项目构建的生命周期
 //1.在setting.gradle文件下配置如下代码监听构建生命周期阶段回调
 gradle.buildStarted {
@@ -39,7 +39,6 @@ gradle.buildFinished {
     println "项目构建结束"
 }
 
-include ':biz_order'
 include ':hi_hilt'
 include ':nav-compiler'
 include ':nav-annotation'
@@ -53,3 +52,4 @@ include ':hi_debugtool'
 include ':biz_login'
 include ':public_mod'
 include ':service_login'
+include ':bie_order2'

@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.sum.hi.common.city.CityMgr
-import com.sum.hi.hi_order.CitySelectorDialogFragment
-import com.sum.hi.hi_order.address.Address
+import com.sum.hi.bie_order2.CitySelectorDialogFragment
+import com.sum.hi.bie_order2.address.Address
 import com.sum.hi.hilibrary.util.showToast
 import com.sum.hi.hiui.cityselector.Province
 import com.sum.hi.ui.R
@@ -84,9 +84,9 @@ class AddNewAddressDialog : AppCompatDialogFragment() {
                 //拉起城市选择器
                 Log.e("smy", "lsit == ${it?.size}")
                 if (it != null) {
-                    val dialog = CitySelectorDialogFragment.newInstance(selectProvince, it)
+                    val dialog = com.sum.hi.bie_order2.CitySelectorDialogFragment.newInstance(selectProvince, it)
                     dialog.setOnCitySelectListener(object :
-                        CitySelectorDialogFragment.onCitySelectListener {
+                        com.sum.hi.bie_order2.CitySelectorDialogFragment.onCitySelectListener {
                         override fun onCitySelect(province: Province) {
                             updateAddressPick(province)
                         }

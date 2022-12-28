@@ -2,6 +2,7 @@ package com.sum.hi.ui.home
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -15,6 +16,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sum.hi.common.component.HiBaseActivity
 import com.sum.hi.common.view.EmptyView
+import com.sum.hi.hilibrary.util.MainHandler
 import com.sum.hi.ui.HiStatusBar
 import com.sum.hi.ui.R
 import com.sum.hi.ui.TitleScrollListener
@@ -67,6 +69,10 @@ class GoodsDetailActivity : HiBaseActivity() {
     }
 
     private fun initView() {
+        //getDrawable复用，drawable重新绘色等操作后，实际内存比两个drawable小，
+        // 因为mutate会对drawable拷贝，共用部分内存
+//        val drawable =
+//            ContextCompat.getDrawable(this, R.drawable.color_city_selector_list_item)?.mutate()
         action_back.setOnClickListener { onBackPressed() }
         recycler_view.layoutManager = GridLayoutManager(this, 2)
         recycler_view.adapter = HiAdapter(this)
@@ -83,6 +89,10 @@ class GoodsDetailActivity : HiBaseActivity() {
                 bindData(it)
             }
         })
+
+        //message -- messagequeue -- mainThread -- detailActivity -- Message -- Runnable(持有外部类的引用)
+//        Handler().postDelayed(Runnable { showToast("1111") }, 1000*10)
+//        MainHandler.postDelay(1000*10, Runnable { showToast("1") })1//它会泄漏吗？
     }
 
     private fun preBindData() {

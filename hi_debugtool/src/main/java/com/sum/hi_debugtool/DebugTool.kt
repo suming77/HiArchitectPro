@@ -2,6 +2,7 @@ package com.sum.hi_debugtool
 
 import android.content.Intent
 import android.os.Process
+import com.sum.hi.hilibrary.fps.FpsMonitor
 import com.sum.hi.hilibrary.util.AppGlobals
 import com.sum.hi.hilibrary.util.SpUtils
 
@@ -70,5 +71,10 @@ class DebugTool {
         //因为是通过Application启动的，需要添加flag:FLAG_ACTIVITY_NEW_TASK
         intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
+    }
+
+    @HiDebug(name = "打开/关闭Fps", desc = "打开后可以实时查看页面的Fps")
+    fun toggleFps(){
+        FpsMonitor.toggle()
     }
 }

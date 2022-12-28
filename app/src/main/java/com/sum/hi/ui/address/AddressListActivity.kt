@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sum.hi.common.view.EmptyView
-import com.sum.hi.hi_order.address.Address
+import com.sum.hi.bie_order2.address.Address
 import com.sum.hi.ui.R
 import com.sum.hi.ui.hiitem.HiAdapter
 import dagger.hilt.android.AndroidEntryPoint

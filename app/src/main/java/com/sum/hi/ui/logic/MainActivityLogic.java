@@ -15,6 +15,7 @@ import com.sum.hi.hiui.tab.bottom.HiTabBottomInfo;
 import com.sum.hi.hiui.tab.bottom.HiTabBottomLayout;
 import com.sum.hi.hiui.tab.common.IHiTabLayout;
 import com.sum.hi.ui.R;
+import com.sum.hi.ui.aspectj.MethodTrace;
 import com.sum.hi.ui.fragment.CategoryFragment;
 import com.sum.hi.ui.fragment.FavoriteFragment;
 import com.sum.hi.ui.fragment.HomeFragment;
@@ -58,6 +59,7 @@ public class MainActivityLogic {
 
     }
 
+    @MethodTrace
     public void initTabBottom() {
         hiTabBottomLayout = activityProvider.findViewById(R.id.tab_bottom_layout);
         hiTabBottomLayout.setTabAlpha(0.85f);

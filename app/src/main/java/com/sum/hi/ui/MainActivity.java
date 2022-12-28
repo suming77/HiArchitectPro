@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.sum.hi.common.component.HiBaseActivity;
+import com.sum.hi.ui.aspectj.MethodTrace;
 import com.sum.hi.ui.demo.handler.HotFix;
 import com.sum.hi.ui.demo.handler.HotFixTest;
 import com.sum.hi.ui.logic.MainActivityLogic;
@@ -27,6 +28,8 @@ import com.sum.hi.ui.logic.MainActivityLogic;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+
+import cn.samsclub.app.product.views.TaskStartUp;
 
 /**
  * @创建者 mingyan.su
@@ -39,12 +42,15 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
     private String CATEGORY_FRAGMENT = "CategoryFragment";
     private List<Fragment> mList;
 
+    @MethodTrace
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_Hiui);  
         setContentView(R.layout.activity_main);
         activityLogic = new MainActivityLogic(this, savedInstanceState);
+//        TaskStartUp.start();
         HiStatusBar.INSTANCE.setStatusBar(this, true, Color.WHITE, false);
 
 /*        findViewById(R.id.tv_demo).setOnClickListener(new View.OnClickListener() {
@@ -97,6 +103,12 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
         findViewById(R.id.tv_fix).setOnClickListener(v -> {
             fixBug();
         });
+    }
+
+    @MethodTrace
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public void test() {

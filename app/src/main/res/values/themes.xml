@@ -15,4 +15,9 @@
         <item name="navigationStyle">@style/navigationStyle</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--APP启动白屏优化->此模式仅应用于Application，进入MainActivity后需要使用上面的Themes-->
+    <style name="launchThemes" parent="Theme.Hiui">
+        <item name="android:windowBackground">@drawable/launch_splash</item>
+    </style>
 </resources>

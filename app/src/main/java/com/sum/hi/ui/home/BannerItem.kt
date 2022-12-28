@@ -3,6 +3,7 @@ package com.sum.hi.ui.home
 import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.sum.hi.common.view.loadUrl
@@ -39,6 +40,14 @@ class BannerItem(val list: List<HomeBanner>) :
         banner.setBindAdapter { viewHolder, mo, position ->
             ((viewHolder.rootView) as ImageView).loadUrl(mo.url)
         }
+        //ViewTree已经被计算好了，开始去绘制，这个时间点所有的view都已经测量完成，并且给出一个具体的frame宽高的值，
+        //接着就可以去绘制了，一旦绘制完成就可见可交互了，有人会有疑问为什么不选择view绘制完成之后呢？
+        //里面也提供了一个onDrawListener()的回调，但是这两个方法的时间点是差不多的。
+//        banner.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+//            override fun onPreDraw(): Boolean {
+//                return false
+//            }
+//        })
     }
 
     override fun getItemView(parent: ViewGroup): View? {

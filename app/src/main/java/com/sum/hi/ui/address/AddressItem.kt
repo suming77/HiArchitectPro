@@ -3,7 +3,7 @@ package com.sum.hi.ui.address
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentManager
-import com.sum.hi.hi_order.address.Address
+import com.sum.hi.bie_order2.address.Address
 import com.sum.hi.hilibrary.HiViewHolder
 import com.sum.hi.hilibrary.util.HiResUtil
 import com.sum.hi.hiui.search.IconFontTextView

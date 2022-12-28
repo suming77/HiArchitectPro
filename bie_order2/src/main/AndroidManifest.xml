@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sum.hi.hi_order">
+    <application android:allowBackup="true"
+        android:icon="@drawable/ic_task_more"
+        android:roundIcon="@drawable/ic_task_more"
+        android:supportsRtl="true">
+        <activity android:name="com.sum.hi.bie_order2.ConfirmOrderActivity"/>
+    </application>
+</manifest>
