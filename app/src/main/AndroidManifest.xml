@@ -6,11 +6,17 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!--android:maxAspectRatio="2.4"
+        android:minAspectRatio="1"
+        android:resizeableActivity="true" 自适应屏幕大小-->
     <application
         android:name=".HiApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:maxAspectRatio="2.4"
+        android:minAspectRatio="1"
+        android:resizeableActivity="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/launchThemes"
@@ -18,7 +24,12 @@
         <activity
             android:name=".biz.notice.NoticeListActivity"
             android:exported="false" />
-        <activity android:name=".MainActivity">
+        <!--screenSize|screenLayout|smallestScreenSize:禁止销毁重建重走生命周期-->
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,12 +48,17 @@
         <activity android:name=".biz.LoginActivity" />
         <activity android:name=".biz.RegisterActivity" />
         <activity android:name=".PersonCenterActivity" />
-        <activity android:name=".home.GoodsListActivity" />
+        <!--landscape横屏-->
+        <!--portrait树屏-->
+        <activity
+            android:name=".home.GoodsListActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+            android:screenOrientation="portrait" />
         <activity android:name=".home.GoodsDetailActivity" />
         <activity android:name=".demo.headviewpager.CoorActivity" />
         <activity android:name=".search.SearchActivity" />
         <activity android:name=".address.AddressListActivity" />
-        <activity android:name="com.sum.hi_debugtool.CrashLogActivity"/>
+        <activity android:name="com.sum.hi_debugtool.CrashLogActivity" />
 
         <!--7.0需要做URI适配
         authorities：应用进程的ApplicationID+任意字符串
@@ -55,8 +71,9 @@
             android:exported="false"
             android:grantUriPermissions="true">
             <!--这里的name就在FileProvider源码里面,resource需要指定一个xml文件-->
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

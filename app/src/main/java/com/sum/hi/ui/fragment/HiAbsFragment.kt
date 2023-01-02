@@ -30,7 +30,7 @@ open class HiAbsFragment : HiBaseFragment(), HiRefresh.HiRefreshListener {
     private lateinit var refreshHeadView: HiTextOverView
     private var contentLoading: ContentLoadingProgressBar? = null
     private var emptyView: EmptyView? = null
-    private var recyclerView: HiRecyclerView? = null
+    protected var recyclerView: HiRecyclerView? = null
     private var refreshLayout: HiRefreshLayout? = null
 
     companion object {

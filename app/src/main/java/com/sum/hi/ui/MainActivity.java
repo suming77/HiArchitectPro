@@ -3,6 +3,7 @@ package com.sum.hi.ui;
 import android.Manifest.permission;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
@@ -233,5 +234,12 @@ public class MainActivity extends HiBaseActivity implements MainActivityLogic.Ac
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    //屏幕切换大小屏后，走这里
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        activityLogic.getHiTabBottomLayout().resize();
     }
 }

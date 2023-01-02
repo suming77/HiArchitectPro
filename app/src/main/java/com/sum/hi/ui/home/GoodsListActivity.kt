@@ -21,11 +21,11 @@ class GoodsListActivity : AppCompatActivity() {
 
     @JvmField
     @Autowired
-    var subCategoryId: String = ""
+    var subCategoryId: String? = ""
 
     @JvmField
     @Autowired
-    var categoryId: String = ""
+    var categoryId: String? = ""
     private val FRAGMENT_TAG = "GOODS_LIST_FRAGMENT"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class GoodsListActivity : AppCompatActivity() {
         //防止Fragment在Activity重启的时候造成重叠，所以在创建Fragment之前先到supportFragmentManager中查询一下
         var fragment = supportFragmentManager.findFragmentByTag(FRAGMENT_TAG)
         if (fragment == null) {
-            fragment = GoodsListFragment.newInstance(categoryId, subCategoryId)
+            fragment = GoodsListFragment.newInstance(categoryId?:"", subCategoryId?:"")
         }
         //判断Fragment是新创建出来的，不是恢复出来的
         val ft = supportFragmentManager.beginTransaction()

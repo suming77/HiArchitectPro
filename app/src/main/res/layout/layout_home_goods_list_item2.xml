@@ -17,14 +17,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:background="@color/color_white">
 
+        <!--layout_constraintDimensionRatio="h,1:1" 高宽比是1:1-->
         <ImageView
             android:id="@+id/item_image"
             android:layout_width="match_parent"
             app:url="@{goodsModel.sliderImage}"
-            android:layout_height="150dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="h,1:1"
             android:background="@color/color_eee"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
@@ -75,7 +77,7 @@
             android:layout_marginBottom="3dp"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_label_container"
             app:layout_constraintLeft_toLeftOf="parent"
             tools:text="$1美元" />
 

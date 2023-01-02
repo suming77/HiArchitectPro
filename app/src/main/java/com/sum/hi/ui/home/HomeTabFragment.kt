@@ -1,5 +1,6 @@
 package com.sum.hi.ui.home
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -7,9 +8,11 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sum.hi.hilibrary.annotation.CacheStrategy
 import com.sum.hi.hilibrary.cache.HiCacheManager
+import com.sum.hi.ui.FoldableDeviceUtil
 import com.sum.hi.ui.fragment.HiAbsFragment
 import com.sum.hi.ui.hiitem.HiDataItem
 
@@ -89,5 +92,21 @@ class HomeTabFragment : HiAbsFragment() {
         Log.e("smy", "dataItmes == $data")
         finishRefresh(data!! as List<HiDataItem<*, RecyclerView.ViewHolder>>)
         HiCacheManager.saveCacheInfo("SubTabCategory", data)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (FoldableDeviceUtil.fold()) {
+            recyclerView?.layoutManager = LinearLayoutManager(context)
+        } else {
+            val gridLayoutManager = GridLayoutManager(context, 2)
+            gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    //设置每行宽高比
+                    return if (position <= 1) 2 else 1
+                }
+            }
+            recyclerView?.layoutManager = gridLayoutManager
+        }
     }
 }

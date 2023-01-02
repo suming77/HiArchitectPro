@@ -93,20 +93,6 @@ class HiSliderView @JvmOverloads constructor(
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HiViewHolder {
             val itemView = LayoutInflater.from(context).inflate(layoutRes, parent, false)
-            val remainSpace = (width - paddingLeft - paddingRight - menuView.width)
-            val layoutManager = (parent as RecyclerView).layoutManager
-            var spanCount = 0
-            if (layoutManager is GridLayoutManager){
-                spanCount = layoutManager.spanCount
-            } else if (layoutManager is StaggeredGridLayoutManager){
-                spanCount = layoutManager.spanCount
-            }
-
-            if (spanCount > 0){
-                val itemWidth = remainSpace / spanCount
-                //设置layoutParams的原因，放置icon未加载出来之前，防止上下闪动
-                itemView.layoutParams = RecyclerView.LayoutParams(itemWidth, itemWidth)
-            }
             return HiViewHolder(itemView)
         }
 
@@ -127,6 +113,27 @@ class HiSliderView @JvmOverloads constructor(
             this.count = itemCount
             this.bindView = onBindView
             this.itemClick = onItemClick
+        }
+
+        override fun onViewAttachedToWindow(holder: HiViewHolder) {
+            super.onViewAttachedToWindow(holder)
+            val remainSpace = (width - paddingLeft - paddingRight - menuView.width)
+            val layoutManager = (parent as RecyclerView).layoutManager
+            var spanCount = 0
+            if (layoutManager is GridLayoutManager){
+                spanCount = layoutManager.spanCount
+            } else if (layoutManager is StaggeredGridLayoutManager){
+                spanCount = layoutManager.spanCount
+            }
+
+            if (spanCount > 0){
+                val itemWidth = remainSpace / spanCount
+                //设置layoutParams的原因，放置icon未加载出来之前，防止上下闪动
+                val layoutParams = holder.itemView.layoutParams
+                layoutParams.width = itemWidth
+                layoutParams.height = itemWidth
+                holder.itemView.layoutParams =layoutParams
+            }
         }
     }
 

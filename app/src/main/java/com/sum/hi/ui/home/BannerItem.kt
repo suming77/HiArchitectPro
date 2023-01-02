@@ -50,6 +50,14 @@ class BannerItem(val list: List<HomeBanner>) :
 //        })
     }
 
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        val itemView = holder.itemView
+        val layoutParams = itemView.layoutParams
+        layoutParams.height = (HiDisplayUtil.getDisplayHeightInPx(itemView.context) / 2.6).toInt()
+        itemView.layoutParams = layoutParams
+    }
+
     override fun getItemView(parent: ViewGroup): View? {
         val context = parent.context
         val banner = HiBanner(context)
